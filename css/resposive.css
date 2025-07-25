@@ -1,0 +1,404 @@
+/* ===================================
+   RESPONSIVE.CSS - PRD DIGITAL ZACATECAS
+   =================================== */
+
+/* ===================================
+   TABLET LANDSCAPE - 1024px y menor
+   =================================== */
+@media (max-width: 1024px) {
+    .nav-container {
+        padding: 0 3rem;
+    }
+    
+    .nav-menu {
+        gap: 3rem;
+    }
+    
+    .logo {
+        font-size: 2.2rem;
+    }
+    
+    .hero-image {
+        max-width: 600px;
+    }
+    
+    .video-reveal-space {
+        height: 40vh;
+    }
+    
+    .affiliate-content h2 {
+        font-size: 2.5rem;
+    }
+    
+    .history-content h2 {
+        font-size: 2.5rem;
+    }
+    
+    .history-content {
+        gap: 3rem;
+    }
+    
+    .history-text p {
+        font-size: 1.1rem;
+    }
+}
+
+/* ===================================
+   TABLET PORTRAIT - 768px y menor
+   =================================== */
+@media (max-width: 768px) {
+    /* Header ajustes */
+    .header {
+        padding: 1.5rem 0;
+        height: 100px;
+    }
+    
+    .hero-section {
+        padding-top: 100px;
+    }
+    
+    .nav-container {
+        padding: 0 2rem;
+    }
+    
+    .nav-menu {
+        gap: 2rem;
+    }
+    
+    .nav-menu li a {
+        font-size: 0.9rem;
+        padding: 0.8rem 1.5rem;
+        letter-spacing: 1px;
+    }
+    
+    .logo {
+        font-size: 2rem;
+        letter-spacing: 2px;
+    }
+    
+    /* Hero section */
+    .hero-image {
+        max-width: 90%;
+    }
+    
+    .video-reveal-space {
+        height: 30vh;
+    }
+    
+    /* Sección afiliación */
+    .affiliate-content h2 {
+        font-size: 2rem;
+    }
+    
+    .affiliate-content p {
+        font-size: 1.1rem;
+    }
+    
+    /* Sección historia */
+    .history-content {
+        padding: 3rem 2rem;
+        margin: 0 1rem;
+    }
+    
+    .history-content h2 {
+        font-size: 2rem;
+    }
+    
+    .history-text p {
+        font-size: 1rem;
+        max-width: 100%;
+    }
+    
+    .history-image {
+        max-width: 400px;
+        height: 250px;
+    }
+}
+
+/* ===================================
+   MOBILE LARGE - 600px y menor
+   =================================== */
+@media (max-width: 600px) {
+    /* Header mobile */
+    .header {
+        padding: 1.2rem 0;
+        height: 80px;
+    }
+    
+    .hero-section {
+        padding-top: 80px;
+    }
+    
+    .nav-menu {
+        display: none; /* Ocultar menú en móvil */
+    }
+    
+    .logo {
+        font-size: 1.8rem;
+    }
+    
+    .nav-container {
+        justify-content: center;
+        padding: 0 1rem;
+    }
+    
+    /* Hero section mobile */
+    .hero-image {
+        max-width: 95%;
+    }
+    
+    .video-reveal-space {
+        height: 25vh;
+    }
+    
+    /* Sección afiliación mobile */
+    .affiliate-section {
+        padding: 3rem 1rem;
+    }
+    
+    .affiliate-content h2 {
+        font-size: 1.8rem;
+    }
+    
+    .affiliate-content p {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+    
+    .btn-formulario {
+        font-size: 0.9rem;
+        padding: 0.8rem 1.5rem;
+    }
+    
+    /* Sección historia mobile */
+    .history-section {
+        padding: 2rem 1rem;
+        min-height: 80vh;
+    }
+    
+    .history-content {
+        padding: 2rem 1.5rem;
+        margin: 0 0.5rem;
+    }
+    
+    .history-content h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .history-text p {
+        font-size: 0.95rem;
+        line-height: 1.7;
+        max-width: 100%;
+    }
+    
+    .history-image {
+        max-width: 300px;
+        height: 200px;
+        margin-top: 1.5rem;
+    }
+}
+
+/* ===================================
+   MOBILE SMALL - 480px y menor
+   =================================== */
+@media (max-width: 480px) {
+    /* Header extra small */
+    .header {
+        padding: 1rem 0;
+        height: 70px;
+    }
+    
+    .hero-section {
+        padding-top: 70px;
+        min-height: 30vh;
+    }
+    
+    .logo {
+        font-size: 1.6rem;
+    }
+    
+    /* Hero section extra small */
+    .hero-image {
+        max-width: 98%;
+    }
+    
+    .video-reveal-space {
+        height: 20vh;
+    }
+    
+    /* Sección afiliación extra small */
+    .affiliate-section {
+        padding: 2.5rem 0.5rem;
+    }
+    
+    .affiliate-content h2 {
+        font-size: 1.6rem;
+    }
+    
+    .affiliate-content p {
+        font-size: 0.95rem;
+        margin-bottom: 2rem;
+    }
+    
+    .btn-formulario {
+        font-size: 0.85rem;
+        padding: 0.7rem 1.2rem;
+    }
+    
+    /* Sección historia extra small */
+    .history-section {
+        padding: 1.5rem 0.5rem;
+        min-height: 70vh;
+    }
+    
+    .history-content {
+        padding: 1.5rem 1rem;
+        margin: 0 0.25rem;
+    }
+    
+    .history-content h2 {
+        font-size: 1.6rem;
+        margin-bottom: 1rem;
+    }
+    
+    .history-text p {
+        font-size: 0.9rem;
+        line-height: 1.6;
+    }
+    
+    .history-image {
+        max-width: 250px;
+        height: 180px;
+        margin-top: 1rem;
+    }
+}
+
+/* ===================================
+   MOBILE EXTRA SMALL - 360px y menor
+   =================================== */
+@media (max-width: 360px) {
+    .logo {
+        font-size: 1.4rem;
+        letter-spacing: 1px;
+    }
+    
+    .affiliate-content h2 {
+        font-size: 1.4rem;
+    }
+    
+    .history-content h2 {
+        font-size: 1.4rem;
+    }
+    
+    .history-text p {
+        font-size: 0.85rem;
+    }
+    
+    .history-image {
+        max-width: 220px;
+        height: 160px;
+    }
+}
+
+/* ===================================
+   LANDSCAPE ORIENTATION - Móviles horizontales
+   =================================== */
+@media (max-height: 500px) and (orientation: landscape) {
+    .header {
+        padding: 0.8rem 0;
+        height: 60px;
+    }
+    
+    .hero-section {
+        padding-top: 60px;
+        min-height: 20vh;
+    }
+    
+    .video-reveal-space {
+        height: 40vh;
+    }
+    
+    .history-section {
+        min-height: 100vh;
+        padding: 1rem;
+    }
+    
+    .history-content {
+        padding: 2rem 1.5rem;
+    }
+    
+    .history-content h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+    
+    .history-image {
+        height: 150px;
+        margin-top: 1rem;
+    }
+}
+
+/* ===================================
+   HOVER STATES - Solo en dispositivos con hover
+   =================================== */
+@media (hover: hover) {
+    .nav-menu li a:hover::after {
+        width: 100%;
+    }
+    
+    .nav-menu li a:hover {
+        color: #f1c232;
+        transform: translateY(-2px);
+    }
+    
+    .btn-formulario:hover {
+        background: white;
+        color: #f1c232;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+    
+    .history-image:hover img {
+        transform: scale(1.05);
+    }
+}
+
+/* ===================================
+   REDUCED MOTION - Para usuarios con preferencias de accesibilidad
+   =================================== */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .backup-background {
+        animation: none;
+        background: #f1c232;
+    }
+    
+    .spinner {
+        animation: none;
+    }
+}
+
+/* ===================================
+   HIGH CONTRAST - Para mejor accesibilidad
+   =================================== */
+@media (prefers-contrast: high) {
+    .header {
+        background: rgba(0, 0, 0, 0.95);
+        border-bottom: 2px solid #fff;
+    }
+    
+    .history-content {
+        background: rgba(255, 255, 255, 0.95);
+        border: 2px solid #333;
+    }
+    
+    .btn-formulario {
+        border-width: 3px;
+    }
+}
