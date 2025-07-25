@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElNuevoPRD</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Video de fondo ESTÁTICO SIEMPRE -->
+    <div class="backup-background"></div>
+    
+    <div class="video-container">
+        <video 
+            id="bgVideo" 
+            class="bg-video" 
+            muted 
+            loop 
+            autoplay
+            preload="metadata"
+            style="display: none;"
+        >
+            <source src="assets/images/videos/PRDSPOT.webm" type="video/webm">
+            <source src="assets/images/videos/PRDSPOT.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- BARRA DE NAVEGACIÓN -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="#" class="logo">ElNuevoPRD</a>
+            <ul class="nav-menu">
+                <li><a href="#documentos">DOCUMENTOS BÁSICOS</a></li>
+                <li><a href="#comunicacion">COMUNICACIÓN DIGITAL</a></li>
+                <li><a href="#afiliacion">AFILIACIÓN</a></li>
+                <li><a href="#more">More</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Loading -->
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+        Cargando video...
+    </div>
+    
+    <!-- Contenido principal -->
+    <div class="main-content">
+        <!-- Sección Hero con solo la imagen -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <div class="hero-image">
+                    <img src="assets/images/logos/PORTADA FB PRD.png" alt="PRD Zacatecas" class="portada-image">
+                </div>
+            </div>
+        </section>
+        
+        <!-- Espacio transparente para ver el video de fondo -->
+        <section class="video-reveal-space">
+            <!-- Aquí se ve el video de fondo que queda fijo -->
+        </section>
+        
+        <!-- Contenido que va encima -->
+        <div class="content-overlay">
+            <!-- Sección Afíliate -->
+            <section class="affiliate-section">
+                <div class="affiliate-content">
+                    <h2>AFÍLIATE</h2>
+                    <p>Esto es por ti. Por tu esfuerzo. Por tus ganas de salir adelante sin trabas ni excusas. Porque mereces un país que te escuche, que te respete, que te impulse. Y no vamos a quedarnos de brazos cruzados.</p>
+                    <a href="#" class="btn-formulario">
+                        📄 FORMULARIO DE AFILIACIÓN
+                    </a>
+                </div>
+            </section>
+            
+            <!-- Sección Historia CON VIDEO DE FONDO -->
+            <section class="history-section" id="historia">
+                <!-- Video de fondo para la sección Historia -->
+                <div class="history-video-container">
+                    <video 
+                        id="historyVideo" 
+                        class="history-bg-video" 
+                        muted 
+                        loop 
+                        autoplay
+                        preload="metadata"
+                    >
+                        <source src="assets/images/videos/NUBES.webm" type="video/webm">
+                    </video>
+                    <!-- Overlay para mejorar legibilidad del texto -->
+                    <div class="history-video-overlay"></div>
+                </div>
+                
+                <div class="history-content">
+                    <div class="history-text">
+                        <h2>NUESTRA HISTORIA</h2>
+                        <p>El PRD se fundó en la Ciudad de México, el 5 de mayo de 1989 por Cuauhtémoc Cárdenas, Porfirio Muñoz Ledo, Ifigenia Martínez, Andrés Manuel López Obrador, entre otros y miembros históricos de la izquierda como Heberto Castillo, Gilberto Rincón Gallardo, Amalia García entre muchos otros políticos de la izquierda mexicana.</p>
+                    </div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
