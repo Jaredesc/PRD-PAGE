@@ -4,11 +4,16 @@ const historyVideo = document.getElementById('historyVideo');
 const backup = document.querySelector('.backup-background');
 const loading = document.getElementById('loading');
 
+// Variables para el menú hamburger
+const hamburger = document.getElementById('hamburger');
+const navMenu = document.getElementById('navMenu');
+
 // Inicialización cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', function() {
     initializeVideo();
     initializeHistoryVideo();
     initializeNavigation();
+    initializeHamburgerMenu();
     console.log('🎬 PRD Digital Zacatecas cargado');
 });
 
@@ -80,6 +85,11 @@ function initializeNavigation() {
                     behavior: 'smooth',
                     block: 'start'
                 });
+                
+                // Cerrar menú móvil si está abierto
+                if (navMenu && navMenu.classList.contains('active')) {
+                    toggleHamburgerMenu();
+                }
             }
         });
     });
@@ -88,11 +98,47 @@ function initializeNavigation() {
     window.addEventListener('scroll', function() {
         const header = document.querySelector('.header');
         if (window.scrollY > 50) {
-            header.style.background = 'rgba(51, 51, 51, 0.98)';
+            header.style.background = 'rgba(0, 0, 0, 0.98)';
         } else {
-            header.style.background = 'linear-gradient(135deg, rgba(51, 51, 51, 0.95), rgba(68, 68, 68, 0.95))';
+            header.style.background = 'rgba(0, 0, 0, 0.85)';
         }
     });
+}
+
+// Inicializar menú hamburger
+function initializeHamburgerMenu() {
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', toggleHamburgerMenu);
+        
+        // Cerrar menú al hacer clic fuera
+        document.addEventListener('click', function(e) {
+            if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
+                if (navMenu.classList.contains('active')) {
+                    toggleHamburgerMenu();
+                }
+            }
+        });
+        
+        // Cerrar menú al redimensionar ventana
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 600 && navMenu.classList.contains('active')) {
+                toggleHamburgerMenu();
+            }
+        });
+    }
+}
+
+// Toggle del menú hamburger
+function toggleHamburgerMenu() {
+    hamburger.classList.toggle('active');
+    navMenu.classList.toggle('active');
+    
+    // Prevenir scroll del body cuando el menú está abierto
+    if (navMenu.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
+    } else {
+        document.body.style.overflow = 'auto';
+    }
 }
 
 // Forzar reproducción de ambos videos con interacción del usuario
@@ -183,5 +229,6 @@ document.addEventListener('DOMContentLoaded', function() {
 window.PRD = {
     showSection,
     checkVideoStatus,
-    forcePlayVideos
+    forcePlayVideos,
+    toggleHamburgerMenu
 };

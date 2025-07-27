@@ -129,6 +129,38 @@ body {
     transform: translateY(-2px);
 }
 
+/* Menú hamburger para móvil */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1001;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background: #f1c232;
+    margin: 3px 0;
+    transition: 0.3s;
+    border-radius: 2px;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
 /* Contenido principal */
 .main-content {
     position: relative;
@@ -271,36 +303,13 @@ body {
     text-align: center;
 }
 
-.history-text p {
+.history-content p {
     font-size: 1.2rem;
     color: #555;
     line-height: 1.8;
     text-align: center;
     max-width: 800px;
     margin: 0 auto;
-}
-
-.history-image {
-    width: 100%;
-    max-width: 500px;
-    height: 300px;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    position: relative;
-    z-index: 10;
-    margin: 2rem auto 0;
-}
-
-.history-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.history-image:hover img {
-    transform: scale(1.05);
 }
 
 /* Loading simple */
