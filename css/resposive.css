@@ -64,26 +64,31 @@
     .logo {
         font-size: 1.8rem;
         letter-spacing: 2px;
+        margin-left: 1rem;
     }
     
-    /* Mostrar hamburger en tablet portrait también */
+    /* MOSTRAR HAMBURGER EN TABLET */
     .hamburger {
         display: flex;
+        margin-right: 1rem;
     }
     
+    /* MENÚ MÓVIL COMPLETO */
     .nav-menu {
         position: fixed;
         top: 80px;
         left: -100%;
         width: 100%;
         height: calc(100vh - 80px);
-        background: rgba(0, 0, 0, 0.95);
+        background: rgba(0, 0, 0, 0.98);
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
         gap: 0;
-        transition: left 0.3s ease;
+        transition: left 0.4s ease;
         padding-top: 3rem;
+        margin: 0;
+        z-index: 999;
     }
     
     .nav-menu.active {
@@ -103,6 +108,7 @@
         font-size: 1.3rem;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         letter-spacing: 2px;
+        transition: all 0.3s ease;
     }
     
     .nav-menu li a::after {
@@ -112,6 +118,7 @@
     .nav-menu li a:hover {
         background: rgba(241, 194, 50, 0.1);
         transform: none;
+        color: #f1c232;
     }
     
     /* Hero section */
@@ -154,25 +161,41 @@
 @media (max-width: 600px) {
     /* Header mobile */
     .header {
-        padding: 1.2rem 0;
-        height: 80px;
+        padding: 1rem 0;
+        height: 70px;
     }
     
     .hero-section {
-        padding-top: 80px;
-    }
-    
-    .nav-menu {
-        display: none; /* Ocultar menú en móvil */
-    }
-    
-    .logo {
-        font-size: 1.8rem;
+        padding-top: 70px;
     }
     
     .nav-container {
-        justify-content: center;
+        justify-content: space-between;
         padding: 0 1rem;
+    }
+    
+    .logo {
+        font-size: 1.6rem;
+        margin-left: 0.5rem;
+    }
+    
+    /* HAMBURGER MOBILE */
+    .hamburger {
+        display: flex;
+        margin-right: 0.5rem;
+    }
+    
+    /* MENÚ MÓVIL AJUSTADO */
+    .nav-menu {
+        top: 70px;
+        height: calc(100vh - 70px);
+        padding-top: 2rem;
+    }
+    
+    .nav-menu li a {
+        padding: 1.5rem 2rem;
+        font-size: 1.1rem;
+        letter-spacing: 2px;
     }
     
     /* Hero section mobile */
@@ -359,6 +382,12 @@
         font-size: 1.8rem;
         margin-bottom: 1rem;
     }
+    
+    .nav-menu {
+        top: 60px;
+        height: calc(100vh - 60px);
+        padding-top: 1rem;
+    }
 }
 
 /* ===================================
@@ -400,6 +429,10 @@
     .spinner {
         animation: none;
     }
+    
+    .nav-menu {
+        transition: none;
+    }
 }
 
 /* ===================================
@@ -418,5 +451,9 @@
     
     .btn-formulario {
         border-width: 3px;
+    }
+    
+    .nav-menu {
+        background: rgba(0, 0, 0, 0.99);
     }
 }

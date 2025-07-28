@@ -129,7 +129,7 @@ body {
     transform: translateY(-2px);
 }
 
-/* Menú hamburger para móvil */
+/* MENÚ HAMBURGER - NUEVO */
 .hamburger {
     display: none;
     flex-direction: column;
@@ -138,6 +138,7 @@ body {
     cursor: pointer;
     padding: 10px;
     z-index: 1001;
+    margin-right: 2rem;
 }
 
 .hamburger span {
@@ -149,6 +150,7 @@ body {
     border-radius: 2px;
 }
 
+/* Animación del hamburger cuando está activo */
 .hamburger.active span:nth-child(1) {
     transform: rotate(-45deg) translate(-5px, 6px);
 }
