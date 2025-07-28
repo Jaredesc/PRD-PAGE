@@ -171,9 +171,9 @@ body {
     padding-top: 0;
 }
 
-/* SECCIÓN HERO - IMAGEN GRANDE EN DESKTOP */
+/* SECCIÓN HERO - IMAGEN GIGANTE EN DESKTOP */
 .hero-section {
-    min-height: 50vh;
+    min-height: 80vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -185,24 +185,19 @@ body {
 
 .hero-content {
     width: 100%;
-    max-width: 1200px;
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0;
 }
 
 .hero-image {
     width: 100%;
-    max-width: 100%;
     height: auto;
 }
 
-/* IMAGEN GRANDE EN DESKTOP */
+/* IMAGEN GIGANTE EN DESKTOP - SIN LIMITACIONES */
 .portada-image {
     width: 100%;
     height: auto;
-    max-width: 100%;
-    min-height: 400px;
-    object-fit: cover;
     display: block;
 }
 

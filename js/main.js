@@ -8,112 +8,99 @@ const loading = document.getElementById('loading');
 const hamburger = document.getElementById('hamburger');
 const navMenu = document.getElementById('navMenu');
 
+// Flags para evitar múltiples inicializaciones
+let videoInitialized = false;
+let historyVideoInitialized = false;
+let hamburgerInitialized = false;
+
 // Inicialización cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', function() {
-    initializeVideo();
-    initializeHistoryVideo();
+    if (!videoInitialized) initializeVideo();
+    if (!historyVideoInitialized) initializeHistoryVideo();
     initializeNavigation();
-    initializeHamburgerMenu();
+    if (!hamburgerInitialized) initializeHamburgerMenu();
     console.log('🎬 PRD Digital Zacatecas cargado');
 });
 
 // Inicializar video de fondo principal
 function initializeVideo() {
-    if (!video) {
-        console.log('❌ Video principal no encontrado');
-        return;
-    }
+    if (!video || videoInitialized) return;
+    videoInitialized = true;
 
-    video.addEventListener('loadeddata', function() {
-        console.log('✅ Video de fondo principal cargado');
+    console.log('🎥 Inicializando video principal...');
+
+    // Evento de carga exitosa
+    video.onloadeddata = function() {
+        console.log('✅ Video principal cargado');
         video.style.display = 'block';
-        backup.style.display = 'none';
-        loading.style.display = 'none';
+        if (backup) backup.style.display = 'none';
+        if (loading) loading.style.display = 'none';
         
-        // Forzar reproducción
-        const playPromise = video.play();
-        if (playPromise !== undefined) {
-            playPromise.then(() => {
-                console.log('✅ Video principal reproduciéndose');
-            }).catch(error => {
-                console.log('⚠️ Autoplay falló, necesita interacción:', error);
-            });
+        // Intentar reproducir
+        video.play().catch(e => {
+            console.log('⚠️ Autoplay falló, se necesita interacción del usuario');
+        });
+    };
+
+    // Evento de error
+    video.onerror = function() {
+        console.log('❌ Error cargando video principal');
+        if (loading) {
+            loading.innerHTML = '⚠️ Usando fondo animado';
+            setTimeout(() => loading.style.display = 'none', 2000);
         }
-    });
+    };
 
-    video.addEventListener('error', function(e) {
-        console.log('❌ Error en video principal:', e);
-        console.log('🖱️ Usando fondo dorado de respaldo');
-        loading.innerHTML = '⚠️ Usando fondo animado';
-        setTimeout(() => loading.style.display = 'none', 2000);
-    });
-
-    // Asegurar que el video se mantenga en loop
-    video.addEventListener('ended', function() {
+    // Asegurar loop
+    video.onended = function() {
         video.currentTime = 0;
-        video.play();
-    });
-
-    // Forzar carga del video
-    video.load();
+        video.play().catch(e => console.log('Error en loop:', e));
+    };
 }
 
-// Inicializar video de fondo de la sección Historia
+// Inicializar video de historia
 function initializeHistoryVideo() {
-    if (!historyVideo) {
-        console.log('❌ Video de historia no encontrado');
-        return;
-    }
+    if (!historyVideo || historyVideoInitialized) return;
+    historyVideoInitialized = true;
 
-    historyVideo.addEventListener('loadeddata', function() {
-        console.log('✅ Video de historia (nubes) cargado');
-        
-        // Forzar reproducción
-        const playPromise = historyVideo.play();
-        if (playPromise !== undefined) {
-            playPromise.then(() => {
-                console.log('✅ Video de historia reproduciéndose');
-            }).catch(error => {
-                console.log('⚠️ Autoplay de historia falló:', error);
-            });
-        }
-    });
+    console.log('🌤️ Inicializando video de historia...');
 
-    historyVideo.addEventListener('error', function(e) {
-        console.log('❌ Error en video de historia:', e);
-        // Fallback: mantener el overlay con fondo oscuro
-        const overlay = document.querySelector('.history-video-overlay');
-        if (overlay) {
-            overlay.style.background = 'rgba(51, 51, 51, 0.9)';
-        }
-    });
-
-    // Asegurar que el video se mantenga en loop
-    historyVideo.addEventListener('ended', function() {
-        historyVideo.currentTime = 0;
-        historyVideo.play();
-    });
-
-    // Desactivar completamente los controles
+    // Configurar propiedades anti-controles
     historyVideo.controls = false;
     historyVideo.disablePictureInPicture = true;
     historyVideo.setAttribute('controlslist', 'nodownload nofullscreen noremoteplayback');
-    
-    // Prevenir click derecho en el video
-    historyVideo.addEventListener('contextmenu', function(e) {
+
+    // Evento de carga exitosa
+    historyVideo.onloadeddata = function() {
+        console.log('✅ Video de historia cargado');
+        historyVideo.play().catch(e => {
+            console.log('⚠️ Autoplay historia falló');
+        });
+    };
+
+    // Evento de error
+    historyVideo.onerror = function() {
+        console.log('❌ Error cargando video de historia');
+    };
+
+    // Asegurar loop
+    historyVideo.onended = function() {
+        historyVideo.currentTime = 0;
+        historyVideo.play().catch(e => console.log('Error en loop historia:', e));
+    };
+
+    // Prevenir menú contextual
+    historyVideo.oncontextmenu = function(e) {
         e.preventDefault();
         return false;
-    });
-
-    // Forzar carga del video
-    historyVideo.load();
+    };
 }
 
 // Inicializar navegación
 function initializeNavigation() {
     // Smooth scroll para enlaces internos
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
+        anchor.onclick = function(e) {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
             if (target) {
@@ -127,123 +114,118 @@ function initializeNavigation() {
                     toggleHamburgerMenu();
                 }
             }
-        });
+        };
     });
 
     // Efecto de cambio de fondo del header al hacer scroll
-    window.addEventListener('scroll', function() {
-        const header = document.querySelector('.header');
-        if (window.scrollY > 50) {
-            header.style.background = 'rgba(0, 0, 0, 0.98)';
-        } else {
-            header.style.background = 'rgba(0, 0, 0, 0.85)';
+    let ticking = false;
+    window.onscroll = function() {
+        if (!ticking) {
+            requestAnimationFrame(function() {
+                const header = document.querySelector('.header');
+                if (header) {
+                    if (window.scrollY > 50) {
+                        header.style.background = 'rgba(0, 0, 0, 0.98)';
+                    } else {
+                        header.style.background = 'rgba(0, 0, 0, 0.85)';
+                    }
+                }
+                ticking = false;
+            });
+            ticking = true;
         }
-    });
+    };
 }
 
 // Inicializar menú hamburger
 function initializeHamburgerMenu() {
-    console.log('🔍 Buscando elementos del menú hamburger...');
-    console.log('Hamburger element:', hamburger);
-    console.log('NavMenu element:', navMenu);
+    if (!hamburger || !navMenu || hamburgerInitialized) return;
+    hamburgerInitialized = true;
 
-    if (hamburger && navMenu) {
-        console.log('✅ Elementos encontrados, configurando eventos...');
-        
-        // Clic en hamburger
-        hamburger.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            console.log('🖱️ Click en hamburger detectado');
-            toggleHamburgerMenu();
-        });
-        
-        // Cerrar menú al hacer clic en enlaces
-        navMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', function() {
-                if (navMenu.classList.contains('active')) {
-                    console.log('🔗 Enlace clickeado, cerrando menú');
-                    toggleHamburgerMenu();
-                }
-            });
-        });
-        
-        // Cerrar menú al hacer clic fuera
-        document.addEventListener('click', function(e) {
-            if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
-                if (navMenu.classList.contains('active')) {
-                    console.log('🖱️ Click fuera del menú, cerrando...');
-                    toggleHamburgerMenu();
-                }
-            }
-        });
-        
-        // Cerrar menú al redimensionar ventana
-        window.addEventListener('resize', function() {
-            if (window.innerWidth > 768 && navMenu.classList.contains('active')) {
-                console.log('📏 Ventana redimensionada, cerrando menú...');
+    console.log('🍔 Inicializando menú hamburger...');
+    
+    // Clic en hamburger
+    hamburger.onclick = function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        toggleHamburgerMenu();
+    };
+    
+    // Cerrar menú al hacer clic en enlaces
+    navMenu.querySelectorAll('a').forEach(link => {
+        link.onclick = function() {
+            if (navMenu.classList.contains('active')) {
                 toggleHamburgerMenu();
             }
-        });
-        
-        console.log('🍔 Menú hamburger inicializado correctamente');
-    } else {
-        console.error('❌ No se pudieron encontrar los elementos del menú hamburger');
-        console.log('Verificar que existan elementos con ID: hamburger y navMenu');
-    }
+        };
+    });
+    
+    // Cerrar menú al hacer clic fuera
+    document.onclick = function(e) {
+        if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
+            if (navMenu.classList.contains('active')) {
+                toggleHamburgerMenu();
+            }
+        }
+    };
+    
+    // Cerrar menú al redimensionar ventana
+    window.onresize = function() {
+        if (window.innerWidth > 768 && navMenu.classList.contains('active')) {
+            toggleHamburgerMenu();
+        }
+    };
+    
+    console.log('✅ Menú hamburger inicializado');
 }
 
 // Toggle del menú hamburger
 function toggleHamburgerMenu() {
-    console.log('🍔 Toggle menú hamburger activado');
+    if (!hamburger || !navMenu) return;
     
-    if (hamburger && navMenu) {
-        // Toggle clases
-        hamburger.classList.toggle('active');
-        navMenu.classList.toggle('active');
-        
-        // Log para debug
-        console.log('Hamburger active:', hamburger.classList.contains('active'));
-        console.log('NavMenu active:', navMenu.classList.contains('active'));
-        
-        // Prevenir scroll del body cuando el menú está abierto
-        if (navMenu.classList.contains('active')) {
-            document.body.style.overflow = 'hidden';
-            console.log('📱 Menú móvil ABIERTO');
-        } else {
-            document.body.style.overflow = 'auto';
-            console.log('📱 Menú móvil CERRADO');
-        }
+    hamburger.classList.toggle('active');
+    navMenu.classList.toggle('active');
+    
+    // Controlar scroll del body
+    if (navMenu.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
+        console.log('📱 Menú abierto');
     } else {
-        console.error('❌ Elementos hamburger o navMenu no encontrados en toggle');
+        document.body.style.overflow = 'auto';
+        console.log('📱 Menú cerrado');
     }
 }
 
-// Forzar reproducción de ambos videos con interacción del usuario
+// Forzar reproducción con interacción del usuario (UNA SOLA VEZ)
+let userInteracted = false;
 function forcePlayVideos() {
+    if (userInteracted) return;
+    userInteracted = true;
+
+    console.log('👆 Interacción del usuario detectada');
+    
     // Video principal
     if (video && video.paused) {
         video.play().then(() => {
-            console.log('✅ Video principal iniciado por interacción del usuario');
+            console.log('✅ Video principal iniciado por usuario');
         }).catch(e => {
-            console.log('❌ No se pudo reproducir el video principal:', e);
+            console.log('❌ Error reproduciendo video principal:', e);
         });
     }
     
     // Video de historia
     if (historyVideo && historyVideo.paused) {
         historyVideo.play().then(() => {
-            console.log('✅ Video de historia iniciado por interacción del usuario');
+            console.log('✅ Video historia iniciado por usuario');
         }).catch(e => {
-            console.log('❌ No se pudo reproducir el video de historia:', e);
+            console.log('❌ Error reproduciendo video historia:', e);
         });
     }
 }
 
-// Event listeners para interacción del usuario
+// Event listeners para interacción del usuario (UNA SOLA VEZ)
 document.addEventListener('click', forcePlayVideos, { once: true });
 document.addEventListener('touchstart', forcePlayVideos, { once: true });
-document.addEventListener('keydown', forcePlayVideos, { once: true });
 
 // Funciones para cuando agregues más contenido
 function showSection(sectionId) {
@@ -253,58 +235,24 @@ function showSection(sectionId) {
     }
 }
 
-// Función para debug - puedes eliminarla después
+// Función para debug
 function checkVideoStatus() {
     if (video) {
-        console.log('📹 Estado del video principal:');
-        console.log('- Pausado:', video.paused);
-        console.log('- Duración:', video.duration);
-        console.log('- Tiempo actual:', video.currentTime);
-        console.log('- Volumen:', video.volume);
-        console.log('- Muted:', video.muted);
+        console.log('📹 Video principal:', {
+            pausado: video.paused,
+            duracion: video.duration,
+            tiempo: video.currentTime
+        });
     }
     
     if (historyVideo) {
-        console.log('🌤️ Estado del video de historia:');
-        console.log('- Pausado:', historyVideo.paused);
-        console.log('- Duración:', historyVideo.duration);
-        console.log('- Tiempo actual:', historyVideo.currentTime);
-        console.log('- Volumen:', historyVideo.volume);
-        console.log('- Muted:', historyVideo.muted);
+        console.log('🌤️ Video historia:', {
+            pausado: historyVideo.paused,
+            duracion: historyVideo.duration,
+            tiempo: historyVideo.currentTime
+        });
     }
 }
-
-// Función para pausar/reproducir video de historia cuando sea visible
-function handleHistoryVideoVisibility() {
-    if (!historyVideo) return;
-    
-    const historySection = document.getElementById('historia');
-    if (!historySection) return;
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                // La sección está visible, reproducir video
-                historyVideo.play().catch(e => {
-                    console.log('No se pudo reproducir video de historia automáticamente');
-                });
-            } else {
-                // La sección no está visible, pausar video para ahorrar recursos
-                historyVideo.pause();
-            }
-        });
-    }, {
-        threshold: 0.1 // Activar cuando al menos 10% de la sección esté visible
-    });
-    
-    observer.observe(historySection);
-}
-
-// Inicializar observador de visibilidad cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', function() {
-    // Esperar un poco para que todos los elementos estén listos
-    setTimeout(handleHistoryVideoVisibility, 1000);
-});
 
 // Exponer funciones útiles globalmente
 window.PRD = {
