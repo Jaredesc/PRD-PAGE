@@ -1,51 +1,8 @@
 /* ===================================
-   RESPONSIVE.CSS - PRD DIGITAL ZACATECAS
+   RESPONSIVE.CSS - CORRECCIÓN MÓVIL
    =================================== */
 
-/* ===================================
-   TABLET LANDSCAPE - 1024px y menor
-   =================================== */
-@media (max-width: 1024px) {
-    .nav-container {
-        padding: 0 3rem;
-    }
-    
-    .nav-menu {
-        gap: 3rem;
-    }
-    
-    .logo {
-        font-size: 2.2rem;
-    }
-    
-    .hero-image {
-        max-width: 600px;
-    }
-    
-    .video-reveal-space {
-        height: 40vh;
-    }
-    
-    .affiliate-content h2 {
-        font-size: 2.5rem;
-    }
-    
-    .history-content h2 {
-        font-size: 2.5rem;
-    }
-    
-    .history-content {
-        gap: 3rem;
-    }
-    
-    .history-content p {
-        font-size: 1.1rem;
-    }
-}
-
-/* ===================================
-   TABLET PORTRAIT - 768px y menor
-   =================================== */
+/* TABLET PORTRAIT - 768px y menor */
 @media (max-width: 768px) {
     /* Header ajustes */
     .header {
@@ -55,6 +12,31 @@
     
     .hero-section {
         padding-top: 80px;
+        min-height: 35vh;
+    }
+    
+    /* IMAGEN HERO MÁS GRANDE EN MÓVIL */
+    .hero-content {
+        width: 100%;
+        padding: 0 1rem;
+    }
+    
+    .hero-image {
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .portada-image {
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+        min-height: 200px;
+        object-fit: contain;
+    }
+    
+    /* Video de fondo visible */
+    .video-reveal-space {
+        height: 50vh;
     }
     
     .nav-container {
@@ -67,13 +49,13 @@
         margin-left: 1rem;
     }
     
-    /* MOSTRAR HAMBURGER EN TABLET */
+    /* HAMBURGER */
     .hamburger {
         display: flex;
         margin-right: 1rem;
     }
     
-    /* MENÚ MÓVIL COMPLETO */
+    /* MENÚ MÓVIL */
     .nav-menu {
         position: fixed;
         top: 80px;
@@ -121,16 +103,7 @@
         color: #f1c232;
     }
     
-    /* Hero section */
-    .hero-image {
-        max-width: 90%;
-    }
-    
-    .video-reveal-space {
-        height: 30vh;
-    }
-    
-    /* Sección afiliación */
+    /* Secciones */
     .affiliate-content h2 {
         font-size: 2rem;
     }
@@ -139,7 +112,6 @@
         font-size: 1.1rem;
     }
     
-    /* Sección historia */
     .history-content {
         padding: 3rem 2rem;
         margin: 0 1rem;
@@ -155,11 +127,8 @@
     }
 }
 
-/* ===================================
-   MOBILE LARGE - 600px y menor
-   =================================== */
+/* MOBILE LARGE - 600px y menor */
 @media (max-width: 600px) {
-    /* Header mobile */
     .header {
         padding: 1rem 0;
         height: 70px;
@@ -167,11 +136,30 @@
     
     .hero-section {
         padding-top: 70px;
+        min-height: 30vh;
     }
     
-    .nav-container {
-        justify-content: space-between;
-        padding: 0 1rem;
+    /* IMAGEN HERO BIEN VISIBLE */
+    .hero-content {
+        width: 100%;
+        padding: 0 0.5rem;
+    }
+    
+    .hero-image {
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .portada-image {
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+        min-height: 180px;
+        object-fit: contain;
+    }
+    
+    .video-reveal-space {
+        height: 45vh;
     }
     
     .logo {
@@ -179,13 +167,10 @@
         margin-left: 0.5rem;
     }
     
-    /* HAMBURGER MOBILE */
     .hamburger {
-        display: flex;
         margin-right: 0.5rem;
     }
     
-    /* MENÚ MÓVIL AJUSTADO */
     .nav-menu {
         top: 70px;
         height: calc(100vh - 70px);
@@ -195,19 +180,9 @@
     .nav-menu li a {
         padding: 1.5rem 2rem;
         font-size: 1.1rem;
-        letter-spacing: 2px;
     }
     
-    /* Hero section mobile */
-    .hero-image {
-        max-width: 95%;
-    }
-    
-    .video-reveal-space {
-        height: 25vh;
-    }
-    
-    /* Sección afiliación mobile */
+    /* Secciones */
     .affiliate-section {
         padding: 3rem 1rem;
     }
@@ -218,7 +193,6 @@
     
     .affiliate-content p {
         font-size: 1rem;
-        line-height: 1.6;
     }
     
     .btn-formulario {
@@ -226,7 +200,6 @@
         padding: 0.8rem 1.5rem;
     }
     
-    /* Sección historia mobile */
     .history-section {
         padding: 2rem 1rem;
         min-height: 80vh;
@@ -239,21 +212,15 @@
     
     .history-content h2 {
         font-size: 1.8rem;
-        margin-bottom: 1.5rem;
     }
     
     .history-content p {
         font-size: 0.95rem;
-        line-height: 1.7;
-        max-width: 100%;
     }
 }
 
-/* ===================================
-   MOBILE SMALL - 480px y menor
-   =================================== */
+/* MOBILE SMALL - 480px y menor */
 @media (max-width: 480px) {
-    /* Header extra small */
     .header {
         padding: 0.8rem 0;
         height: 60px;
@@ -261,138 +228,40 @@
     
     .hero-section {
         padding-top: 60px;
-        min-height: 30vh;
+        min-height: 25vh;
     }
     
-    .logo {
-        font-size: 1.4rem;
-    }
-    
-    /* Menú móvil extra pequeño */
-    .nav-menu {
-        top: 60px;
-        height: calc(100vh - 60px);
-    }
-    
-    .nav-menu li a {
-        padding: 1.2rem 1.5rem;
-        font-size: 1rem;
-    }
-    
-    /* Hero section extra small */
-    .hero-image {
-        max-width: 98%;
-    }
-    
-    .video-reveal-space {
-        height: 20vh;
-    }
-    
-    /* Sección afiliación extra small */
-    .affiliate-section {
-        padding: 2.5rem 0.5rem;
-    }
-    
-    .affiliate-content h2 {
-        font-size: 1.6rem;
-    }
-    
-    .affiliate-content p {
-        font-size: 0.95rem;
-        margin-bottom: 2rem;
-    }
-    
-    .btn-formulario {
-        font-size: 0.85rem;
-        padding: 0.7rem 1.2rem;
-    }
-    
-    /* Sección historia extra small */
-    .history-section {
-        padding: 1.5rem 0.5rem;
-        min-height: 70vh;
-    }
-    
-    .history-content {
-        padding: 1.5rem 1rem;
-        margin: 0 0.25rem;
-    }
-    
-    .history-content h2 {
-        font-size: 1.6rem;
-        margin-bottom: 1rem;
-    }
-    
-    .history-content p {
-        font-size: 0.9rem;
-        line-height: 1.6;
-    }
-}
-
-/* ===================================
-   MOBILE EXTRA SMALL - 360px y menor
-   =================================== */
-@media (max-width: 360px) {
-    .logo {
-        font-size: 1.4rem;
-        letter-spacing: 1px;
-    }
-    
-    .affiliate-content h2 {
-        font-size: 1.4rem;
-    }
-    
-    .history-content h2 {
-        font-size: 1.4rem;
-    }
-    
-    .history-content p {
-        font-size: 0.85rem;
-    }
-}
-
-/* ===================================
-   LANDSCAPE ORIENTATION - Móviles horizontales
-   =================================== */
-@media (max-height: 500px) and (orientation: landscape) {
-    .header {
-        padding: 0.8rem 0;
-        height: 60px;
-    }
-    
-    .hero-section {
-        padding-top: 60px;
-        min-height: 20vh;
+    /* IMAGEN HERO AJUSTADA */
+    .portada-image {
+        width: 100%;
+        height: auto;
+        min-height: 150px;
+        object-fit: contain;
     }
     
     .video-reveal-space {
         height: 40vh;
     }
     
-    .history-section {
-        min-height: 100vh;
-        padding: 1rem;
-    }
-    
-    .history-content {
-        padding: 2rem 1.5rem;
-    }
-    
-    .history-content h2 {
-        font-size: 1.8rem;
-        margin-bottom: 1rem;
+    .logo {
+        font-size: 1.4rem;
     }
     
     .nav-menu {
         top: 60px;
         height: calc(100vh - 60px);
-        padding-top: 1rem;
+    }
+    
+    .affiliate-content h2 {
+        font-size: 1.6rem;
+    }
+    
+    .history-content h2 {
+        font-size: 1.6rem;
     }
 }
 
-/* ===================================
-   HOVER STATES - Solo en dispositivos con hover
-   =================================== */
+/* HOVER STATES */
 @media (hover: hover) {
     .nav-menu li a:hover::after {
         width: 100%;
@@ -408,52 +277,5 @@
         color: #f1c232;
         transform: translateY(-2px);
         box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    }
-}
-
-/* ===================================
-   REDUCED MOTION - Para usuarios con preferencias de accesibilidad
-   =================================== */
-@media (prefers-reduced-motion: reduce) {
-    * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-    }
-    
-    .backup-background {
-        animation: none;
-        background: #f1c232;
-    }
-    
-    .spinner {
-        animation: none;
-    }
-    
-    .nav-menu {
-        transition: none;
-    }
-}
-
-/* ===================================
-   HIGH CONTRAST - Para mejor accesibilidad
-   =================================== */
-@media (prefers-contrast: high) {
-    .header {
-        background: rgba(0, 0, 0, 0.95);
-        border-bottom: 2px solid #fff;
-    }
-    
-    .history-content {
-        background: rgba(255, 255, 255, 0.95);
-        border: 2px solid #333;
-    }
-    
-    .btn-formulario {
-        border-width: 3px;
-    }
-    
-    .nav-menu {
-        background: rgba(0, 0, 0, 0.99);
     }
 }
