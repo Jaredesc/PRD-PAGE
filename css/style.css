@@ -171,9 +171,9 @@ body {
     padding-top: 0;
 }
 
-/* SECCIÓN HERO - SOLO IMAGEN PEGADA ARRIBA */
+/* SECCIÓN HERO - IMAGEN GRANDE EN DESKTOP */
 .hero-section {
-    min-height: 40vh;
+    min-height: 50vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -196,10 +196,12 @@ body {
     height: auto;
 }
 
+/* IMAGEN GRANDE EN DESKTOP */
 .portada-image {
     width: 100%;
     height: auto;
     max-width: 100%;
+    min-height: 400px;
     object-fit: cover;
     display: block;
 }

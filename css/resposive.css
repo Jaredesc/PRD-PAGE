@@ -47,26 +47,37 @@
     
     .hero-section {
         padding-top: 80px;
-        min-height: 35vh;
-        padding-left: 1rem;
-        padding-right: 1rem;
+        min-height: 100vh;
+        padding-left: 0;
+        padding-right: 0;
     }
     
-    /* IMAGEN HERO MÁS GRANDE EN TABLET */
+    /* IMAGEN HERO PANTALLA COMPLETA EN MÓVIL */
     .hero-content {
-        padding: 0 1rem;
+        width: 100%;
+        padding: 0;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .hero-image {
+        width: 100vw;
+        height: calc(100vh - 80px);
+        max-width: 100vw;
     }
     
     .portada-image {
         width: 100%;
-        height: auto;
-        min-height: 250px;
-        max-height: 300px;
-        object-fit: contain;
+        height: 100%;
+        object-fit: cover;
+        min-height: calc(100vh - 80px);
     }
     
+    /* MÁS ESPACIO PARA EL VIDEO */
     .video-reveal-space {
-        height: 50vh;
+        height: 70vh;
     }
     
     .nav-container {
@@ -169,26 +180,37 @@
     
     .hero-section {
         padding-top: 70px;
-        min-height: 32vh;
-        padding-left: 0.5rem;
-        padding-right: 0.5rem;
+        min-height: 100vh;
+        padding-left: 0;
+        padding-right: 0;
     }
     
-    /* IMAGEN HERO BIEN VISIBLE EN MÓVIL */
+    /* IMAGEN HERO PANTALLA COMPLETA */
     .hero-content {
-        padding: 0 0.5rem;
+        width: 100%;
+        padding: 0;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .hero-image {
+        width: 100vw;
+        height: calc(100vh - 70px);
+        max-width: 100vw;
     }
     
     .portada-image {
         width: 100%;
-        height: auto;
-        min-height: 200px;
-        max-height: 250px;
-        object-fit: contain;
+        height: 100%;
+        object-fit: cover;
+        min-height: calc(100vh - 70px);
     }
     
+    /* MÁS ESPACIO PARA VER EL VIDEO */
     .video-reveal-space {
-        height: 45vh;
+        height: 60vh;
     }
     
     .nav-container {
@@ -267,26 +289,37 @@
     
     .hero-section {
         padding-top: 60px;
-        min-height: 28vh;
-        padding-left: 0.5rem;
-        padding-right: 0.5rem;
+        min-height: 100vh;
+        padding-left: 0;
+        padding-right: 0;
     }
     
-    /* IMAGEN HERO AJUSTADA PARA MÓVILES PEQUEÑOS */
+    /* IMAGEN HERO PANTALLA COMPLETA EN MÓVILES PEQUEÑOS */
     .hero-content {
-        padding: 0 0.25rem;
+        width: 100%;
+        padding: 0;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .hero-image {
+        width: 100vw;
+        height: calc(100vh - 60px);
+        max-width: 100vw;
     }
     
     .portada-image {
         width: 100%;
-        height: auto;
-        min-height: 160px;
-        max-height: 200px;
-        object-fit: contain;
+        height: 100%;
+        object-fit: cover;
+        min-height: calc(100vh - 60px);
     }
     
+    /* ESPACIO PARA EL VIDEO */
     .video-reveal-space {
-        height: 40vh;
+        height: 50vh;
     }
     
     .logo {
@@ -353,12 +386,15 @@
     }
     
     .hero-section {
-        min-height: 25vh;
+        min-height: 100vh;
     }
     
     .portada-image {
-        min-height: 140px;
-        max-height: 180px;
+        min-height: calc(100vh - 60px);
+    }
+    
+    .video-reveal-space {
+        height: 45vh;
     }
     
     .affiliate-content h2 {
@@ -379,21 +415,26 @@
    =================================== */
 @media (max-height: 500px) and (orientation: landscape) {
     .header {
-        padding: 0.8rem 0;
-        height: 60px;
+        padding: 0.5rem 0;
+        height: 50px;
     }
     
     .hero-section {
-        padding-top: 60px;
-        min-height: 30vh;
+        padding-top: 50px;
+        min-height: 100vh;
+    }
+    
+    .hero-image {
+        height: calc(100vh - 50px);
     }
     
     .portada-image {
-        max-height: 120px;
+        min-height: calc(100vh - 50px);
+        object-fit: cover;
     }
     
     .video-reveal-space {
-        height: 60vh;
+        height: 100vh;
     }
     
     .history-section {
@@ -411,8 +452,8 @@
     }
     
     .nav-menu {
-        top: 60px;
-        height: calc(100vh - 60px);
+        top: 50px;
+        height: calc(100vh - 50px);
         padding-top: 1rem;
     }
 }
