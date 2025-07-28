@@ -4,13 +4,558 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PRD Digital Zacatecas</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/responsive.css">
-    <link rel="stylesheet" href="css/FORCE-MOBILE.CSS"> <!-- NUEVA LÍNEA -->
-</head>
+    
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        /* Importar fuente */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+        body {
+            background: #000;
+            overflow-x: hidden;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Video de fondo */
+        .video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 1;
+        }
+
+        .bg-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Backup dorado */
+        .backup-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(45deg, #f1c232, #d4af37, #b8860b, #f1c232);
+            background-size: 400% 400%;
+            animation: movingGradient 6s ease infinite;
+            z-index: 1;
+        }
+
+        @keyframes movingGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* HEADER */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 2rem 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            height: 120px;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            color: #f1c232;
+            font-size: 1.8rem;
+            font-weight: 800;
+            text-decoration: none;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* MENÚ DESKTOP */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-menu li a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            font-weight: 500;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-menu li a::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: #f1c232;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-menu li a:hover::after {
+            width: 100%;
+        }
+
+        .nav-menu li a:hover {
+            color: #f1c232;
+            transform: translateY(-2px);
+        }
+
+        /* HAMBURGER */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #f1c232;
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        /* MOBILE STYLES */
+        @media screen and (max-width: 768px) {
+            .header {
+                padding: 1rem 0;
+                height: 80px;
+            }
+
+            .logo {
+                font-size: 1.6rem;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: rgba(0, 0, 0, 0.98);
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                padding-top: 3rem;
+                transition: left 0.4s ease;
+                gap: 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-menu li {
+                width: 100%;
+                margin: 1rem 0;
+                text-align: center;
+            }
+
+            .nav-menu li a {
+                display: block;
+                width: 100%;
+                padding: 2rem;
+                font-size: 1.3rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                letter-spacing: 2px;
+            }
+
+            .nav-menu li a::after {
+                display: none;
+            }
+
+            .nav-menu li a:hover {
+                background: rgba(241, 194, 50, 0.1);
+                transform: none;
+            }
+
+            .hero-section {
+                padding-top: 80px !important;
+                min-height: 30vh;
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .hero-image {
+                width: 90%;
+                max-width: 90%;
+            }
+
+            .portada-image {
+                width: 100%;
+                height: auto;
+                max-height: 250px;
+                object-fit: contain;
+            }
+
+            .video-reveal-space {
+                height: 40vh;
+            }
+        }
+
+        /* RESTO DEL CONTENIDO */
+        .main-content {
+            position: relative;
+            z-index: 20;
+            min-height: 100vh;
+            padding-top: 0;
+        }
+
+        .hero-section {
+            min-height: 40vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            margin-top: 0;
+            padding-top: 120px;
+        }
+
+        .hero-image {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .portada-image {
+            width: 100%;
+            height: auto;
+            max-width: 100%;
+            object-fit: contain;
+        }
+
+        .video-reveal-space {
+            height: 80vh;
+            position: relative;
+        }
+
+        .content-overlay {
+            position: relative;
+            z-index: 10;
+        }
+
+        .affiliate-section {
+            background: linear-gradient(135deg, #f1c232, #d4af37);
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .affiliate-content h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .affiliate-content p {
+            font-size: 1.3rem;
+            color: white;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            line-height: 1.8;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .btn-formulario {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(0,0,0,0.2);
+            color: white;
+            padding: 1rem 2rem;
+            border: 2px solid white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-formulario:hover {
+            background: white;
+            color: #f1c232;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .history-section {
+            position: relative;
+            padding: 2rem;
+            min-height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .history-video-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .history-bg-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .history-video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            z-index: 2;
+        }
+
+        .history-content {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 4rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .history-content h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #333;
+            margin-bottom: 2rem;
+        }
+
+        .history-content p {
+            font-size: 1.2rem;
+            color: #555;
+            line-height: 1.8;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .loading {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 1.5rem;
+            z-index: 100;
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+        }
+
+        .spinner {
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top: 3px solid #f1c232;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media screen and (max-width: 600px) {
+            .header {
+                height: 70px;
+                padding: 0.8rem 0;
+            }
+
+            .logo {
+                font-size: 1.4rem;
+            }
+
+            .nav-menu {
+                top: 70px;
+                height: calc(100vh - 70px);
+            }
+
+            .hero-section {
+                padding-top: 70px !important;
+                min-height: 25vh;
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .hero-image {
+                width: 85%;
+                max-width: 85%;
+            }
+
+            .portada-image {
+                width: 100%;
+                height: auto;
+                max-height: 200px;
+                object-fit: contain;
+            }
+
+            .video-reveal-space {
+                height: 30vh;
+            }
+
+            .affiliate-section {
+                padding: 3rem 1rem;
+            }
+
+            .affiliate-content h2 {
+                font-size: 2rem;
+            }
+
+            .affiliate-content p {
+                font-size: 1rem;
+            }
+
+            .btn-formulario {
+                font-size: 0.9rem;
+                padding: 0.8rem 1.5rem;
+            }
+
+            .history-content {
+                padding: 2rem 1.5rem;
+                margin: 0 1rem;
+            }
+
+            .history-content h2 {
+                font-size: 2rem;
+            }
+
+            .history-content p {
+                font-size: 1rem;
+            }
+        }
+
+        /* MÓVILES MUY PEQUEÑOS */
+        @media screen and (max-width: 480px) {
+            .header {
+                height: 60px;
+                padding: 0.6rem 0;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .nav-menu {
+                top: 60px;
+                height: calc(100vh - 60px);
+            }
+
+            .hero-section {
+                padding-top: 60px !important;
+                min-height: 20vh;
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+            }
+
+            .hero-image {
+                width: 80%;
+                max-width: 80%;
+            }
+
+            .portada-image {
+                width: 100%;
+                height: auto;
+                max-height: 160px;
+                object-fit: contain;
+            }
+
+            .video-reveal-space {
+                height: 25vh;
+            }
+
+            .affiliate-content h2 {
+                font-size: 1.8rem;
+            }
+
+            .affiliate-content p {
+                font-size: 0.95rem;
+            }
+
+            .history-content {
+                padding: 1.5rem 1rem;
+                margin: 0 0.5rem;
+            }
+
+            .history-content h2 {
+                font-size: 1.8rem;
+            }
+
+            .history-content p {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
 <body>
-    <!-- Video de fondo ESTÁTICO SIEMPRE -->
+    <!-- Video de fondo -->
     <div class="backup-background"></div>
     
     <div class="video-container">
@@ -28,19 +573,17 @@
         </video>
     </div>
 
-    <!-- BARRA DE NAVEGACIÓN CON HAMBURGER -->
+    <!-- HEADER CON MENÚ -->
     <header class="header">
         <nav class="nav-container">
             <a href="#" class="logo">PRD DIGITAL</a>
             
-            <!-- Botón hamburger NUEVO -->
             <button class="hamburger" id="hamburger">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
             
-            <!-- Menú con ID para JavaScript -->
             <ul class="nav-menu" id="navMenu">
                 <li><a href="#documentos">DOCUMENTOS BÁSICOS</a></li>
                 <li><a href="#comunicacion">COMUNICACIÓN DIGITAL</a></li>
@@ -58,7 +601,6 @@
     
     <!-- Contenido principal -->
     <div class="main-content">
-        <!-- Sección Hero con solo la imagen -->
         <section class="hero-section">
             <div class="hero-content">
                 <div class="hero-image">
@@ -67,14 +609,9 @@
             </div>
         </section>
         
-        <!-- Espacio transparente para ver el video de fondo -->
-        <section class="video-reveal-space">
-            <!-- Aquí se ve el video de fondo que queda fijo -->
-        </section>
+        <section class="video-reveal-space"></section>
         
-        <!-- Contenido que va encima -->
         <div class="content-overlay">
-            <!-- Sección Afíliate -->
             <section class="affiliate-section">
                 <div class="affiliate-content">
                     <h2>AFÍLIATE</h2>
@@ -85,9 +622,7 @@
                 </div>
             </section>
             
-            <!-- Sección Historia CON VIDEO DE FONDO -->
             <section class="history-section" id="historia">
-                <!-- Video de fondo para la sección Historia -->
                 <div class="history-video-container">
                     <video 
                         id="historyVideo" 
@@ -99,7 +634,6 @@
                     >
                         <source src="assets/images/videos/NUBES.webm" type="video/webm">
                     </video>
-                    <!-- Overlay para mejorar legibilidad del texto -->
                     <div class="history-video-overlay"></div>
                 </div>
                 
@@ -111,6 +645,95 @@
         </div>
     </div>
 
-    <script src="js/main.js"></script>
+    <script>
+        // Variables
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+        const video = document.getElementById('bgVideo');
+        const historyVideo = document.getElementById('historyVideo');
+        const backup = document.querySelector('.backup-background');
+        const loading = document.getElementById('loading');
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎬 PRD Digital Zacatecas cargado');
+            
+            // Inicializar videos
+            if (video) {
+                video.addEventListener('loadeddata', function() {
+                    video.style.display = 'block';
+                    backup.style.display = 'none';
+                    loading.style.display = 'none';
+                    video.play().catch(e => console.log('Autoplay falló:', e));
+                });
+
+                video.addEventListener('error', function() {
+                    console.log('Error en video principal');
+                    loading.innerHTML = '⚠️ Usando fondo animado';
+                    setTimeout(() => loading.style.display = 'none', 2000);
+                });
+            }
+
+            if (historyVideo) {
+                historyVideo.addEventListener('loadeddata', function() {
+                    historyVideo.play().catch(e => console.log('Autoplay historia falló:', e));
+                });
+            }
+
+            // MENÚ HAMBURGER
+            if (hamburger && navMenu) {
+                console.log('🍔 Inicializando menú hamburger');
+                
+                hamburger.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('🖱️ Click en hamburger');
+                    
+                    hamburger.classList.toggle('active');
+                    navMenu.classList.toggle('active');
+                    
+                    if (navMenu.classList.contains('active')) {
+                        document.body.style.overflow = 'hidden';
+                        console.log('📱 Menú ABIERTO');
+                    } else {
+                        document.body.style.overflow = 'auto';
+                        console.log('📱 Menú CERRADO');
+                    }
+                });
+
+                // Cerrar menú al hacer clic en enlaces
+                navMenu.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', function() {
+                        hamburger.classList.remove('active');
+                        navMenu.classList.remove('active');
+                        document.body.style.overflow = 'auto';
+                    });
+                });
+
+                // Cerrar menú al hacer clic fuera
+                document.addEventListener('click', function(e) {
+                    if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
+                        if (navMenu.classList.contains('active')) {
+                            hamburger.classList.remove('active');
+                            navMenu.classList.remove('active');
+                            document.body.style.overflow = 'auto';
+                        }
+                    }
+                });
+            } else {
+                console.error('❌ Elementos hamburger no encontrados');
+            }
+
+            // Smooth scroll
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
