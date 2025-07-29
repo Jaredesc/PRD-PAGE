@@ -64,6 +64,7 @@ body {
     margin: 0;
     box-sizing: border-box;
     height: 120px;
+    transition: all 0.3s ease;
 }
 
 .nav-container {
@@ -84,6 +85,7 @@ body {
     text-decoration: none;
     letter-spacing: 2px;
     text-transform: uppercase;
+    transition: all 0.3s ease;
 }
 
 .nav-menu {
@@ -136,31 +138,35 @@ body {
     background: none;
     border: none;
     cursor: pointer;
-    padding: 10px;
-    z-index: 1001;
+    padding: 8px;
+    z-index: 1002;
     margin-right: 2rem;
+    position: relative;
+    transition: all 0.3s ease;
 }
 
 .hamburger span {
-    width: 25px;
-    height: 3px;
+    width: 22px;
+    height: 2px;
     background: #f1c232;
-    margin: 3px 0;
-    transition: 0.3s;
-    border-radius: 2px;
+    margin: 2px 0;
+    transition: all 0.3s ease;
+    border-radius: 1px;
+    display: block;
 }
 
 /* Animación del hamburger cuando está activo */
 .hamburger.active span:nth-child(1) {
-    transform: rotate(-45deg) translate(-5px, 6px);
+    transform: rotate(-45deg) translate(-4px, 5px);
 }
 
 .hamburger.active span:nth-child(2) {
     opacity: 0;
+    transform: translateX(-20px);
 }
 
 .hamburger.active span:nth-child(3) {
-    transform: rotate(45deg) translate(-5px, -6px);
+    transform: rotate(45deg) translate(-4px, -5px);
 }
 
 /* Contenido principal */
@@ -378,4 +384,60 @@ body {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+/* Animaciones adicionales */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
