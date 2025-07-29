@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El nuevo prd Zacatecas</title>
+    <title>PRD Digital Zacatecas</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
 </head>
@@ -27,10 +27,16 @@
         </video>
     </div>
 
-    <!-- BARRA DE NAVEGACIÓN CON HAMBURGER -->
+    <!-- HEADER -->
     <header class="header">
         <nav class="nav-container">
-            <a href="#" class="logo">El nuevo PRD</a>
+            <!-- Logo para desktop -->
+            <a href="#" class="logo desktop-logo">PRD DIGITAL</a>
+            
+            <!-- Logo para móvil -->
+            <div class="mobile-logo">
+                <img src="assets/images/logos/LOGO H BLANCO.png" alt="PRD Zacatecas" class="logo-img">
+            </div>
             
             <!-- MENÚ HAMBURGER -->
             <button class="hamburger" id="hamburger">
@@ -55,10 +61,11 @@
         Cargando video...
     </div>
     
-    <!-- Contenido principal -->
+    <!-- CONTENIDO PRINCIPAL -->
     <div class="main-content">
-        <!-- Sección Hero con solo la imagen -->
-        <section class="hero-section">
+        
+        <!-- DESKTOP: Hero original -->
+        <section class="hero-section desktop-only">
             <div class="hero-content">
                 <div class="hero-image">
                     <img src="assets/images/logos/PORTADA FB PRD.png" alt="PRD Zacatecas" class="portada-image">
@@ -66,12 +73,48 @@
             </div>
         </section>
         
-        <!-- Espacio transparente para ver el video de fondo -->
-        <section class="video-reveal-space">
+        <!-- MÓVIL: Hero con miniatura de YouTube -->
+        <section class="mobile-hero mobile-only">
+            <!-- Imagen de miniatura del video -->
+            <div class="mobile-video-thumbnail">
+                <img src="assets/images/heroes/Diseño sin título (1).png" alt="Video PRD Zacatecas" class="thumbnail-image">
+                <!-- Overlay oscuro sobre la imagen -->
+                <div class="mobile-hero-overlay"></div>
+                <!-- Contenido encima de la imagen -->
+                <div class="mobile-hero-content">
+                    <h1 class="mobile-hero-title">
+                        EL NUEVO PRD DE ZACATECAS REPRESENTA EL CAMBIO QUE NECESITAMOS PARA CONSTRUIR UN FUTURO MEJOR
+                    </h1>
+                    <button class="mobile-play-btn" id="mobilePlayBtn">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                            <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTENEDOR DE VIDEO YOUTUBE MÓVIL -->
+        <div class="youtube-video-container mobile-only" id="youtubeContainer">
+            <button class="youtube-close-btn" id="youtubeCloseBtn">×</button>
+            <div class="youtube-video-wrapper" id="youtubeWrapper">
+                <!-- El iframe se carga dinámicamente -->
+            </div>
+        </div>
+        
+        <!-- MÓVIL: Sección Noticias -->
+        <section class="mobile-news mobile-only">
+            <div class="mobile-news-content">
+                <h2>Últimas Noticias <span class="news-arrow">→</span></h2>
+            </div>
+        </section>
+        
+        <!-- DESKTOP: Espacio para video -->
+        <section class="video-reveal-space desktop-only">
             <!-- Aquí se ve el video de fondo que queda fijo -->
         </section>
         
-        <!-- Contenido que va encima -->
+        <!-- SECCIONES INFERIORES (iguales para ambos) -->
         <div class="content-overlay">
             <!-- Sección Afíliate -->
             <section class="affiliate-section">
