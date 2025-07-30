@@ -102,13 +102,6 @@
             </div>
         </div>
         
-        <!-- MÓVIL: Sección Noticias -->
-        <section class="mobile-news mobile-only">
-            <div class="mobile-news-content">
-                <h2>Últimas Noticias <span class="news-arrow">→</span></h2>
-            </div>
-        </section>
-        
         <!-- DESKTOP: Espacio para video -->
         <section class="video-reveal-space desktop-only">
             <!-- Aquí se ve el video de fondo que queda fijo -->
@@ -158,4 +151,18 @@
 
     <script src="js/main.js"></script>
 </body>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(() => {
+        const btn = document.getElementById('mobilePlayBtn');
+        if (btn) {
+            btn.addEventListener('click', function() {
+                window.open('https://www.youtube.com/watch?v=2YhaGWompwU', '_blank');
+            });
+        }
+    }, 1000);
+});
+</script>
+
 </html>

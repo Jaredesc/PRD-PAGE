@@ -408,10 +408,6 @@ body {
     display: none;
 }
 
-.mobile-news {
-    display: none;
-}
-
 /* ===================================
    RESPONSIVE MÓVIL - 768px y menor
    =================================== */
@@ -744,41 +740,6 @@ body {
         z-index: -1 !important;
     }
     
-    /* ===== SECCIÓN NOTICIAS MÓVIL ===== */
-    .mobile-news {
-        position: relative !important;
-        background: rgba(255, 255, 255, 0.95) !important;
-        backdrop-filter: blur(10px) !important;
-        border-top: 3px solid #d32f2f !important;
-        padding: 2rem 1rem !important;
-        z-index: 20 !important;
-        display: block !important;
-    }
-    
-    .mobile-news-content {
-        text-align: center !important;
-    }
-    
-    .mobile-news h2 {
-        font-size: 1.5rem !important;
-        font-weight: 700 !important;
-        color: #333 !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        gap: 1rem !important;
-    }
-    
-    .news-arrow {
-        font-size: 1.3rem !important;
-        color: #d32f2f !important;
-        transition: transform 0.3s ease !important;
-    }
-    
-    .mobile-news:hover .news-arrow {
-        transform: translateX(5px) !important;
-    }
-    
     /* ===== PAUSAR VIDEO EN MÓVIL ===== */
     .bg-video {
         pointer-events: none !important;
@@ -896,14 +857,6 @@ body {
     .youtube-video-container {
         width: 95% !important;
         max-width: 350px !important;
-    }
-    
-    .mobile-news {
-        padding: 1.5rem 0.8rem !important;
-    }
-    
-    .mobile-news h2 {
-        font-size: 1.3rem !important;
     }
     
     .affiliate-content h2 {
