@@ -1,280 +1,126 @@
-// VERSIÓN CON ARREGLO INTELIGENTE DE SCROLL
-console.log('🎬 PRD iniciando...');
+// VERSIÓN MÍNIMA EXTREMA - SIN NADA QUE PUEDA CAUSAR PROBLEMAS
+console.log('🎬 PRD iniciando (MÍNIMO)...');
 
-// Variables básicas
 let isMenuOpen = false;
-let isMobile = false;
-let pageInitialized = false;
 
-// ARREGLO INTELIGENTE - SOLO AL INICIO
-function fixInitialScrollOnce() {
-    // SOLO si la página NO está inicializada
-    if (!pageInitialized) {
-        window.scrollTo(0, 0);
-        
-        // Limpiar hash problemático
-        if (window.location.hash) {
-            history.replaceState(null, null, window.location.pathname);
-        }
-        
-        console.log('🏠 Scroll inicial arreglado');
-    }
-}
-
-// DETECTAR SI ES MÓVIL
-function detectMobile() {
-    return window.innerWidth <= 768;
-}
-
-// ARREGLO INMEDIATO SOLO AL CARGAR
-fixInitialScrollOnce();
-
-// INICIALIZACIÓN
+// SOLO cuando esté completamente cargado
 document.addEventListener('DOMContentLoaded', function() {
     console.log('📱 DOM listo');
     
-    // ARREGLAR SCROLL UNA VEZ MÁS
-    fixInitialScrollOnce();
-    
-    // Detectar móvil
-    isMobile = detectMobile();
+    // Detectar si es móvil
+    const isMobile = window.innerWidth <= 768;
     console.log('📱 Es móvil:', isMobile);
     
-    // Configurar según dispositivo
-    if (isMobile) {
-        setupMobile();
+    // CONFIGURAR VIDEOS SOLO EN DESKTOP
+    if (!isMobile) {
+        setupDesktopVideos();
     } else {
-        setupDesktop();
+        setupMobile();
     }
     
-    // Configurar menú y YouTube
-    setupMenu();
-    setupYouTube();
+    // CONFIGURAR BOTÓN YOUTUBE
+    setupYouTubeButton();
     
-    // MARCAR COMO INICIALIZADA después de un momento
-    setTimeout(() => {
-        pageInitialized = true;
-        console.log('✅ Página inicializada - Scroll libre activado');
-    }, 1000);
+    // CONFIGURAR MENÚ
+    setupSimpleMenu();
     
-    console.log('✅ Configuración completada');
+    console.log('✅ Configuración mínima completada');
 });
 
-// CONFIGURACIÓN MÓVIL - SÚPER SIMPLE
+// SETUP DESKTOP VIDEOS
+function setupDesktopVideos() {
+    const video = document.getElementById('bgVideo');
+    const loading = document.getElementById('loading');
+    const backup = document.querySelector('.backup-background');
+    
+    if (video) {
+        video.muted = true;
+        video.loop = true;
+        
+        video.addEventListener('canplay', function() {
+            video.style.display = 'block';
+            if (backup) backup.style.display = 'none';
+            if (loading) loading.style.display = 'none';
+            video.play().catch(e => console.log('Autoplay bloqueado'));
+        });
+        
+        video.load();
+    }
+    
+    // Video de historia
+    const historyVideo = document.getElementById('historyVideo');
+    if (historyVideo) {
+        historyVideo.muted = true;
+        historyVideo.loop = true;
+        historyVideo.play().catch(e => console.log('Video historia no reproduce'));
+    }
+}
+
+// SETUP MÓVIL
 function setupMobile() {
-    try {
-        console.log('📱 Configurando móvil...');
-        
-        // Ocultar video principal y loading
-        const video = document.getElementById('bgVideo');
-        const loading = document.getElementById('loading');
-        const backup = document.querySelector('.backup-background');
-        
-        if (video) {
-            video.style.display = 'none';
-            video.pause();
-        }
-        
-        if (loading) loading.style.display = 'none';
-        if (backup) backup.style.display = 'none';
-        
-        // Solo video de historia
-        const historyVideo = document.getElementById('historyVideo');
-        if (historyVideo) {
-            historyVideo.muted = true;
-            historyVideo.loop = true;
-            historyVideo.play().catch(e => console.log('Video historia no reproduce'));
-        }
-        
-        console.log('✅ Móvil configurado');
-    } catch (error) {
-        console.log('Error en móvil:', error);
+    const video = document.getElementById('bgVideo');
+    const loading = document.getElementById('loading');
+    const backup = document.querySelector('.backup-background');
+    
+    if (video) {
+        video.style.display = 'none';
+        video.pause();
+    }
+    if (loading) loading.style.display = 'none';
+    if (backup) backup.style.display = 'none';
+    
+    // Video de historia
+    const historyVideo = document.getElementById('historyVideo');
+    if (historyVideo) {
+        historyVideo.muted = true;
+        historyVideo.loop = true;
+        historyVideo.play().catch(e => console.log('Video historia no reproduce'));
     }
 }
 
-// CONFIGURACIÓN DESKTOP - CON VIDEOS
-function setupDesktop() {
-    try {
-        console.log('🖥️ Configurando desktop...');
-        
-        const video = document.getElementById('bgVideo');
-        const historyVideo = document.getElementById('historyVideo');
-        const backup = document.querySelector('.backup-background');
-        const loading = document.getElementById('loading');
-        
-        // VIDEO PRINCIPAL
-        if (video) {
-            video.muted = true;
-            video.loop = true;
-            
-            // Cuando el video esté listo
-            video.addEventListener('canplay', function() {
-                console.log('📹 Video principal listo');
-                video.style.display = 'block';
-                if (backup) backup.style.display = 'none';
-                if (loading) loading.style.display = 'none';
-                
-                // Reproducir
-                video.play().catch(e => console.log('Autoplay bloqueado'));
-            });
-            
-            // Cargar video
-            video.load();
-        }
-        
-        // VIDEO DE HISTORIA
-        if (historyVideo) {
-            historyVideo.muted = true;
-            historyVideo.loop = true;
-            historyVideo.play().catch(e => console.log('Video historia autoplay bloqueado'));
-        }
-        
-        console.log('✅ Desktop configurado');
-    } catch (error) {
-        console.log('Error en desktop:', error);
+// BOTÓN YOUTUBE
+function setupYouTubeButton() {
+    const btn = document.getElementById('mobilePlayBtn');
+    if (btn) {
+        btn.onclick = function() {
+            window.open('https://www.youtube.com/watch?v=2YhaGWompwU', '_blank');
+        };
     }
 }
 
-// FUNCIÓN YOUTUBE SIMPLE
-function setupYouTube() {
-    try {
-        const btn = document.getElementById('mobilePlayBtn');
-        if (btn) {
-            btn.onclick = function() {
-                window.open('https://www.youtube.com/watch?v=2YhaGWompwU', '_blank');
-            };
-            console.log('✅ Botón YouTube configurado');
-        }
-    } catch (error) {
-        console.log('Error en YouTube:', error);
-    }
-}
-
-// FUNCIÓN MENÚ SIMPLE
-function setupMenu() {
-    try {
-        const hamburger = document.getElementById('hamburger');
-        const navMenu = document.getElementById('navMenu');
-        
-        if (hamburger && navMenu) {
-            hamburger.onclick = function() {
-                toggleMenu();
-            };
-            console.log('✅ Menú configurado');
-        }
-    } catch (error) {
-        console.log('Error en menú:', error);
-    }
-}
-
-// TOGGLE MENÚ
-function toggleMenu() {
-    try {
-        const hamburger = document.getElementById('hamburger');
-        const navMenu = document.getElementById('navMenu');
-        
-        if (!hamburger || !navMenu) return;
-        
+// MENÚ SÚPER SIMPLE
+function setupSimpleMenu() {
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+    
+    if (!hamburger || !navMenu) return;
+    
+    // Toggle menú
+    hamburger.onclick = function() {
         isMenuOpen = !isMenuOpen;
         
         if (isMenuOpen) {
             hamburger.classList.add('active');
             navMenu.classList.add('active');
-            
-            // Bloquear scroll del body en móvil
-            if (isMobile) {
-                document.body.style.overflow = 'hidden';
-                document.body.style.position = 'fixed';
-                document.body.style.width = '100%';
-                document.body.style.top = `-${window.scrollY}px`;
-            }
         } else {
             hamburger.classList.remove('active');
             navMenu.classList.remove('active');
-            
-            // Restaurar scroll del body
-            if (isMobile) {
-                const scrollY = document.body.style.top;
-                document.body.style.overflow = '';
-                document.body.style.position = '';
-                document.body.style.width = '';
-                document.body.style.top = '';
-                if (scrollY) {
-                    window.scrollTo(0, parseInt(scrollY || '0') * -1);
-                }
-            }
         }
-        
-        console.log('🍔 Menú:', isMenuOpen ? 'abierto' : 'cerrado');
-    } catch (error) {
-        console.log('Error en toggle:', error);
-    }
-}
-
-// CERRAR MENÚ AL HACER CLICK
-document.addEventListener('click', function(e) {
-    try {
-        // Si es un enlace del menú, cerrar menú
-        if (e.target.tagName === 'A' && e.target.closest('.nav-menu')) {
-            setTimeout(function() {
+    };
+    
+    // Cerrar menú al hacer click en enlaces
+    const links = navMenu.querySelectorAll('a');
+    links.forEach(link => {
+        link.onclick = function() {
+            setTimeout(() => {
                 if (isMenuOpen) {
-                    toggleMenu();
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                    isMenuOpen = false;
                 }
             }, 100);
-        }
-        
-        // Si click fuera del menú, cerrar
-        const hamburger = document.getElementById('hamburger');
-        const navMenu = document.getElementById('navMenu');
-        
-        if (isMenuOpen && hamburger && navMenu) {
-            if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
-                toggleMenu();
-            }
-        }
-    } catch (error) {
-        console.log('Error en click:', error);
-    }
-});
+        };
+    });
+}
 
-// REDIMENSIONAR VENTANA (simple)
-window.addEventListener('resize', function() {
-    try {
-        const wasMobile = isMobile;
-        isMobile = detectMobile();
-        
-        // Solo reconfigurar si cambió el tipo de dispositivo
-        if (wasMobile !== isMobile) {
-            console.log('📱 Cambió a:', isMobile ? 'móvil' : 'desktop');
-            
-            if (isMobile) {
-                setupMobile();
-            } else {
-                setupDesktop();
-            }
-        }
-    } catch (error) {
-        console.log('Error en resize:', error);
-    }
-});
-
-// ACTIVAR VIDEOS EN DESKTOP con click del usuario
-document.addEventListener('click', function() {
-    if (!isMobile) {
-        try {
-            const video = document.getElementById('bgVideo');
-            const historyVideo = document.getElementById('historyVideo');
-            
-            if (video && video.paused) {
-                video.play().catch(e => console.log('No se pudo reproducir video principal'));
-            }
-            if (historyVideo && historyVideo.paused) {
-                historyVideo.play().catch(e => console.log('No se pudo reproducir video historia'));
-            }
-        } catch (error) {
-            console.log('Error activando videos:', error);
-        }
-    }
-}, { once: true });
-
-console.log('🚀 PRD cargado (ARREGLO INTELIGENTE)');
+console.log('🚀 PRD cargado (VERSIÓN MÍNIMA)');
