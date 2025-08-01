@@ -1,18 +1,23 @@
-// VERSIÓN CON ARREGLO DE SCROLL SIMPLE
+// VERSIÓN CON ARREGLO INTELIGENTE DE SCROLL
 console.log('🎬 PRD iniciando...');
 
 // Variables básicas
 let isMenuOpen = false;
 let isMobile = false;
+let pageInitialized = false;
 
-// ARREGLO SIMPLE DEL SCROLL INICIAL
-function fixInitialScroll() {
-    // Solo al cargar, ir al inicio
-    window.scrollTo(0, 0);
-    
-    // Limpiar cualquier hash problemático
-    if (window.location.hash) {
-        history.replaceState(null, null, window.location.pathname);
+// ARREGLO INTELIGENTE - SOLO AL INICIO
+function fixInitialScrollOnce() {
+    // SOLO si la página NO está inicializada
+    if (!pageInitialized) {
+        window.scrollTo(0, 0);
+        
+        // Limpiar hash problemático
+        if (window.location.hash) {
+            history.replaceState(null, null, window.location.pathname);
+        }
+        
+        console.log('🏠 Scroll inicial arreglado');
     }
 }
 
@@ -21,15 +26,15 @@ function detectMobile() {
     return window.innerWidth <= 768;
 }
 
-// ARREGLO INMEDIATO DEL SCROLL
-fixInitialScroll();
+// ARREGLO INMEDIATO SOLO AL CARGAR
+fixInitialScrollOnce();
 
 // INICIALIZACIÓN
 document.addEventListener('DOMContentLoaded', function() {
     console.log('📱 DOM listo');
     
-    // ARREGLAR SCROLL OTRA VEZ
-    fixInitialScroll();
+    // ARREGLAR SCROLL UNA VEZ MÁS
+    fixInitialScrollOnce();
     
     // Detectar móvil
     isMobile = detectMobile();
@@ -46,10 +51,11 @@ document.addEventListener('DOMContentLoaded', function() {
     setupMenu();
     setupYouTube();
     
-    // ARREGLO FINAL después de todo
+    // MARCAR COMO INICIALIZADA después de un momento
     setTimeout(() => {
-        fixInitialScroll();
-    }, 100);
+        pageInitialized = true;
+        console.log('✅ Página inicializada - Scroll libre activado');
+    }, 1000);
     
     console.log('✅ Configuración completada');
 });
@@ -271,13 +277,4 @@ document.addEventListener('click', function() {
     }
 }, { once: true });
 
-// EVENTO FINAL AL CARGAR TODO
-window.addEventListener('load', function() {
-    // Un último arreglo del scroll
-    setTimeout(() => {
-        fixInitialScroll();
-        console.log('🏠 Scroll final arreglado');
-    }, 50);
-});
-
-console.log('🚀 PRD cargado (CON ARREGLO DE SCROLL)');
+console.log('🚀 PRD cargado (ARREGLO INTELIGENTE)');
