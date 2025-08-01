@@ -6,26 +6,8 @@
     <title>El nuevo PRD</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
-    
-    <!-- FORZAR SCROLL AL INICIO DESDE EL HEAD -->
-    <script>
-        // MATAR CUALQUIER HASH INMEDIATAMENTE
-        if (window.location.hash) {
-            history.replaceState(null, null, window.location.pathname);
-        }
-        // FORZAR SCROLL INMEDIATO
-        window.scrollTo(0, 0);
-        document.documentElement.scrollTop = 0;
-    </script>
 </head>
 <body>
-    <!-- SCRIPT INMEDIATO PARA MATAR EL SCROLL -->
-    <script>
-        window.scrollTo(0, 0);
-        document.documentElement.scrollTop = 0;
-        document.body.scrollTop = 0;
-    </script>
-
     <!-- Video de fondo ESTÁTICO SIEMPRE -->
     <div class="backup-background"></div>
     
@@ -48,12 +30,12 @@
     <!-- HEADER -->
     <header class="header">
         <nav class="nav-container">
-            <!-- Logo para desktop - CLICKEABLE -->
-            <a href="javascript:void(0)" class="logo desktop-logo" id="logoDesktop">El nuevo PRD</a>
+            <!-- Logo para desktop -->
+            <a href="#inicio" class="logo desktop-logo">El nuevo PRD</a>
             
-            <!-- Logo para móvil - CLICKEABLE -->
+            <!-- Logo para móvil -->
             <div class="mobile-logo">
-                <a href="javascript:void(0)" id="logoMobile">
+                <a href="#inicio">
                     <img src="assets/images/logos/LOGO H BLANCO.png" alt="PRD Zacatecas" class="logo-img">
                 </a>
             </div>
@@ -65,13 +47,13 @@
                 <span></span>
             </button>
             
-            <!-- MENÚ SIN ANCLAS - USAR JAVASCRIPT -->
+            <!-- MENÚ NORMAL -->
             <ul class="nav-menu" id="navMenu">
-                <li><a href="javascript:void(0)" data-target="documentos">DOCUMENTOS BÁSICOS</a></li>
-                <li><a href="javascript:void(0)" data-target="convocatorias">CONVOCATORIAS</a></li>
-                <li><a href="javascript:void(0)" data-target="directorio">DIRECTORIO</a></li>
-                <li><a href="javascript:void(0)" data-target="comunicacion">COMUNICACIÓN SOCIAL</a></li>
-                <li><a href="javascript:void(0)" data-target="afiliacion">AFILIACIÓN</a></li>
+                <li><a href="#documentos">DOCUMENTOS BÁSICOS</a></li>
+                <li><a href="#convocatorias">CONVOCATORIAS</a></li>
+                <li><a href="#directorio">DIRECTORIO</a></li>
+                <li><a href="#comunicacion">COMUNICACIÓN SOCIAL</a></li>
+                <li><a href="#afiliacion">AFILIACIÓN</a></li>
             </ul>
         </nav>
     </header>
@@ -120,7 +102,7 @@
             <!-- Aquí se ve el video de fondo que queda fijo -->
         </section>
         
-        <!-- SECCIONES INFERIORES (iguales para ambos) -->
+        <!-- SECCIONES INFERIORES -->
         <div class="content-overlay">
             <!-- Sección Afíliate -->
             <section class="affiliate-section" id="afiliacion">
@@ -160,8 +142,6 @@
                 </div>
             </section>
 
-            <!-- NUEVAS SECCIONES PARA LAS OPCIONES DEL MENÚ -->
-            
             <!-- Sección Documentos Básicos -->
             <section class="documents-section" id="documentos">
                 <div class="documents-content">
@@ -185,24 +165,6 @@
             </section>
 
     <script src="js/main.js"></script>
-    
-    <!-- SCRIPT FINAL PARA MATAR TODO -->
-    <script>
-        // ASEGURAR QUE NO HAY SCROLL AL FINAL
-        window.scrollTo(0, 0);
-        document.documentElement.scrollTop = 0;
-        document.body.scrollTop = 0;
-        
-        // MATAR CUALQUIER HASH
-        if (window.location.hash) {
-            history.replaceState(null, null, window.location.pathname);
-        }
-        
-        // OVERRIDE SCROLL RESTORATION
-        if ('scrollRestoration' in history) {
-            history.scrollRestoration = 'manual';
-        }
-    </script>
 </body>
 
 </html>

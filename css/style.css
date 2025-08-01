@@ -5,10 +5,10 @@
     box-sizing: border-box;
 }
 
-/* Importar fuente más limpia */
+/* Importar fuente */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
-/* SCROLL SUAVE GLOBAL */
+/* SCROLL SUAVE */
 html {
     scroll-behavior: smooth;
 }
@@ -21,7 +21,7 @@ body {
     padding: 0;
 }
 
-/* Video de fondo ESTÁTICO SIEMPRE */
+/* Video de fondo */
 .video-container {
     position: fixed;
     top: 0;
@@ -190,7 +190,7 @@ body {
     display: block;
 }
 
-/* Animación del hamburger cuando está activo */
+/* Animación del hamburger */
 .hamburger.active span:nth-child(1) {
     transform: rotate(-45deg) translate(-4px, 5px);
 }
@@ -212,7 +212,7 @@ body {
     padding-top: 0;
 }
 
-/* SECCIÓN HERO - IMAGEN GIGANTE EN DESKTOP */
+/* SECCIÓN HERO - DESKTOP */
 .hero-section {
     min-height: 80vh;
     display: flex;
@@ -235,21 +235,19 @@ body {
     height: auto;
 }
 
-/* IMAGEN GIGANTE EN DESKTOP - SIN LIMITACIONES */
 .portada-image {
     width: 100%;
     height: auto;
     display: block;
 }
 
-/* ESPACIO EN BLANCO PARA VER SOLO EL VIDEO */
+/* ESPACIO PARA VIDEO */
 .video-reveal-space {
     height: 80vh;
     position: relative;
-    /* Solo se ve el video de fondo */
 }
 
-/* CONTENIDO QUE VA ENCIMA */
+/* CONTENIDO ENCIMA */
 .content-overlay {
     position: relative;
     z-index: 10;
@@ -304,7 +302,7 @@ body {
     box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 
-/* SECCIÓN HISTORIA CON VIDEO DE FONDO */
+/* SECCIÓN HISTORIA CON VIDEO */
 .history-section {
     position: relative;
     padding: 2rem;
@@ -315,7 +313,6 @@ body {
     justify-content: center;
 }
 
-/* Video de fondo para la sección Historia */
 .history-video-container {
     position: absolute;
     top: 0;
@@ -323,17 +320,16 @@ body {
     width: 100%;
     height: 100%;
     z-index: 1;
-    pointer-events: none; /* IMPORTANTE: Evita interacción */
+    pointer-events: none;
 }
 
 .history-bg-video {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    pointer-events: none; /* IMPORTANTE: Evita controles */
+    pointer-events: none;
 }
 
-/* Evitar que aparezcan controles del video */
 .history-bg-video::-webkit-media-controls {
     display: none !important;
 }
@@ -350,7 +346,6 @@ body {
     display: none !important;
 }
 
-/* Sin overlay oscuro - queremos ver el video claramente */
 .history-video-overlay {
     position: absolute;
     top: 0;
@@ -361,7 +356,6 @@ body {
     z-index: 2;
 }
 
-/* Contenedor principal con fondo blanquecino */
 .history-content {
     position: relative;
     z-index: 10;
@@ -392,9 +386,7 @@ body {
     margin: 0 auto;
 }
 
-/* ===== NUEVAS SECCIONES DEL MENÚ ===== */
-
-/* Sección Documentos Básicos */
+/* SECCIÓN DOCUMENTOS */
 .documents-section {
     background: linear-gradient(135deg, #2c3e50, #34495e);
     padding: 4rem 2rem;
@@ -458,7 +450,7 @@ body {
     margin: 0;
 }
 
-/* Loading simple */
+/* Loading */
 .loading {
     position: fixed;
     top: 50%;
@@ -487,11 +479,7 @@ body {
     100% { transform: rotate(360deg); }
 }
 
-/* ===================================
-   ELEMENTOS MÓVILES OCULTOS EN DESKTOP
-   =================================== */
-
-/* Mostrar/ocultar elementos según dispositivo */
+/* MOSTRAR/OCULTAR ELEMENTOS */
 .desktop-only {
     display: block;
 }
@@ -500,7 +488,6 @@ body {
     display: none;
 }
 
-/* Ocultar elementos móviles en desktop */
 .mobile-logo {
     display: none;
 }
@@ -509,12 +496,9 @@ body {
     display: none;
 }
 
-/* ===================================
-   RESPONSIVE MÓVIL - 768px y menor
-   =================================== */
+/* ===== RESPONSIVE MÓVIL ===== */
 @media screen and (max-width: 768px) {
     
-    /* Cambiar visibilidad */
     .desktop-only {
         display: none !important;
     }
@@ -523,7 +507,7 @@ body {
         display: block !important;
     }
     
-    /* ===== HEADER MÓVIL ===== */
+    /* HEADER MÓVIL */
     .header {
         height: 70px !important;
         padding: 1rem 0 !important;
@@ -540,12 +524,10 @@ body {
         height: 100% !important;
     }
     
-    /* OCULTAR LOGO DESKTOP */
     .desktop-logo {
         display: none !important;
     }
     
-    /* MOSTRAR LOGO MÓVIL */
     .mobile-logo {
         display: block !important;
     }
@@ -596,7 +578,6 @@ body {
         border-radius: 1px !important;
     }
     
-    /* Animación hamburger */
     .hamburger.active span:nth-child(1) {
         transform: rotate(-45deg) translate(-5px, 6px) !important;
     }
@@ -669,7 +650,7 @@ body {
         box-shadow: 0 8px 25px rgba(241, 194, 50, 0.2) !important;
     }
     
-    /* ===== HERO MÓVIL CON MINIATURA ===== */
+    /* HERO MÓVIL */
     .mobile-hero {
         position: relative !important;
         width: 100% !important;
@@ -683,7 +664,6 @@ body {
         overflow: hidden !important;
     }
     
-    /* Contenedor de la miniatura */
     .mobile-video-thumbnail {
         position: absolute !important;
         top: 0 !important;
@@ -695,7 +675,6 @@ body {
         justify-content: center !important;
     }
     
-    /* Imagen de miniatura */
     .thumbnail-image {
         position: absolute !important;
         top: 0 !important;
@@ -707,7 +686,6 @@ body {
         z-index: 1 !important;
     }
     
-    /* Overlay oscuro sobre la miniatura */
     .mobile-hero-overlay {
         position: absolute !important;
         top: 0 !important;
@@ -718,7 +696,6 @@ body {
         z-index: 2 !important;
     }
     
-    /* Contenido encima de la miniatura */
     .mobile-hero-content {
         position: relative !important;
         z-index: 10 !important;
@@ -767,7 +744,7 @@ body {
         margin-left: 3px !important;
     }
     
-    /* ===== AJUSTAR SECCIONES INFERIORES ===== */
+    /* SECCIONES RESPONSIVE */
     .affiliate-section {
         padding: 3rem 1rem !important;
         position: relative !important;
@@ -812,7 +789,6 @@ body {
         line-height: 1.7 !important;
     }
     
-    /* ===== NUEVAS SECCIONES RESPONSIVE ===== */
     .documents-section {
         padding: 3rem 1rem !important;
     }
@@ -831,9 +807,7 @@ body {
     }
 }
 
-/* ===================================
-   MÓVIL PEQUEÑO - 480px y menor
-   =================================== */
+/* MÓVIL PEQUEÑO */
 @media screen and (max-width: 480px) {
     
     .header {
