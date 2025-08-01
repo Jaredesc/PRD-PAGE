@@ -12,47 +12,41 @@ let userHasInteracted = false;
 let isMenuOpen = false;
 let lastScrollY = window.scrollY;
 let isMobileView = false;
+let pageFullyLoaded = false;
 
-// ===== ANTI-SCROLL AGRESIVO =====
-function forceScrollToTop() {
+// ===== SOLO BLOQUEAR SCROLL INICIAL =====
+function forceInitialScrollToTop() {
     window.scrollTo(0, 0);
     document.documentElement.scrollTop = 0;
     document.body.scrollTop = 0;
     
-    // Matar cualquier hash
+    // Matar cualquier hash SOLO al inicio
     if (window.location.hash) {
         history.replaceState(null, null, window.location.pathname);
     }
 }
 
-// OVERRIDE SCROLL RESTORATION INMEDIATAMENTE
+// OVERRIDE SCROLL RESTORATION
 if ('scrollRestoration' in history) {
     history.scrollRestoration = 'manual';
 }
 
-// FORZAR SCROLL MÚLTIPLES VECES
-forceScrollToTop();
+// SOLO forzar scroll al inicio
+forceInitialScrollToTop();
 
-// PREVENIR NAVEGACIÓN AUTOMÁTICA
-window.addEventListener('beforeunload', forceScrollToTop);
-window.addEventListener('pagehide', forceScrollToTop);
-window.addEventListener('unload', forceScrollToTop);
-
-// INICIALIZACIÓN SÚPER AGRESIVA
+// INICIALIZACIÓN NORMAL
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('🎬 PRD iniciando (MODO ANTI-SCROLL)...');
+    console.log('🎬 PRD iniciando...');
     
-    // FORZAR SCROLL INMEDIATO
-    forceScrollToTop();
+    // FORZAR SCROLL SOLO AL INICIO
+    forceInitialScrollToTop();
     
     // Detectar móvil
     isMobileView = window.innerWidth <= 768;
     
     if (isMobileView) {
-        // MÓVIL: Configuración simple
         setupMobile();
     } else {
-        // DESKTOP: Videos normales
         setupDesktop();
     }
     
@@ -63,13 +57,14 @@ document.addEventListener('DOMContentLoaded', function() {
     setupYouTubeButton();
     setupCustomNavigation();
     
-    // FORZAR SCROLL DESPUÉS DE TODO
-    setTimeout(forceScrollToTop, 100);
-    setTimeout(forceScrollToTop, 500);
-    setTimeout(forceScrollToTop, 1000);
+    // Marcar como cargado después de un momento
+    setTimeout(() => {
+        pageFullyLoaded = true;
+        console.log('✅ Página completamente cargada - Navegación libre activada');
+    }, 2000);
 });
 
-// NAVEGACIÓN PERSONALIZADA SIN HASHES
+// NAVEGACIÓN PERSONALIZADA NORMAL
 function setupCustomNavigation() {
     const menuLinks = document.querySelectorAll('[data-target]');
     
@@ -123,7 +118,7 @@ function setupLogoClicks() {
     }
 }
 
-// FUNCIÓN PARA SCROLL SUAVE AL INICIO
+// FUNCIÓN PARA SCROLL SUAVE AL INICIO (SOLO CUANDO EL USUARIO LO PIDE)
 function scrollToTop() {
     // Cerrar menú si está abierto
     if (isMenuOpen) {
@@ -135,9 +130,6 @@ function scrollToTop() {
         top: 0,
         behavior: 'smooth'
     });
-    
-    // Forzar después del smooth scroll
-    setTimeout(forceScrollToTop, 100);
 }
 
 // CONFIGURAR BOTÓN YOUTUBE
@@ -154,9 +146,9 @@ function setupYouTubeButton() {
     }, 500);
 }
 
-// CONFIGURACIÓN MÓVIL SIMPLE
+// CONFIGURACIÓN MÓVIL
 function setupMobile() {
-    console.log('📱 Configurando móvil (ANTI-SCROLL)...');
+    console.log('📱 Configurando móvil...');
     
     // Ocultar videos de fondo
     if (video) {
@@ -174,10 +166,7 @@ function setupMobile() {
         historyVideo.play().catch(e => console.log('Video historia no se puede reproducir'));
     }
     
-    // FORZAR SCROLL EN MÓVIL
-    forceScrollToTop();
-    
-    console.log('✅ Móvil configurado - SIN SCROLL AUTOMÁTICO');
+    console.log('✅ Móvil configurado');
 }
 
 // CONFIGURACIÓN DESKTOP
@@ -246,7 +235,7 @@ function toggleMenu() {
     }
 }
 
-// EFECTOS DE SCROLL
+// EFECTOS DE SCROLL NORMALES
 function setupScroll() {
     window.addEventListener('scroll', function() {
         const currentScrollY = window.scrollY;
@@ -305,36 +294,36 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-// ANTI-HASH AGRESIVO
+// SOLO bloquear hashchange si la página NO está completamente cargada
 window.addEventListener('hashchange', function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    forceScrollToTop();
+    if (!pageFullyLoaded) {
+        e.preventDefault();
+        e.stopPropagation();
+        forceInitialScrollToTop();
+        console.log('🚫 Hash bloqueado durante carga inicial');
+    }
 });
 
-// ANTI-SCROLL AL CARGAR
+// FORZAR SCROLL SOLO al cargar
 window.addEventListener('load', function() {
-    forceScrollToTop();
-    setTimeout(forceScrollToTop, 100);
-    setTimeout(forceScrollToTop, 500);
+    forceInitialScrollToTop();
+    setTimeout(() => {
+        if (!pageFullyLoaded) {
+            forceInitialScrollToTop();
+        }
+    }, 100);
 });
 
-// ANTI-POPSTATE
-window.addEventListener('popstate', function(e) {
-    e.preventDefault();
-    forceScrollToTop();
-});
-
-// API PÚBLICA SIMPLE
+// API PÚBLICA
 window.PRD = {
     toggleMenu: toggleMenu,
     scrollToTop: scrollToTop,
-    forceScrollToTop: forceScrollToTop,
     get isMobile() { return isMobileView; },
-    get isMenuOpen() { return isMenuOpen; }
+    get isMenuOpen() { return isMenuOpen; },
+    get pageLoaded() { return pageFullyLoaded; }
 };
 
-console.log('✅ PRD Zacatecas cargado (MODO ANTI-SCROLL)');
+console.log('✅ PRD Zacatecas cargado (VERSIÓN BALANCEADA)');
 console.log('📱 Es móvil:', isMobileView);
-console.log('🚫 SCROLL AUTOMÁTICO DESHABILITADO');
+console.log('🎯 Solo bloquea scroll inicial problemático');
 console.log('🏠 Logo clickeable para ir al inicio');
