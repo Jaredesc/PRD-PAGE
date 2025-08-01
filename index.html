@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PRD Digital Zacatecas</title>
+    <title>El nuevo PRD</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
 </head>
@@ -31,7 +31,7 @@
     <header class="header">
         <nav class="nav-container">
             <!-- Logo para desktop -->
-            <a href="#" class="logo desktop-logo">PRD DIGITAL</a>
+            <a href="#" class="logo desktop-logo">El nuevo PRD</a>
             
             <!-- Logo para móvil -->
             <div class="mobile-logo">
@@ -45,12 +45,13 @@
                 <span></span>
             </button>
             
-            <!-- MENÚ NORMAL -->
+            <!-- MENÚ NORMAL CON NUEVAS OPCIONES -->
             <ul class="nav-menu" id="navMenu">
                 <li><a href="#documentos">DOCUMENTOS BÁSICOS</a></li>
-                <li><a href="#comunicacion">COMUNICACIÓN DIGITAL</a></li>
+                <li><a href="#convocatorias">CONVOCATORIAS</a></li>
+                <li><a href="#directorio">DIRECTORIO</a></li>
+                <li><a href="#comunicacion">COMUNICACIÓN SOCIAL</a></li>
                 <li><a href="#afiliacion">AFILIACIÓN</a></li>
-                <li><a href="#more">More</a></li>
             </ul>
         </nav>
     </header>
@@ -110,7 +111,7 @@
         <!-- SECCIONES INFERIORES (iguales para ambos) -->
         <div class="content-overlay">
             <!-- Sección Afíliate -->
-            <section class="affiliate-section">
+            <section class="affiliate-section" id="afiliacion">
                 <div class="affiliate-content">
                     <h2>AFÍLIATE</h2>
                     <p>Esto es por ti. Por tu esfuerzo. Por tus ganas de salir adelante sin trabas ni excusas. Porque mereces un país que te escuche, que te respete, que te impulse. Y no vamos a quedarnos de brazos cruzados.</p>
@@ -146,11 +147,35 @@
                     <p>El PRD se fundó en la Ciudad de México, el 5 de mayo de 1989 por Cuauhtémoc Cárdenas, Porfirio Muñoz Ledo, Ifigenia Martínez, Andrés Manuel López Obrador, entre otros y miembros históricos de la izquierda como Heberto Castillo, Gilberto Rincón Gallardo, Amalia García entre muchos otros políticos de la izquierda mexicana.</p>
                 </div>
             </section>
-        </div>
-    </div>
+
+            <!-- NUEVAS SECCIONES PARA LAS OPCIONES DEL MENÚ -->
+            
+            <!-- Sección Documentos Básicos -->
+            <section class="documents-section" id="documentos">
+                <div class="documents-content">
+                    <h2>DOCUMENTOS BÁSICOS</h2>
+                    <p>Consulta los documentos fundamentales del PRD Zacatecas, incluyendo estatutos, reglamentos, declaración de principios y programa de acción.</p>
+                    <div class="documents-grid">
+                        <a href="assets/documentos/documentos_basicos/ESTATUTOVIGENTEPRDZACATECASMARZO2025.pdf" target="_blank" class="document-card">
+                            <h3> Estatutos</h3>
+                            <p>Normas que rigen la organización interna del partido</p>
+                        </a>
+                        <a href="assets/documentos/documentos_basicos/DECLARACIONDEPRINCIPIOSPRDZ.pdf" target="_blank" class="document-card">
+                            <h3> Declaración de Principios</h3>
+                            <p>Valores y principios fundamentales del PRD</p>
+                        </a>
+                        <a href="assets/documentos/documentos_basicos/PROGRAMADEACCIONPRDZ.pdf" target="_blank" class="document-card">
+                            <h3> Programa de Acción</h3>
+                            <p>Propuestas y objetivos políticos</p>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
 
     <script src="js/main.js"></script>
 </body>
+    
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
