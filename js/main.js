@@ -10,37 +10,153 @@ const header = document.querySelector('.header');
 // Variables de estado
 let userHasInteracted = false;
 let isMenuOpen = false;
-let isVideoPlaying = false;
 let lastScrollY = window.scrollY;
 let isMobileView = false;
-let isYoutubeOpen = false;
 
-// ID del video de YouTube
-const YOUTUBE_VIDEO_ID = '2YhaGWompwU';
+// ===== ANTI-SCROLL AGRESIVO =====
+function forceScrollToTop() {
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    
+    // Matar cualquier hash
+    if (window.location.hash) {
+        history.replaceState(null, null, window.location.pathname);
+    }
+}
 
-// INICIALIZACIÓN SIMPLE
+// OVERRIDE SCROLL RESTORATION INMEDIATAMENTE
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
+
+// FORZAR SCROLL MÚLTIPLES VECES
+forceScrollToTop();
+
+// PREVENIR NAVEGACIÓN AUTOMÁTICA
+window.addEventListener('beforeunload', forceScrollToTop);
+window.addEventListener('pagehide', forceScrollToTop);
+window.addEventListener('unload', forceScrollToTop);
+
+// INICIALIZACIÓN SÚPER AGRESIVA
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('🎬 PRD iniciando...');
+    console.log('🎬 PRD iniciando (MODO ANTI-SCROLL)...');
+    
+    // FORZAR SCROLL INMEDIATO
+    forceScrollToTop();
     
     // Detectar móvil
     isMobileView = window.innerWidth <= 768;
     
     if (isMobileView) {
-        // MÓVIL: Solo configurar YouTube
+        // MÓVIL: Configuración simple
         setupMobile();
     } else {
         // DESKTOP: Videos normales
         setupDesktop();
     }
     
-    // Configurar menú
+    // Configurar todo
     setupMenu();
     setupScroll();
+    setupLogoClicks();
+    setupYouTubeButton();
+    setupCustomNavigation();
+    
+    // FORZAR SCROLL DESPUÉS DE TODO
+    setTimeout(forceScrollToTop, 100);
+    setTimeout(forceScrollToTop, 500);
+    setTimeout(forceScrollToTop, 1000);
 });
 
-// CONFIGURACIÓN MÓVIL SÚPER SIMPLE
+// NAVEGACIÓN PERSONALIZADA SIN HASHES
+function setupCustomNavigation() {
+    const menuLinks = document.querySelectorAll('[data-target]');
+    
+    menuLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const target = this.getAttribute('data-target');
+            const targetElement = document.getElementById(target);
+            
+            if (targetElement) {
+                // Cerrar menú primero
+                if (isMenuOpen) {
+                    toggleMenu();
+                }
+                
+                // Scroll suave a la sección
+                setTimeout(() => {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }, 300);
+            }
+        });
+    });
+}
+
+// CONFIGURAR CLICKS EN LOGOS
+function setupLogoClicks() {
+    const logoDesktop = document.getElementById('logoDesktop');
+    const logoMobile = document.getElementById('logoMobile');
+    
+    // Logo desktop
+    if (logoDesktop) {
+        logoDesktop.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            scrollToTop();
+        });
+    }
+    
+    // Logo móvil
+    if (logoMobile) {
+        logoMobile.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            scrollToTop();
+        });
+    }
+}
+
+// FUNCIÓN PARA SCROLL SUAVE AL INICIO
+function scrollToTop() {
+    // Cerrar menú si está abierto
+    if (isMenuOpen) {
+        toggleMenu();
+    }
+    
+    // Scroll suave al inicio
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+    
+    // Forzar después del smooth scroll
+    setTimeout(forceScrollToTop, 100);
+}
+
+// CONFIGURAR BOTÓN YOUTUBE
+function setupYouTubeButton() {
+    setTimeout(() => {
+        const btn = document.getElementById('mobilePlayBtn');
+        if (btn) {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                window.open('https://www.youtube.com/watch?v=2YhaGWompwU', '_blank');
+            });
+        }
+    }, 500);
+}
+
+// CONFIGURACIÓN MÓVIL SIMPLE
 function setupMobile() {
-    console.log('📱 Configurando móvil...');
+    console.log('📱 Configurando móvil (ANTI-SCROLL)...');
     
     // Ocultar videos de fondo
     if (video) {
@@ -58,124 +174,10 @@ function setupMobile() {
         historyVideo.play().catch(e => console.log('Video historia no se puede reproducir'));
     }
     
-    // CONFIGURAR BOTÓN DE YOUTUBE - MUY SIMPLE
-    setTimeout(() => {
-        const playBtn = document.getElementById('mobilePlayBtn');
-        const container = document.getElementById('youtubeContainer');
-        const wrapper = document.getElementById('youtubeWrapper');
-        const closeBtn = document.getElementById('youtubeCloseBtn');
-        
-        console.log('🔍 Elementos encontrados:', {
-            playBtn: !!playBtn,
-            container: !!container,
-            wrapper: !!wrapper,
-            closeBtn: !!closeBtn
-        });
-        
-        if (playBtn && container && wrapper) {
-            // LIMPIAR CUALQUIER EVENTO ANTERIOR
-            playBtn.replaceWith(playBtn.cloneNode(true));
-            const newPlayBtn = document.getElementById('mobilePlayBtn');
-            
-            // EVENTO CLICK SIMPLE
-            newPlayBtn.addEventListener('click', function() {
-                console.log('🖱️ ¡BOTÓN CLICKEADO!');
-                abrirYoutube();
-            });
-            
-            // TAMBIÉN PARA TOUCH
-            newPlayBtn.addEventListener('touchstart', function() {
-                console.log('👆 ¡BOTÓN TOCADO!');
-                abrirYoutube();
-            });
-            
-            console.log('✅ Botón configurado');
-        } else {
-            console.log('❌ No se encontraron elementos');
-        }
-        
-        // Configurar botón cerrar
-        if (closeBtn) {
-            closeBtn.addEventListener('click', cerrarYoutube);
-            closeBtn.addEventListener('touchstart', cerrarYoutube);
-        }
-        
-        // Click fuera para cerrar
-        if (container) {
-            container.addEventListener('click', function(e) {
-                if (e.target === container) {
-                    cerrarYoutube();
-                }
-            });
-        }
-        
-    }, 500);
-}
-
-// ABRIR YOUTUBE - VERSIÓN SÚPER SIMPLE
-function abrirYoutube() {
-    console.log('🎬 Abriendo YouTube...');
+    // FORZAR SCROLL EN MÓVIL
+    forceScrollToTop();
     
-    const container = document.getElementById('youtubeContainer');
-    const wrapper = document.getElementById('youtubeWrapper');
-    
-    if (!container || !wrapper) {
-        console.log('❌ No hay elementos');
-        // FALLBACK: abrir en nueva ventana
-        window.open(`https://www.youtube.com/watch?v=${YOUTUBE_VIDEO_ID}`, '_blank');
-        return;
-    }
-    
-    // CREAR IFRAME SIMPLE
-    wrapper.innerHTML = `
-        <iframe 
-            src="https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&rel=0&controls=1"
-            width="100%" 
-            height="100%" 
-            frameborder="0" 
-            allow="autoplay; encrypted-media" 
-            allowfullscreen
-            style="border-radius: 12px;">
-        </iframe>
-    `;
-    
-    // MOSTRAR
-    container.style.display = 'block';
-    container.classList.add('active');
-    isYoutubeOpen = true;
-    
-    // ANIMACIÓN
-    container.style.opacity = '0';
-    container.style.transform = 'translate(-50%, -50%) scale(0.8)';
-    
-    setTimeout(() => {
-        container.style.transition = 'all 0.3s ease';
-        container.style.opacity = '1';
-        container.style.transform = 'translate(-50%, -50%) scale(1)';
-    }, 10);
-    
-    console.log('✅ YouTube abierto');
-}
-
-// CERRAR YOUTUBE
-function cerrarYoutube() {
-    console.log('❌ Cerrando YouTube...');
-    
-    const container = document.getElementById('youtubeContainer');
-    const wrapper = document.getElementById('youtubeWrapper');
-    
-    if (container) {
-        container.style.opacity = '0';
-        container.style.transform = 'translate(-50%, -50%) scale(0.8)';
-        
-        setTimeout(() => {
-            container.style.display = 'none';
-            container.classList.remove('active');
-            if (wrapper) wrapper.innerHTML = '';
-            isYoutubeOpen = false;
-            container.style.transition = '';
-        }, 300);
-    }
+    console.log('✅ Móvil configurado - SIN SCROLL AUTOMÁTICO');
 }
 
 // CONFIGURACIÓN DESKTOP
@@ -209,17 +211,8 @@ function setupMenu() {
     
     hamburger.addEventListener('click', function(e) {
         e.preventDefault();
+        e.stopPropagation();
         toggleMenu();
-    });
-    
-    // Enlaces del menú
-    const links = navMenu.querySelectorAll('a');
-    links.forEach(link => {
-        link.addEventListener('click', function() {
-            setTimeout(() => {
-                if (isMenuOpen) toggleMenu();
-            }, 200);
-        });
     });
     
     // Click fuera del menú
@@ -280,10 +273,10 @@ function setupScroll() {
 
 // REDIMENSIONAR VENTANA
 window.addEventListener('resize', function() {
-    const wassMobile = isMobileView;
+    const wasMobile = isMobileView;
     isMobileView = window.innerWidth <= 768;
     
-    if (wassMobile !== isMobileView) {
+    if (wasMobile !== isMobileView) {
         if (isMobileView) {
             setupMobile();
         } else {
@@ -305,24 +298,43 @@ document.addEventListener('click', function() {
     }
 }, { once: true });
 
-// ESCAPE PARA CERRAR
+// ESCAPE PARA CERRAR MENÚ
 document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        if (isYoutubeOpen) cerrarYoutube();
-        if (isMenuOpen) toggleMenu();
+    if (e.key === 'Escape' && isMenuOpen) {
+        toggleMenu();
     }
+});
+
+// ANTI-HASH AGRESIVO
+window.addEventListener('hashchange', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    forceScrollToTop();
+});
+
+// ANTI-SCROLL AL CARGAR
+window.addEventListener('load', function() {
+    forceScrollToTop();
+    setTimeout(forceScrollToTop, 100);
+    setTimeout(forceScrollToTop, 500);
+});
+
+// ANTI-POPSTATE
+window.addEventListener('popstate', function(e) {
+    e.preventDefault();
+    forceScrollToTop();
 });
 
 // API PÚBLICA SIMPLE
 window.PRD = {
-    abrirYoutube: abrirYoutube,
-    cerrarYoutube: cerrarYoutube,
     toggleMenu: toggleMenu,
+    scrollToTop: scrollToTop,
+    forceScrollToTop: forceScrollToTop,
     get isMobile() { return isMobileView; },
-    get isYoutubeOpen() { return isYoutubeOpen; },
     get isMenuOpen() { return isMenuOpen; }
 };
 
-console.log('✅ PRD Zacatecas cargado');
+console.log('✅ PRD Zacatecas cargado (MODO ANTI-SCROLL)');
 console.log('📱 Es móvil:', isMobileView);
-console.log('🎮 Usa PRD.abrirYoutube() para probar');
+console.log('🚫 SCROLL AUTOMÁTICO DESHABILITADO');
+console.log('🏠 Logo clickeable para ir al inicio');

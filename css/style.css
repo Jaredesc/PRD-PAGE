@@ -8,6 +8,11 @@
 /* Importar fuente más limpia */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
+/* SCROLL SUAVE GLOBAL */
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     background: #000;
     overflow-x: hidden;
@@ -77,6 +82,7 @@ body {
     padding: 0;
 }
 
+/* LOGO DESKTOP */
 .logo {
     margin-left: 2rem;
     color: #f1c232;
@@ -85,6 +91,35 @@ body {
     text-decoration: none;
     letter-spacing: 2px;
     text-transform: uppercase;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.logo:hover {
+    color: #d4af37;
+    transform: translateY(-2px);
+}
+
+/* LOGO MÓVIL */
+.mobile-logo {
+    display: none;
+}
+
+.mobile-logo a {
+    display: block;
+    transition: all 0.3s ease;
+}
+
+.mobile-logo a:hover {
+    transform: scale(1.05);
+}
+
+.logo-img {
+    height: 45px;
+    width: auto;
+    max-width: 120px;
+    object-fit: contain;
+    filter: brightness(1.1);
     transition: all 0.3s ease;
 }
 
@@ -423,184 +458,6 @@ body {
     margin: 0;
 }
 
-/* Sección Convocatorias */
-.convocatorias-section {
-    background: linear-gradient(135deg, #8e44ad, #9b59b6);
-    padding: 4rem 2rem;
-    color: white;
-}
-
-.convocatorias-content {
-    max-width: 1000px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.convocatorias-content h2 {
-    font-size: 3rem;
-    font-weight: 800;
-    margin-bottom: 2rem;
-}
-
-.convocatorias-content p {
-    font-size: 1.2rem;
-    margin-bottom: 3rem;
-    opacity: 0.9;
-}
-
-.convocatorias-list {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    margin-top: 3rem;
-}
-
-.convocatoria-item {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 2rem;
-    border-radius: 15px;
-    text-align: left;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: all 0.3s ease;
-}
-
-.convocatoria-item:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateX(10px);
-}
-
-.convocatoria-item .fecha {
-    font-size: 0.9rem;
-    opacity: 0.8;
-    margin-bottom: 0.5rem;
-}
-
-.convocatoria-item h3 {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-    color: #f1c232;
-}
-
-.convocatoria-item p {
-    margin: 0;
-    opacity: 0.9;
-}
-
-/* Sección Directorio */
-.directorio-section {
-    background: linear-gradient(135deg, #27ae60, #2ecc71);
-    padding: 4rem 2rem;
-    color: white;
-}
-
-.directorio-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.directorio-content h2 {
-    font-size: 3rem;
-    font-weight: 800;
-    margin-bottom: 2rem;
-}
-
-.directorio-content p {
-    font-size: 1.2rem;
-    margin-bottom: 3rem;
-    opacity: 0.9;
-}
-
-.directorio-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 3rem;
-}
-
-.dirigente-card {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 2rem;
-    border-radius: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: all 0.3s ease;
-}
-
-.dirigente-card:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateY(-5px);
-}
-
-.dirigente-card h3 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    color: #f1c232;
-}
-
-.dirigente-card p {
-    margin: 0;
-    opacity: 0.8;
-}
-
-/* Sección Comunicación Social */
-.comunicacion-section {
-    background: linear-gradient(135deg, #e74c3c, #c0392b);
-    padding: 4rem 2rem;
-    color: white;
-}
-
-.comunicacion-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.comunicacion-content h2 {
-    font-size: 3rem;
-    font-weight: 800;
-    margin-bottom: 2rem;
-}
-
-.comunicacion-content p {
-    font-size: 1.2rem;
-    margin-bottom: 3rem;
-    opacity: 0.9;
-}
-
-.comunicacion-tools {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 3rem;
-}
-
-.tool-card {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 2rem;
-    border-radius: 15px;
-    text-decoration: none;
-    color: white;
-    transition: all 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.tool-card:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-}
-
-.tool-card h3 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    color: #f1c232;
-}
-
-.tool-card p {
-    margin: 0;
-    opacity: 0.8;
-}
-
 /* Loading simple */
 .loading {
     position: fixed;
@@ -693,12 +550,22 @@ body {
         display: block !important;
     }
     
+    .mobile-logo a {
+        display: block !important;
+        transition: all 0.3s ease !important;
+    }
+    
+    .mobile-logo a:hover {
+        transform: scale(1.05) !important;
+    }
+    
     .logo-img {
         height: 45px !important;
         width: auto !important;
         max-width: 120px !important;
         object-fit: contain !important;
         filter: brightness(1.1) !important;
+        transition: all 0.3s ease !important;
     }
     
     /* HAMBURGER MÓVIL */
@@ -900,90 +767,6 @@ body {
         margin-left: 3px !important;
     }
     
-    /* ===== CONTENEDOR DE VIDEO YOUTUBE PEQUEÑO ===== */
-    .youtube-video-container {
-        position: fixed !important;
-        top: 50% !important;
-        left: 50% !important;
-        transform: translate(-50%, -50%) !important;
-        width: 90% !important;
-        max-width: 400px !important;
-        height: auto !important;
-        background: transparent !important;
-        z-index: 9999 !important;
-        display: none !important;
-        padding: 0 !important;
-        box-sizing: border-box !important;
-        pointer-events: none !important;
-    }
-    
-    .youtube-video-container.active {
-        pointer-events: auto !important;
-    }
-    
-    .youtube-video-wrapper {
-        position: relative !important;
-        width: 100% !important;
-        height: 0 !important;
-        padding-bottom: 56.25% !important; /* Aspect ratio 16:9 */
-        background: #000 !important;
-        border-radius: 12px !important;
-        overflow: hidden !important;
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5) !important;
-        border: 3px solid rgba(255, 255, 255, 0.1) !important;
-    }
-    
-    .youtube-video-wrapper iframe {
-        position: absolute !important;
-        top: 0 !important;
-        left: 0 !important;
-        width: 100% !important;
-        height: 100% !important;
-        border: none !important;
-        border-radius: 12px !important;
-    }
-    
-    .youtube-close-btn {
-        position: absolute !important;
-        top: -15px !important;
-        right: -15px !important;
-        width: 35px !important;
-        height: 35px !important;
-        border-radius: 50% !important;
-        background: rgba(211, 47, 47, 0.9) !important;
-        border: 2px solid white !important;
-        color: white !important;
-        font-size: 18px !important;
-        font-weight: bold !important;
-        cursor: pointer !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        z-index: 10000 !important;
-        transition: all 0.3s ease !important;
-        line-height: 1 !important;
-    }
-    
-    .youtube-close-btn:hover {
-        background: rgba(211, 47, 47, 1) !important;
-        transform: scale(1.1) !important;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3) !important;
-    }
-    
-    /* Backdrop blur cuando está abierto el video */
-    .youtube-video-container::before {
-        content: '' !important;
-        position: fixed !important;
-        top: 0 !important;
-        left: 0 !important;
-        width: 100vw !important;
-        height: 100vh !important;
-        background: rgba(0, 0, 0, 0.7) !important;
-        backdrop-filter: blur(8px) !important;
-        -webkit-backdrop-filter: blur(8px) !important;
-        z-index: -1 !important;
-    }
-    
     /* ===== AJUSTAR SECCIONES INFERIORES ===== */
     .affiliate-section {
         padding: 3rem 1rem !important;
@@ -1030,35 +813,20 @@ body {
     }
     
     /* ===== NUEVAS SECCIONES RESPONSIVE ===== */
-    
-    .documents-section,
-    .convocatorias-section,
-    .directorio-section,
-    .comunicacion-section {
+    .documents-section {
         padding: 3rem 1rem !important;
     }
     
-    .documents-content h2,
-    .convocatorias-content h2,
-    .directorio-content h2,
-    .comunicacion-content h2 {
+    .documents-content h2 {
         font-size: 2rem !important;
     }
     
-    .documents-grid,
-    .directorio-grid,
-    .comunicacion-tools {
+    .documents-grid {
         grid-template-columns: 1fr !important;
         gap: 1.5rem !important;
     }
     
-    .document-card,
-    .dirigente-card,
-    .tool-card {
-        padding: 1.5rem !important;
-    }
-    
-    .convocatoria-item {
+    .document-card {
         padding: 1.5rem !important;
     }
 }
@@ -1123,12 +891,6 @@ body {
     .mobile-play-btn svg {
         width: 22px !important;
         height: 22px !important;
-    }
-    
-    /* Video YouTube más pequeño en pantallas chicas */
-    .youtube-video-container {
-        width: 95% !important;
-        max-width: 350px !important;
     }
     
     .affiliate-content h2 {
