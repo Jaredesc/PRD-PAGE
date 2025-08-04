@@ -302,7 +302,7 @@ body {
     box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 
-/* SECCIÓN HISTORIA CON VIDEO */
+/* SECCIÓN HISTORIA CON VIDEO/IMAGEN ADAPTATIVO */
 .history-section {
     position: relative;
     padding: 2rem;
@@ -313,6 +313,7 @@ body {
     justify-content: center;
 }
 
+/* DESKTOP: Video de fondo */
 .history-video-container {
     position: absolute;
     top: 0;
@@ -347,6 +348,35 @@ body {
 }
 
 .history-video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    z-index: 2;
+}
+
+/* MÓVIL: Imagen de fondo */
+.history-image-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.history-bg-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    pointer-events: none;
+}
+
+.history-image-overlay {
     position: absolute;
     top: 0;
     left: 0;

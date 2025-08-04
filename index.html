@@ -115,10 +115,11 @@
                 </div>
             </section>
             
-            <!-- Sección Historia CON VIDEO DE FONDO -->
+            <!-- Sección Historia CON VIDEO/IMAGEN ADAPTATIVO -->
             <section class="history-section" id="historia">
-                <!-- Video de fondo para la sección Historia -->
-                <div class="history-video-container">
+                
+                <!-- DESKTOP: Video de fondo -->
+                <div class="history-video-container desktop-only">
                     <video 
                         id="historyVideo" 
                         class="history-bg-video" 
@@ -134,6 +135,18 @@
                     </video>
                     <!-- Overlay para mejorar legibilidad del texto -->
                     <div class="history-video-overlay"></div>
+                </div>
+                
+                <!-- MÓVIL: Imagen de fondo -->
+                <div class="history-image-container mobile-only">
+                    <img 
+                        src="assets/images/videos/NUBES.jpg" 
+                        alt="Fondo nubes" 
+                        class="history-bg-image"
+                        id="historyImage"
+                    >
+                    <!-- Overlay para mejorar legibilidad del texto -->
+                    <div class="history-image-overlay"></div>
                 </div>
                 
                 <div class="history-content">
