@@ -1,246 +1,508 @@
-// VERSIÓN OPTIMIZADA PARA MÓVILES - SIN ERRORES
-console.log('🎬 PRD iniciando (OPTIMIZADO MÓVIL)...');
+// VERSIÓN CON AUTOPLAY FORZADO EN DESKTOP
+console.log('🎬 PRD iniciando con autoplay forzado...');
 
-// Variables principales
+// Variables globales seguras
 let isMenuOpen = false;
 let isMobile = false;
+let isInitialized = false;
+let videoPlayAttempts = 0;
+let maxVideoAttempts = 10;
 
-// DETECTAR MÓVIL DE FORMA SEGURA
+// DETECTAR MÓVIL DE FORMA MUY SEGURA
 function detectMobile() {
     try {
-        return window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        if (typeof window === 'undefined') return true;
+        
+        const userAgent = navigator.userAgent || '';
+        const isMobileUA = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+        const isSmallScreen = window.innerWidth <= 768;
+        
+        return isMobileUA || isSmallScreen;
     } catch (e) {
-        return window.innerWidth <= 768;
+        console.log('⚠️ Error detectando móvil, asumiendo móvil:', e);
+        return true;
     }
 }
 
-// INICIALIZACIÓN SEGURA
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('📱 DOM listo');
+// FORZAR REPRODUCCIÓN DE VIDEO - DESKTOP ONLY
+function forceVideoPlay(video, videoName = 'video') {
+    if (isMobile || !video) return;
     
     try {
-        // Detectar móvil
-        isMobile = detectMobile();
-        console.log('📱 Es móvil:', isMobile);
+        console.log(`🎬 Intentando reproducir ${videoName}...`);
         
-        // Configurar según dispositivo
-        if (isMobile) {
-            setupMobileOptimized();
-        } else {
-            setupDesktop();
+        // Configurar propiedades esenciales
+        video.muted = true;
+        video.loop = true;
+        video.autoplay = true;
+        video.playsInline = true;
+        
+        // Intentar reproducir
+        const playPromise = video.play();
+        
+        if (playPromise !== undefined) {
+            playPromise
+                .then(() => {
+                    console.log(`✅ ${videoName} reproduciéndose automáticamente`);
+                    video.style.display = 'block';
+                    
+                    // Ocultar fondo de respaldo
+                    const backup = document.querySelector('.backup-background');
+                    if (backup && videoName === 'video principal') {
+                        backup.style.display = 'none';
+                    }
+                })
+                .catch(error => {
+                    console.log(`⚠️ Autoplay bloqueado para ${videoName}:`, error.message);
+                    
+                    // Si falla, seguir intentando cada segundo
+                    if (videoPlayAttempts < maxVideoAttempts) {
+                        videoPlayAttempts++;
+                        setTimeout(() => {
+                            console.log(`🔄 Reintentando ${videoName} (intento ${videoPlayAttempts}/${maxVideoAttempts})`);
+                            forceVideoPlay(video, videoName);
+                        }, 1000);
+                    } else {
+                        console.log(`❌ No se pudo reproducir ${videoName} después de ${maxVideoAttempts} intentos`);
+                        setupClickToPlay(video, videoName);
+                    }
+                });
+        }
+    } catch (error) {
+        console.log(`⚠️ Error configurando ${videoName}:`, error);
+    }
+}
+
+// CONFIGURAR CLICK PARA REPRODUCIR (FALLBACK)
+function setupClickToPlay(video, videoName) {
+    if (isMobile) return;
+    
+    console.log(`🖱️ Configurando click-to-play para ${videoName}`);
+    
+    // Mostrar indicador visual
+    showVideoClickIndicator();
+    
+    const playOnClick = () => {
+        try {
+            video.play().then(() => {
+                console.log(`✅ ${videoName} reproducido por click del usuario`);
+                hideVideoClickIndicator();
+                
+                // Ocultar fondo de respaldo
+                const backup = document.querySelector('.backup-background');
+                if (backup && videoName === 'video principal') {
+                    backup.style.display = 'none';
+                }
+                
+                // Remover listener después del primer click exitoso
+                document.removeEventListener('click', playOnClick);
+                document.removeEventListener('keydown', playOnKeyDown);
+                document.removeEventListener('touchstart', playOnClick);
+            });
+        } catch (e) {
+            console.log(`Error reproduciendo ${videoName} por click:`, e);
+        }
+    };
+    
+    const playOnKeyDown = (e) => {
+        if (e.key === ' ' || e.key === 'Enter') {
+            playOnClick();
+        }
+    };
+    
+    // Múltiples eventos para asegurar reproducción
+    document.addEventListener('click', playOnClick, { once: true });
+    document.addEventListener('keydown', playOnKeyDown, { once: true });
+    document.addEventListener('touchstart', playOnClick, { once: true });
+}
+
+// MOSTRAR INDICADOR DE VIDEO
+function showVideoClickIndicator() {
+    // Crear indicador visual si no existe
+    let indicator = document.getElementById('videoClickIndicator');
+    if (!indicator) {
+        indicator = document.createElement('div');
+        indicator.id = 'videoClickIndicator';
+        indicator.innerHTML = `
+            <div style="
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(0, 0, 0, 0.8);
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 50px;
+                font-family: 'Inter', sans-serif;
+                font-size: 1rem;
+                z-index: 10000;
+                border: 2px solid #f1c232;
+                backdrop-filter: blur(10px);
+                animation: pulse 2s infinite;
+            ">
+                🎬 Haz click para activar videos
+            </div>
+            <style>
+                @keyframes pulse {
+                    0%, 100% { opacity: 0.8; transform: translate(-50%, -50%) scale(1); }
+                    50% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
+                }
+            </style>
+        `;
+        document.body.appendChild(indicator);
+    }
+}
+
+// OCULTAR INDICADOR DE VIDEO
+function hideVideoClickIndicator() {
+    const indicator = document.getElementById('videoClickIndicator');
+    if (indicator) {
+        indicator.style.opacity = '0';
+        indicator.style.transition = 'opacity 0.5s ease';
+        setTimeout(() => {
+            if (indicator.parentNode) {
+                indicator.parentNode.removeChild(indicator);
+            }
+        }, 500);
+    }
+}
+
+// CONFIGURACIÓN DESKTOP CON AUTOPLAY AGRESIVO
+function setupDesktopWithAutoplay() {
+    try {
+        console.log('🖥️ Configurando desktop con AUTOPLAY FORZADO...');
+        
+        // Video principal con autoplay inmediato
+        const video = document.getElementById('bgVideo');
+        if (video) {
+            console.log('📹 Configurando video principal...');
+            
+            // Event listeners para carga
+            video.addEventListener('loadeddata', () => {
+                console.log('📹 Video principal cargado, iniciando autoplay...');
+                forceVideoPlay(video, 'video principal');
+            });
+            
+            video.addEventListener('canplay', () => {
+                console.log('📹 Video principal listo para reproducir');
+                forceVideoPlay(video, 'video principal');
+            });
+            
+            video.addEventListener('error', (e) => {
+                console.log('❌ Error cargando video principal:', e);
+                const backup = document.querySelector('.backup-background');
+                if (backup) backup.style.display = 'block';
+            });
+            
+            // Configurar y cargar
+            video.muted = true;
+            video.loop = true;
+            video.autoplay = true;
+            video.playsInline = true;
+            video.preload = 'auto';
+            
+            // Si ya está cargado, reproducir inmediatamente
+            if (video.readyState >= 3) {
+                forceVideoPlay(video, 'video principal');
+            } else {
+                video.load();
+            }
         }
         
-        // Configurar funciones básicas
-        setupMenu();
-        setupYouTubeButton();
-        setupLogoClicks();
+        // Video de historia con autoplay
+        const historyVideo = document.getElementById('historyVideo');
+        if (historyVideo) {
+            console.log('🎬 Configurando video de historia...');
+            
+            historyVideo.muted = true;
+            historyVideo.loop = true;
+            historyVideo.autoplay = true;
+            historyVideo.playsInline = true;
+            historyVideo.preload = 'metadata';
+            
+            // Intentar reproducir cuando sea visible
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        forceVideoPlay(historyVideo, 'video historia');
+                        observer.unobserve(historyVideo);
+                    }
+                });
+            });
+            
+            observer.observe(historyVideo);
+        }
         
-        console.log('✅ Configuración completada');
+        // Autoplay inmediato en carga de página
+        setTimeout(() => {
+            if (video && video.paused) {
+                console.log('🔄 Video pausado después de timeout, reintentando...');
+                forceVideoPlay(video, 'video principal');
+            }
+        }, 1000);
+        
+        console.log('✅ Desktop configurado con autoplay agresivo');
+        
     } catch (error) {
-        console.log('⚠️ Error en inicialización:', error);
-        // Configuración mínima de emergencia
-        setupBasicFunctionality();
+        console.log('⚠️ Error en configuración desktop:', error);
+    }
+}
+
+// INICIALIZACIÓN SUPER SEGURA
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('📱 DOM listo - iniciando configuración...');
+    
+    if (isInitialized) {
+        console.log('Ya inicializado, saltando...');
+        return;
+    }
+    
+    try {
+        // Detectar tipo de dispositivo
+        isMobile = detectMobile();
+        console.log('📱 Dispositivo detectado:', isMobile ? 'MÓVIL' : 'DESKTOP');
+        
+        // Configuración básica SIEMPRE
+        setupBasicSafety();
+        
+        // Configuración específica por dispositivo
+        if (isMobile) {
+            setupMobileSafe();
+        } else {
+            setupDesktopWithAutoplay(); // NUEVA FUNCIÓN CON AUTOPLAY
+        }
+        
+        // Funciones básicas
+        setupMenuSafe();
+        setupYouTubeButtonSafe();
+        setupNavigationSafe();
+        
+        isInitialized = true;
+        console.log('✅ Inicialización completada exitosamente');
+        
+    } catch (error) {
+        console.log('⚠️ Error en inicialización principal:', error);
+        setupEmergencyMode();
     }
 });
 
-// SETUP MÓVIL OPTIMIZADO - SIN ERRORES
-function setupMobileOptimized() {
+// CONFIGURACIÓN BÁSICA DE SEGURIDAD
+function setupBasicSafety() {
     try {
-        console.log('📱 Configurando móvil optimizado...');
-        
-        // Ocultar video principal pesado
-        const video = document.getElementById('bgVideo');
         const loading = document.getElementById('loading');
-        const backup = document.querySelector('.backup-background');
-        
-        if (video) {
-            video.style.display = 'none';
-            video.pause();
-            console.log('📹 Video principal deshabilitado en móvil');
-        }
-        
         if (loading) loading.style.display = 'none';
+        
+        const backup = document.querySelector('.backup-background');
         if (backup) backup.style.display = 'block';
         
-        // NO configurar video de historia en móvil para evitar problemas
-        console.log('✅ Móvil optimizado - Sin videos pesados');
-        
-    } catch (error) {
-        console.log('⚠️ Error en setup móvil:', error);
-    }
-}
-
-// SETUP DESKTOP - CON VIDEOS
-function setupDesktop() {
-    try {
-        console.log('🖥️ Configurando desktop con videos...');
-        
-        // Video principal
-        const video = document.getElementById('bgVideo');
-        const loading = document.getElementById('loading');
-        const backup = document.querySelector('.backup-background');
-        
-        if (video) {
-            video.muted = true;
-            video.loop = true;
-            
-            video.addEventListener('canplay', function() {
-                console.log('📹 Video principal listo');
-                video.style.display = 'block';
-                if (backup) backup.style.display = 'none';
-                if (loading) loading.style.display = 'none';
-                video.play().catch(e => console.log('Autoplay bloqueado'));
+        const allLinks = document.querySelectorAll('a[href="#"]');
+        allLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
             });
-            
-            video.load();
-        }
-        
-        // Video de historia solo en desktop
-        const historyVideo = document.getElementById('historyVideo');
-        if (historyVideo) {
-            historyVideo.muted = true;
-            historyVideo.loop = true;
-            historyVideo.play().catch(e => console.log('Video historia autoplay bloqueado'));
-            console.log('🎬 Video de historia configurado');
-        }
-        
-        console.log('✅ Desktop configurado con videos');
-    } catch (error) {
-        console.log('⚠️ Error en setup desktop:', error);
-    }
-}
-
-// BOTÓN YOUTUBE SIMPLE Y SEGURO
-function setupYouTubeButton() {
-    try {
-        const btn = document.getElementById('mobilePlayBtn');
-        if (btn) {
-            btn.onclick = function(e) {
-                try {
-                    e.preventDefault();
-                    console.log('▶️ Abriendo YouTube...');
-                    window.open('https://www.youtube.com/watch?v=2YhaGWompwU', '_blank');
-                } catch (error) {
-                    console.log('⚠️ Error abriendo YouTube:', error);
-                }
-            };
-            console.log('✅ Botón YouTube configurado');
-        }
-    } catch (error) {
-        console.log('⚠️ Error en YouTube:', error);
-    }
-}
-
-// CONFIGURAR CLICKS EN LOGOS - SIN HASHES PROBLEMÁTICOS
-function setupLogoClicks() {
-    try {
-        const logoDesktop = document.querySelector('.desktop-logo');
-        const logoMobile = document.querySelector('.mobile-logo a');
-        
-        // Logo desktop
-        if (logoDesktop) {
-            logoDesktop.onclick = function(e) {
-                e.preventDefault();
-                scrollToTop();
-            };
-        }
-        
-        // Logo móvil
-        if (logoMobile) {
-            logoMobile.onclick = function(e) {
-                e.preventDefault();
-                scrollToTop();
-            };
-        }
-        
-        console.log('✅ Logos configurados');
-    } catch (error) {
-        console.log('⚠️ Error en logos:', error);
-    }
-}
-
-// FUNCIÓN SCROLL SEGURA
-function scrollToTop() {
-    try {
-        // Cerrar menú si está abierto
-        if (isMenuOpen) {
-            toggleMenu();
-        }
-        
-        // Scroll suave al inicio
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
         });
         
-        console.log('🏠 Scroll al inicio');
-    } catch (error) {
-        // Fallback si smooth scroll falla
-        window.scrollTo(0, 0);
+        console.log('🛡️ Configuración básica de seguridad aplicada');
+    } catch (e) {
+        console.log('⚠️ Error en configuración básica:', e);
     }
 }
 
-// MENÚ SIMPLE Y ROBUSTO
-function setupMenu() {
+// CONFIGURACIÓN MÓVIL ULTRA SEGURA
+function setupMobileSafe() {
     try {
-        const hamburger = document.getElementById('hamburger');
-        const navMenu = document.getElementById('navMenu');
+        console.log('📱 Configurando móvil - SIN VIDEOS PESADOS');
         
-        if (!hamburger || !navMenu) return;
+        const allVideos = document.querySelectorAll('video');
+        allVideos.forEach(video => {
+            try {
+                video.pause();
+                video.remove();
+            } catch (e) {
+                console.log('Video ya removido o no existe');
+            }
+        });
         
-        // Toggle menú
-        hamburger.onclick = function(e) {
-            e.preventDefault();
-            toggleMenu();
-        };
+        const backup = document.querySelector('.backup-background');
+        if (backup) {
+            backup.style.display = 'block';
+            backup.style.zIndex = '1';
+        }
         
-        // Cerrar menú al hacer click en enlaces
-        const links = navMenu.querySelectorAll('a');
-        links.forEach(link => {
-            link.onclick = function(e) {
-                // Si es un enlace interno, manejar navegación
-                const href = this.getAttribute('href');
-                if (href && href.startsWith('#')) {
+        const images = document.querySelectorAll('img');
+        images.forEach(img => {
+            img.loading = 'lazy';
+        });
+        
+        console.log('✅ Móvil configurado');
+        
+    } catch (error) {
+        console.log('⚠️ Error en configuración móvil:', error);
+    }
+}
+
+// BOTÓN YOUTUBE ULTRA SEGURO
+function setupYouTubeButtonSafe() {
+    try {
+        const btn = document.getElementById('mobilePlayBtn');
+        if (!btn) return;
+        
+        btn.onclick = null;
+        
+        btn.addEventListener('click', function(e) {
+            try {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                console.log('▶️ Abriendo YouTube...');
+                
+                const youtubeUrl = 'https://www.youtube.com/watch?v=2YhaGWompwU';
+                
+                if (window.open) {
+                    window.open(youtubeUrl, '_blank', 'noopener,noreferrer');
+                } else {
+                    location.href = youtubeUrl;
+                }
+                
+            } catch (error) {
+                console.log('⚠️ Error abriendo YouTube:', error);
+                try {
+                    location.href = 'https://www.youtube.com/watch?v=2YhaGWompwU';
+                } catch (e) {
+                    console.log('Error total en YouTube');
+                }
+            }
+        });
+        
+        console.log('✅ Botón YouTube configurado');
+        
+    } catch (error) {
+        console.log('⚠️ Error configurando botón YouTube:', error);
+    }
+}
+
+// NAVEGACIÓN SEGURA
+function setupNavigationSafe() {
+    try {
+        const navLinks = document.querySelectorAll('a[href^="#"]');
+        
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                try {
                     e.preventDefault();
+                    
+                    const href = this.getAttribute('href');
+                    if (!href || href === '#') {
+                        scrollToTopSafe();
+                        return;
+                    }
+                    
                     const targetId = href.substring(1);
                     const targetElement = document.getElementById(targetId);
                     
                     if (targetElement) {
-                        // Cerrar menú primero
-                        if (isMenuOpen) toggleMenu();
+                        if (isMenuOpen) toggleMenuSafe();
                         
-                        // Navegar a la sección
                         setTimeout(() => {
-                            targetElement.scrollIntoView({
-                                behavior: 'smooth',
-                                block: 'start'
-                            });
+                            try {
+                                targetElement.scrollIntoView({
+                                    behavior: 'smooth',
+                                    block: 'start'
+                                });
+                            } catch (e) {
+                                targetElement.scrollIntoView();
+                            }
                         }, 300);
                     }
-                } else {
-                    // Para otros enlaces, cerrar menú
-                    setTimeout(() => {
-                        if (isMenuOpen) toggleMenu();
-                    }, 100);
+                    
+                } catch (error) {
+                    console.log('Error en navegación:', error);
                 }
-            };
+            });
         });
         
-        // Click fuera del menú
+        const logos = document.querySelectorAll('.logo, .mobile-logo a');
+        logos.forEach(logo => {
+            logo.addEventListener('click', function(e) {
+                e.preventDefault();
+                scrollToTopSafe();
+            });
+        });
+        
+        console.log('✅ Navegación segura configurada');
+        
+    } catch (error) {
+        console.log('⚠️ Error en navegación:', error);
+    }
+}
+
+// SCROLL TO TOP ULTRA SEGURO
+function scrollToTopSafe() {
+    try {
+        if (isMenuOpen) toggleMenuSafe();
+        
+        setTimeout(() => {
+            try {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            } catch (e) {
+                try {
+                    window.scrollTo(0, 0);
+                } catch (e2) {
+                    document.documentElement.scrollTop = 0;
+                }
+            }
+        }, 100);
+        
+        console.log('🏠 Scroll al inicio');
+        
+    } catch (error) {
+        console.log('⚠️ Error en scroll:', error);
+    }
+}
+
+// MENÚ ULTRA SEGURO
+function setupMenuSafe() {
+    try {
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+        
+        if (!hamburger || !navMenu) {
+            console.log('Elementos del menú no encontrados');
+            return;
+        }
+        
+        hamburger.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleMenuSafe();
+        });
+        
         document.addEventListener('click', function(e) {
-            if (isMenuOpen && !hamburger.contains(e.target) && !navMenu.contains(e.target)) {
-                toggleMenu();
+            if (isMenuOpen && 
+                !hamburger.contains(e.target) && 
+                !navMenu.contains(e.target)) {
+                toggleMenuSafe();
+            }
+        });
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && isMenuOpen) {
+                toggleMenuSafe();
             }
         });
         
         console.log('✅ Menú configurado');
+        
     } catch (error) {
-        console.log('⚠️ Error en menú:', error);
+        console.log('⚠️ Error configurando menú:', error);
     }
 }
 
-// TOGGLE MENÚ OPTIMIZADO
-function toggleMenu() {
+// TOGGLE MENÚ ULTRA SEGURO
+function toggleMenuSafe() {
     try {
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('navMenu');
@@ -253,12 +515,12 @@ function toggleMenu() {
             hamburger.classList.add('active');
             navMenu.classList.add('active');
             
-            // Bloquear scroll del body en móvil
             if (isMobile) {
-                document.body.style.overflow = 'hidden';
-                document.body.style.position = 'fixed';
-                document.body.style.width = '100%';
-                document.body.style.top = `-${window.scrollY}px`;
+                try {
+                    document.body.style.overflow = 'hidden';
+                } catch (e) {
+                    console.log('Error bloqueando scroll');
+                }
             }
             
             console.log('🍔 Menú abierto');
@@ -266,123 +528,144 @@ function toggleMenu() {
             hamburger.classList.remove('active');
             navMenu.classList.remove('active');
             
-            // Restaurar scroll del body
             if (isMobile) {
-                const scrollY = document.body.style.top;
-                document.body.style.overflow = '';
-                document.body.style.position = '';
-                document.body.style.width = '';
-                document.body.style.top = '';
-                if (scrollY) {
-                    window.scrollTo(0, parseInt(scrollY || '0') * -1);
+                try {
+                    document.body.style.overflow = '';
+                } catch (e) {
+                    console.log('Error restaurando scroll');
                 }
             }
             
             console.log('🍔 Menú cerrado');
         }
+        
     } catch (error) {
-        console.log('⚠️ Error en toggle menu:', error);
+        console.log('⚠️ Error en toggle menú:', error);
     }
 }
 
-// CONFIGURACIÓN BÁSICA DE EMERGENCIA
-function setupBasicFunctionality() {
+// MODO DE EMERGENCIA
+function setupEmergencyMode() {
     try {
-        console.log('🆘 Configuración básica de emergencia');
+        console.log('🆘 MODO DE EMERGENCIA ACTIVADO');
         
-        // Solo funcionalidad mínima
         const btn = document.getElementById('mobilePlayBtn');
         if (btn) {
-            btn.onclick = () => window.open('https://www.youtube.com/watch?v=2YhaGWompwU', '_blank');
+            btn.onclick = function() {
+                try {
+                    window.open('https://www.youtube.com/watch?v=2YhaGWompwU', '_blank');
+                } catch (e) {
+                    location.href = 'https://www.youtube.com/watch?v=2YhaGWompwU';
+                }
+            };
         }
         
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('navMenu');
         
         if (hamburger && navMenu) {
-            hamburger.onclick = () => {
+            hamburger.onclick = function() {
                 navMenu.classList.toggle('active');
                 hamburger.classList.toggle('active');
             };
         }
         
+        console.log('🆘 Modo emergencia configurado');
+        
     } catch (error) {
-        console.log('⚠️ Error en configuración básica:', error);
+        console.log('⚠️ Error crítico en modo emergencia:', error);
     }
 }
 
 // REDIMENSIONAR VENTANA SEGURO
 window.addEventListener('resize', function() {
     try {
-        const wasMobile = isMobile;
-        isMobile = detectMobile();
-        
-        // Solo reconfigurar si cambió el tipo de dispositivo
-        if (wasMobile !== isMobile) {
-            console.log('📱 Cambió a:', isMobile ? 'móvil' : 'desktop');
+        clearTimeout(window.resizeTimeout);
+        window.resizeTimeout = setTimeout(function() {
+            const wasMobile = isMobile;
+            isMobile = detectMobile();
             
-            setTimeout(() => {
-                if (isMobile) {
-                    setupMobileOptimized();
-                } else {
-                    setupDesktop();
-                }
-            }, 100);
-        }
+            if (wasMobile !== isMobile) {
+                console.log('📱 Cambio de dispositivo detectado');
+                
+                setTimeout(() => {
+                    try {
+                        if (isMobile) {
+                            setupMobileSafe();
+                        } else {
+                            setupDesktopWithAutoplay();
+                        }
+                    } catch (e) {
+                        console.log('Error en reconfiguración:', e);
+                    }
+                }, 200);
+            }
+        }, 250);
+        
     } catch (error) {
         console.log('⚠️ Error en resize:', error);
     }
 });
 
-// ACTIVAR VIDEOS EN DESKTOP con click del usuario
-document.addEventListener('click', function() {
-    if (!isMobile) {
+// VIGILAR VIDEOS Y REACTIVAR SI SE PAUSAN (DESKTOP ONLY)
+if (!isMobile) {
+    setInterval(() => {
         try {
             const video = document.getElementById('bgVideo');
             const historyVideo = document.getElementById('historyVideo');
             
-            if (video && video.paused) {
-                video.play().catch(e => console.log('No se pudo reproducir video principal'));
+            if (video && video.paused && !isMobile) {
+                console.log('🔄 Video principal pausado, reactivando...');
+                forceVideoPlay(video, 'video principal');
             }
-            if (historyVideo && historyVideo.paused) {
-                historyVideo.play().catch(e => console.log('No se pudo reproducir video historia'));
+            
+            if (historyVideo && historyVideo.paused && !isMobile) {
+                console.log('🔄 Video historia pausado, reactivando...');
+                forceVideoPlay(historyVideo, 'video historia');
             }
-        } catch (error) {
-            console.log('⚠️ Error activando videos:', error);
+        } catch (e) {
+            // Silencioso para no llenar console
         }
-    }
-}, { once: true });
-
-// ESCAPE PARA CERRAR MENÚ
-document.addEventListener('keydown', function(e) {
-    try {
-        if (e.key === 'Escape' && isMenuOpen) {
-            toggleMenu();
-        }
-    } catch (error) {
-        console.log('⚠️ Error en escape:', error);
-    }
-});
+    }, 5000); // Verificar cada 5 segundos
+}
 
 // API PÚBLICA SEGURA
 window.PRD = {
     toggleMenu: function() {
         try {
-            toggleMenu();
+            toggleMenuSafe();
         } catch (e) {
             console.log('Error en API toggleMenu:', e);
         }
     },
     scrollToTop: function() {
         try {
-            scrollToTop();
+            scrollToTopSafe();
         } catch (e) {
             console.log('Error en API scrollToTop:', e);
         }
     },
+    forcePlayVideos: function() {
+        if (!isMobile) {
+            try {
+                const video = document.getElementById('bgVideo');
+                const historyVideo = document.getElementById('historyVideo');
+                
+                if (video) forceVideoPlay(video, 'video principal');
+                if (historyVideo) forceVideoPlay(historyVideo, 'video historia');
+            } catch (e) {
+                console.log('Error forzando reproducción:', e);
+            }
+        }
+    },
     get isMobile() { return isMobile; },
-    get isMenuOpen() { return isMenuOpen; }
+    get isMenuOpen() { return isMenuOpen; },
+    get isInitialized() { return isInitialized; }
 };
 
-console.log('🚀 PRD cargado (VERSIÓN MÓVIL OPTIMIZADA Y SEGURA)');
-console.log('📱 Es móvil:', isMobile);
+// FUNCIÓN GLOBAL PARA HTML
+window.scrollToTop = scrollToTopSafe;
+
+console.log('🚀 PRD cargado (VERSIÓN CON AUTOPLAY FORZADO)');
+console.log('📱 Dispositivo:', isMobile ? 'MÓVIL' : 'DESKTOP');
+console.log('🎬 Autoplay agresivo activado para desktop');

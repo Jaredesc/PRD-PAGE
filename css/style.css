@@ -1,16 +1,23 @@
-/* Reset */
+/* RESET BÁSICO */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Importar fuente */
+/* FUENTE OPTIMIZADA */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
-/* SCROLL SUAVE */
+/* SCROLL SUAVE SOLO EN DESKTOP */
 html {
     scroll-behavior: smooth;
+}
+
+/* En móvil, deshabilitar scroll suave para mejor rendimiento */
+@media (max-width: 768px) {
+    html {
+        scroll-behavior: auto;
+    }
 }
 
 body {
@@ -19,9 +26,11 @@ body {
     font-family: 'Inter', sans-serif;
     margin: 0;
     padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-/* Video de fondo */
+/* VIDEO DE FONDO - SOLO DESKTOP */
 .video-container {
     position: fixed;
     top: 0;
@@ -29,15 +38,17 @@ body {
     width: 100%;
     height: 100vh;
     z-index: 1;
+    pointer-events: none;
 }
 
 .bg-video {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    pointer-events: none;
 }
 
-/* Backup dorado */
+/* FONDO DE RESPALDO DORADO - OPTIMIZADO */
 .backup-background {
     position: fixed;
     top: 0;
@@ -46,8 +57,15 @@ body {
     height: 100vh;
     background: linear-gradient(45deg, #f1c232, #d4af37, #b8860b, #f1c232);
     background-size: 400% 400%;
-    animation: movingGradient 6s ease infinite;
     z-index: 1;
+    will-change: background-position;
+}
+
+/* Animación solo en desktop para mejor rendimiento móvil */
+@media (min-width: 769px) {
+    .backup-background {
+        animation: movingGradient 6s ease infinite;
+    }
 }
 
 @keyframes movingGradient {
@@ -56,20 +74,19 @@ body {
     100% { background-position: 0% 50%; }
 }
 
-/* BARRA DE NAVEGACIÓN */
+/* HEADER OPTIMIZADO */
 .header {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
+    width: 100%;
     background: rgba(0, 0, 0, 0.85);
     padding: 2rem 0;
     z-index: 1000;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    margin: 0;
-    box-sizing: border-box;
     height: 120px;
     transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
 }
 
 .nav-container {
@@ -80,6 +97,7 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 0;
+    height: 100%;
 }
 
 /* LOGO DESKTOP */
@@ -103,11 +121,12 @@ body {
 /* LOGO MÓVIL */
 .mobile-logo {
     display: none;
+    margin-left: 1.5rem;
 }
 
 .mobile-logo a {
     display: block;
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease;
 }
 
 .mobile-logo a:hover {
@@ -120,9 +139,10 @@ body {
     max-width: 120px;
     object-fit: contain;
     filter: brightness(1.1);
-    transition: all 0.3s ease;
+    transition: filter 0.3s ease;
 }
 
+/* MENÚ NAVEGACIÓN */
 .nav-menu {
     margin-right: 2rem;
     display: flex;
@@ -141,7 +161,6 @@ body {
     letter-spacing: 1px;
     transition: all 0.3s ease;
     border: 2px solid transparent;
-    border-radius: 0;
     position: relative;
 }
 
@@ -190,7 +209,7 @@ body {
     display: block;
 }
 
-/* Animación del hamburger */
+/* Animación hamburger */
 .hamburger.active span:nth-child(1) {
     transform: rotate(-45deg) translate(-4px, 5px);
 }
@@ -204,7 +223,7 @@ body {
     transform: rotate(45deg) translate(-4px, -5px);
 }
 
-/* Contenido principal */
+/* CONTENIDO PRINCIPAL */
 .main-content {
     position: relative;
     z-index: 20;
@@ -212,7 +231,7 @@ body {
     padding-top: 0;
 }
 
-/* SECCIÓN HERO - DESKTOP */
+/* HERO SECTION DESKTOP */
 .hero-section {
     min-height: 80vh;
     display: flex;
@@ -241,10 +260,104 @@ body {
     display: block;
 }
 
-/* ESPACIO PARA VIDEO */
+/* ESPACIO PARA VIDEO DESKTOP */
 .video-reveal-space {
     height: 80vh;
     position: relative;
+}
+
+/* HERO MÓVIL */
+.mobile-hero {
+    display: none;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-top: 70px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.mobile-video-thumbnail {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.thumbnail-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 1;
+}
+
+.mobile-hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 2;
+}
+
+.mobile-hero-content {
+    position: relative;
+    z-index: 10;
+    max-width: 90%;
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.mobile-hero-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: white;
+    margin-bottom: 3rem;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+    letter-spacing: -0.5px;
+    text-align: center;
+}
+
+.mobile-play-btn {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #d32f2f;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+}
+
+.mobile-play-btn:hover {
+    background: #fff;
+    transform: scale(1.1);
+    box-shadow: 0 8px 35px rgba(0, 0, 0, 0.4);
+}
+
+.mobile-play-btn svg {
+    margin-left: 3px;
 }
 
 /* CONTENIDO ENCIMA */
@@ -302,7 +415,7 @@ body {
     box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 
-/* SECCIÓN HISTORIA CON VIDEO/IMAGEN ADAPTATIVO */
+/* SECCIÓN HISTORIA */
 .history-section {
     position: relative;
     padding: 2rem;
@@ -313,7 +426,7 @@ body {
     justify-content: center;
 }
 
-/* DESKTOP: Video de fondo */
+/* VIDEO DE HISTORIA - SOLO DESKTOP */
 .history-video-container {
     position: absolute;
     top: 0;
@@ -331,18 +444,9 @@ body {
     pointer-events: none;
 }
 
-.history-bg-video::-webkit-media-controls {
-    display: none !important;
-}
-
-.history-bg-video::-webkit-media-controls-panel {
-    display: none !important;
-}
-
-.history-bg-video::-webkit-media-controls-play-button {
-    display: none !important;
-}
-
+.history-bg-video::-webkit-media-controls,
+.history-bg-video::-webkit-media-controls-panel,
+.history-bg-video::-webkit-media-controls-play-button,
 .history-bg-video::-webkit-media-controls-start-playback-button {
     display: none !important;
 }
@@ -357,7 +461,7 @@ body {
     z-index: 2;
 }
 
-/* MÓVIL: Imagen de fondo */
+/* IMAGEN DE HISTORIA - MÓVIL */
 .history-image-container {
     position: absolute;
     top: 0;
@@ -480,7 +584,7 @@ body {
     margin: 0;
 }
 
-/* Loading */
+/* LOADING */
 .loading {
     position: fixed;
     top: 50%;
@@ -518,30 +622,34 @@ body {
     display: none;
 }
 
-.mobile-logo {
-    display: none;
-}
-
-.mobile-hero {
-    display: none;
-}
-
-/* ===== RESPONSIVE MÓVIL ===== */
+/* ===== RESPONSIVE MÓVIL OPTIMIZADO ===== */
 @media screen and (max-width: 768px) {
+    
+    /* Deshabilitar animaciones complejas en móvil para mejor rendimiento */
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    /* Reactivar solo las transiciones básicas */
+    .hamburger, .hamburger span, .nav-menu, .mobile-play-btn, .btn-formulario, .document-card {
+        transition-duration: 0.3s !important;
+    }
     
     .desktop-only {
         display: none !important;
     }
     
     .mobile-only {
-        display: block !important;
+        display: flex !important;
     }
     
-    /* HEADER MÓVIL */
+    /* HEADER MÓVIL OPTIMIZADO */
     .header {
         height: 70px !important;
         padding: 1rem 0 !important;
-        background: rgba(255, 255, 255, 0.1) !important;
+        background: rgba(0, 0, 0, 0.9) !important;
         backdrop-filter: blur(15px) !important;
         -webkit-backdrop-filter: blur(15px) !important;
         border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
@@ -554,48 +662,35 @@ body {
         height: 100% !important;
     }
     
-    .desktop-logo {
+    /* LOGOS MÓVIL */
+    .logo {
         display: none !important;
     }
     
     .mobile-logo {
         display: block !important;
-    }
-    
-    .mobile-logo a {
-        display: block !important;
-        transition: all 0.3s ease !important;
-    }
-    
-    .mobile-logo a:hover {
-        transform: scale(1.05) !important;
+        margin-left: 0 !important;
     }
     
     .logo-img {
         height: 45px !important;
         width: auto !important;
         max-width: 120px !important;
-        object-fit: contain !important;
-        filter: brightness(1.1) !important;
-        transition: all 0.3s ease !important;
     }
     
     /* HAMBURGER MÓVIL */
     .hamburger {
         display: flex !important;
-        flex-direction: column !important;
         background: rgba(255, 255, 255, 0.1) !important;
         border: 1px solid rgba(255, 255, 255, 0.2) !important;
         padding: 10px !important;
         border-radius: 8px !important;
-        cursor: pointer !important;
-        transition: all 0.3s ease !important;
         margin-right: 0 !important;
     }
     
-    .hamburger:hover {
+    .hamburger:active {
         background: rgba(255, 255, 255, 0.2) !important;
-        transform: scale(1.05) !important;
+        transform: scale(0.95) !important;
     }
     
     .hamburger span {
@@ -603,8 +698,6 @@ body {
         height: 2px !important;
         background: #fff !important;
         margin: 3px 0 !important;
-        display: block !important;
-        transition: all 0.3s ease !important;
         border-radius: 1px !important;
     }
     
@@ -620,7 +713,7 @@ body {
         transform: rotate(45deg) translate(-5px, -6px) !important;
     }
     
-    /* MENÚ MÓVIL */
+    /* MENÚ MÓVIL OPTIMIZADO */
     .nav-menu {
         display: none !important;
         position: fixed !important;
@@ -638,6 +731,8 @@ body {
         z-index: 999 !important;
         margin: 0 !important;
         list-style: none !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
     }
     
     .nav-menu.active {
@@ -664,7 +759,6 @@ body {
         border: 1px solid rgba(255, 255, 255, 0.2) !important;
         border-radius: 12px !important;
         background: rgba(255, 255, 255, 0.05) !important;
-        transition: all 0.3s ease !important;
         margin: 0.3rem 0 !important;
     }
     
@@ -672,113 +766,41 @@ body {
         display: none !important;
     }
     
-    .nav-menu li a:hover {
-        background: rgba(241, 194, 50, 0.15) !important;
+    .nav-menu li a:active {
+        background: rgba(241, 194, 50, 0.2) !important;
         border-color: #f1c232 !important;
         color: #f1c232 !important;
-        transform: translateY(-3px) !important;
-        box-shadow: 0 8px 25px rgba(241, 194, 50, 0.2) !important;
+        transform: scale(0.98) !important;
     }
     
     /* HERO MÓVIL */
     .mobile-hero {
-        position: relative !important;
-        width: 100% !important;
-        height: 100vh !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        text-align: center !important;
         padding-top: 70px !important;
-        box-sizing: border-box !important;
-        overflow: hidden !important;
-    }
-    
-    .mobile-video-thumbnail {
-        position: absolute !important;
-        top: 0 !important;
-        left: 0 !important;
-        width: 100% !important;
-        height: 100% !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-    }
-    
-    .thumbnail-image {
-        position: absolute !important;
-        top: 0 !important;
-        left: 0 !important;
-        width: 100% !important;
-        height: 100% !important;
-        object-fit: cover !important;
-        object-position: center !important;
-        z-index: 1 !important;
-    }
-    
-    .mobile-hero-overlay {
-        position: absolute !important;
-        top: 0 !important;
-        left: 0 !important;
-        width: 100% !important;
-        height: 100% !important;
-        background: rgba(0, 0, 0, 0.4) !important;
-        z-index: 2 !important;
-    }
-    
-    .mobile-hero-content {
-        position: relative !important;
-        z-index: 10 !important;
-        max-width: 90% !important;
-        padding: 2rem 1rem !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
+        min-height: 100vh !important;
     }
     
     .mobile-hero-title {
         font-size: 1.8rem !important;
-        font-weight: 700 !important;
         line-height: 1.3 !important;
-        color: white !important;
         margin-bottom: 3rem !important;
         text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8) !important;
-        letter-spacing: -0.5px !important;
-        text-align: center !important;
     }
     
     .mobile-play-btn {
         width: 70px !important;
         height: 70px !important;
-        border-radius: 50% !important;
-        background: rgba(255, 255, 255, 0.9) !important;
-        border: none !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        margin: 0 auto !important;
-        cursor: pointer !important;
-        transition: all 0.3s ease !important;
         color: #d32f2f !important;
         box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3) !important;
     }
     
-    .mobile-play-btn:hover {
-        background: #fff !important;
-        transform: scale(1.1) !important;
-        box-shadow: 0 8px 35px rgba(0, 0, 0, 0.4) !important;
-    }
-    
-    .mobile-play-btn svg {
-        margin-left: 3px !important;
+    .mobile-play-btn:active {
+        transform: scale(0.95) !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4) !important;
     }
     
     /* SECCIONES RESPONSIVE */
     .affiliate-section {
         padding: 3rem 1rem !important;
-        position: relative !important;
-        z-index: 25 !important;
     }
     
     .affiliate-content h2 {
@@ -797,16 +819,19 @@ body {
         padding: 0.8rem 1.5rem !important;
     }
     
+    .btn-formulario:active {
+        transform: scale(0.98) !important;
+    }
+    
     .history-section {
         padding: 2rem 1rem !important;
         min-height: 80vh !important;
-        position: relative !important;
-        z-index: 30 !important;
     }
     
     .history-content {
         padding: 2rem 1.5rem !important;
         margin: 0 0.5rem !important;
+        backdrop-filter: blur(5px) !important; /* Reducir blur en móvil */
     }
     
     .history-content h2 {
@@ -835,9 +860,13 @@ body {
     .document-card {
         padding: 1.5rem !important;
     }
+    
+    .document-card:active {
+        transform: scale(0.98) !important;
+    }
 }
 
-/* MÓVIL PEQUEÑO */
+/* MÓVIL EXTRA PEQUEÑO */
 @media screen and (max-width: 480px) {
     
     .header {
@@ -921,5 +950,24 @@ body {
     
     .history-content p {
         font-size: 0.9rem !important;
+    }
+}
+
+/* OPTIMIZACIONES ADICIONALES PARA RENDIMIENTO */
+@media (max-width: 768px) {
+    /* Reducir efectos visuales en móvil */
+    * {
+        will-change: auto !important;
+    }
+    
+    /* Solo permitir will-change en elementos que realmente lo necesitan */
+    .hamburger.active span, .nav-menu.active, .mobile-play-btn:active {
+        will-change: transform !important;
+    }
+    
+    /* Optimizar imágenes en móvil */
+    img {
+        image-rendering: optimizeSpeed !important;
+        image-rendering: -webkit-optimize-contrast !important;
     }
 }

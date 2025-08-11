@@ -11,27 +11,33 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="PRD Zacatecas">
     
+    <!-- PREVENIR ERRORES -->
+    <meta name="robots" content="index,follow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
     <!-- FAVICON -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="apple-touch-icon" href="assets/images/logos/LOGO H BLANCO.png">
     
     <!-- CSS PRINCIPAL -->
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/responsive.css">
+    
+    <!-- PRECARGAR RECURSOS CRÍTICOS -->
+    <link rel="preload" href="assets/images/logos/LOGO H BLANCO.png" as="image">
 </head>
 <body>
-    <!-- Video de fondo ESTÁTICO SIEMPRE -->
+    <!-- Fondo de respaldo SIEMPRE visible -->
     <div class="backup-background"></div>
     
-    <div class="video-container">
+    <!-- Video solo para desktop -->
+    <div class="video-container desktop-only">
         <video 
             id="bgVideo" 
             class="bg-video" 
             muted 
             loop 
-            autoplay
             playsinline
-            preload="auto"
+            preload="none"
             style="display: none;"
         >
             <source src="assets/images/videos/PRDSPOT.webm" type="video/webm">
@@ -53,7 +59,7 @@
             </div>
             
             <!-- MENÚ HAMBURGER -->
-            <button class="hamburger" id="hamburger">
+            <button class="hamburger" id="hamburger" aria-label="Menú">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -70,10 +76,10 @@
         </nav>
     </header>
 
-    <!-- Loading -->
-    <div class="loading" id="loading">
+    <!-- Loading simple -->
+    <div class="loading" id="loading" style="display: none;">
         <div class="spinner"></div>
-        Cargando video...
+        <p>Cargando...</p>
     </div>
     
     <!-- CONTENIDO PRINCIPAL -->
@@ -88,19 +94,16 @@
             </div>
         </section>
         
-        <!-- MÓVIL: Hero con miniatura de YouTube -->
+        <!-- MÓVIL: Hero simplificado -->
         <section class="mobile-hero mobile-only">
-            <!-- Imagen de miniatura del video -->
             <div class="mobile-video-thumbnail">
                 <img src="assets/images/heroes/Diseño sin título (1).png" alt="Video PRD Zacatecas" class="thumbnail-image">
-                <!-- Overlay oscuro sobre la imagen -->
                 <div class="mobile-hero-overlay"></div>
-                <!-- Contenido encima de la imagen -->
                 <div class="mobile-hero-content">
                     <h1 class="mobile-hero-title">
                         EL NUEVO PRD DE ZACATECAS REPRESENTA EL CAMBIO QUE NECESITAMOS PARA CONSTRUIR UN FUTURO MEJOR
                     </h1>
-                    <button class="mobile-play-btn" id="mobilePlayBtn">
+                    <button class="mobile-play-btn" id="mobilePlayBtn" aria-label="Reproducir video">
                         <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
                             <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
                         </svg>
@@ -110,9 +113,7 @@
         </section>
         
         <!-- DESKTOP: Espacio para video -->
-        <section class="video-reveal-space desktop-only">
-            <!-- Aquí se ve el video de fondo que queda fijo -->
-        </section>
+        <section class="video-reveal-space desktop-only"></section>
         
         <!-- SECCIONES INFERIORES -->
         <div class="content-overlay">
@@ -127,7 +128,7 @@
                 </div>
             </section>
             
-            <!-- Sección Historia CON VIDEO/IMAGEN ADAPTATIVO -->
+            <!-- Sección Historia -->
             <section class="history-section" id="historia">
                 
                 <!-- DESKTOP: Video de fondo -->
@@ -136,28 +137,25 @@
                         id="historyVideo" 
                         class="history-bg-video" 
                         muted 
-                        loop 
-                        autoplay
+                        loop
                         playsinline
-                        preload="auto"
+                        preload="none"
                         disablepictureinpicture
-                        controlslist="nodownload nofullscreen noremoteplayback"
+                        controlslist="nodownload nofullscreen noremoteplaybook"
                     >
                         <source src="assets/images/videos/NUBES.webm" type="video/webm">
                     </video>
-                    <!-- Overlay para mejorar legibilidad del texto -->
                     <div class="history-video-overlay"></div>
                 </div>
                 
-                <!-- MÓVIL: Imagen de fondo -->
+                <!-- MÓVIL: Imagen de fondo estática -->
                 <div class="history-image-container mobile-only">
                     <img 
                         src="assets/images/videos/NUBES.jpg" 
                         alt="Fondo nubes" 
                         class="history-bg-image"
-                        id="historyImage"
+                        loading="lazy"
                     >
-                    <!-- Overlay para mejorar legibilidad del texto -->
                     <div class="history-image-overlay"></div>
                 </div>
                 
@@ -174,32 +172,38 @@
                     <p>Consulta los documentos fundamentales del PRD Zacatecas, incluyendo estatutos, reglamentos, declaración de principios y programa de acción.</p>
                     <div class="documents-grid">
                         <a href="assets/documentos/documentos_basicos/ESTATUTOVIGENTEPRDZACATECASMARZO2025.pdf" target="_blank" class="document-card">
-                            <h3> Estatutos</h3>
+                            <h3>📋 Estatutos</h3>
                             <p>Normas que rigen la organización interna del partido</p>
                         </a>
                         <a href="assets/documentos/documentos_basicos/DECLARACIONDEPRINCIPIOSPRDZ.pdf" target="_blank" class="document-card">
-                            <h3> Declaración de Principios</h3>
+                            <h3>📜 Declaración de Principios</h3>
                             <p>Valores y principios fundamentales del PRD</p>
                         </a>
                         <a href="assets/documentos/documentos_basicos/PROGRAMADEACCIONPRDZ.pdf" target="_blank" class="document-card">
-                            <h3> Programa de Acción</h3>
+                            <h3>🎯 Programa de Acción</h3>
                             <p>Propuestas y objetivos políticos</p>
                         </a>
                     </div>
                 </div>
             </section>
+        </div>
+    </div>
 
     <!-- FUNCIÓN SCROLL TO TOP -->
     <script>
         function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+            try {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            } catch (e) {
+                window.scrollTo(0, 0);
+            }
         }
     </script>
     
+    <!-- JavaScript principal -->
     <script src="js/main.js"></script>
 </body>
-
 </html>

@@ -1,0 +1,119 @@
+/* RESPONSIVE.CSS - ARCHIVO ADICIONAL OPCIONAL */
+/* Este archivo es opcional ya que todo el responsive está en style.css */
+/* Solo incluye optimizaciones extra para casos específicos */
+
+/* PREVENIR ZOOM EN INPUTS EN iOS */
+@media screen and (max-width: 768px) {
+    input, textarea, select {
+        font-size: 16px !important;
+    }
+}
+
+/* OPTIMIZACIONES PARA PANTALLAS PEQUEÑAS */
+@media screen and (max-width: 320px) {
+    .mobile-hero-title {
+        font-size: 1.3rem !important;
+        line-height: 1.2 !important;
+    }
+    
+    .mobile-play-btn {
+        width: 50px !important;
+        height: 50px !important;
+    }
+    
+    .mobile-play-btn svg {
+        width: 18px !important;
+        height: 18px !important;
+    }
+    
+    .nav-menu li a {
+        padding: 0.8rem 1rem !important;
+        font-size: 0.8rem !important;
+    }
+}
+
+/* OPTIMIZACIONES PARA PANTALLAS MUY ALTAS */
+@media screen and (min-height: 900px) and (max-width: 768px) {
+    .mobile-hero {
+        min-height: 100vh !important;
+    }
+    
+    .mobile-hero-content {
+        padding: 3rem 1rem !important;
+    }
+}
+
+/* ORIENTACIÓN LANDSCAPE EN MÓVIL */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+    .header {
+        height: 60px !important;
+        padding: 0.5rem 0 !important;
+    }
+    
+    .mobile-hero {
+        padding-top: 60px !important;
+        min-height: 100vh !important;
+    }
+    
+    .mobile-hero-title {
+        font-size: 1.5rem !important;
+        margin-bottom: 2rem !important;
+    }
+    
+    .nav-menu {
+        top: 60px !important;
+        height: calc(100vh - 60px) !important;
+    }
+}
+
+/* MODO OSCURO DEL SISTEMA (OPCIONAL) */
+@media (prefers-color-scheme: dark) {
+    /* El sitio ya es principalmente oscuro, pero se pueden hacer ajustes */
+    .history-content {
+        background: rgba(30, 30, 30, 0.9) !important;
+        color: #ffffff !important;
+    }
+    
+    .history-content h2 {
+        color: #f1c232 !important;
+    }
+    
+    .history-content p {
+        color: #e0e0e0 !important;
+    }
+}
+
+/* REDUCIR MOVIMIENTO PARA USUARIOS SENSIBLES */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    .backup-background {
+        animation: none !important;
+        background: #f1c232 !important;
+    }
+}
+
+/* PRINT STYLES */
+@media print {
+    .header, .hamburger, .nav-menu, .mobile-play-btn {
+        display: none !important;
+    }
+    
+    .video-container, .backup-background {
+        display: none !important;
+    }
+    
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    
+    .main-content {
+        position: static !important;
+    }
+}
