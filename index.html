@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El nuevo PRD</title>
     
     <!-- OPTIMIZACIONES MÓVILES -->
@@ -11,63 +11,13 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="PRD Zacatecas">
     
-    <!-- PREVENIR PROBLEMAS DE CACHE EN MÓVIL -->
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-    
-    <!-- PRELOAD RECURSOS CRÍTICOS -->
-    <link rel="preload" href="css/style.css" as="style">
-    <link rel="preload" href="js/main.js" as="script">
-    
-    <!-- FAVICON OPTIMIZADO -->
+    <!-- FAVICON -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="apple-touch-icon" href="assets/images/logos/LOGO H BLANCO.png">
     
     <!-- CSS PRINCIPAL -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
-    
-    <!-- OPTIMIZACIÓN DE IMÁGENES MÓVIL -->
-    <style>
-        /* LAZY LOADING Y OPTIMIZACIÓN IMÁGENES */
-        img {
-            loading: lazy;
-            decoding: async;
-        }
-        
-        /* REDUCIR ANIMACIONES EN DISPOSITIVOS LENTOS */
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-        
-        /* OPTIMIZACIONES MÓVILES ESPECÍFICAS */
-        @media screen and (max-width: 768px) {
-            /* REDUCIR EFECTOS COSTOSOS */
-            .header {
-                backdrop-filter: none !important;
-                -webkit-backdrop-filter: none !important;
-                background: rgba(255, 255, 255, 0.95) !important;
-            }
-            
-            /* GRADIENTE SIMPLE EN MÓVIL */
-            .backup-background {
-                background: #f1c232 !important;
-                animation: none !important;
-            }
-            
-            /* OPTIMIZAR TEXTO */
-            body {
-                -webkit-font-smoothing: antialiased;
-                -moz-osx-font-smoothing: grayscale;
-                text-rendering: optimizeSpeed;
-            }
-        }
-    </style>
 </head>
 <body>
     <!-- Video de fondo ESTÁTICO SIEMPRE -->
@@ -93,17 +43,17 @@
     <header class="header">
         <nav class="nav-container">
             <!-- Logo para desktop -->
-            <a href="#inicio" class="logo desktop-logo">El nuevo PRD</a>
+            <a href="javascript:void(0)" class="logo desktop-logo" onclick="scrollToTop()">El nuevo PRD</a>
             
             <!-- Logo para móvil -->
             <div class="mobile-logo">
-                <a href="#inicio">
-                    <img src="assets/images/logos/LOGO H BLANCO.png" alt="PRD Zacatecas" class="logo-img" loading="eager">
+                <a href="javascript:void(0)" onclick="scrollToTop()">
+                    <img src="assets/images/logos/LOGO H BLANCO.png" alt="PRD Zacatecas" class="logo-img">
                 </a>
             </div>
             
             <!-- MENÚ HAMBURGER -->
-            <button class="hamburger" id="hamburger" aria-label="Abrir menú">
+            <button class="hamburger" id="hamburger">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -133,7 +83,7 @@
         <section class="hero-section desktop-only">
             <div class="hero-content">
                 <div class="hero-image">
-                    <img src="assets/images/logos/PORTADA FB PRD.png" alt="PRD Zacatecas" class="portada-image" loading="eager">
+                    <img src="assets/images/logos/PORTADA FB PRD.png" alt="PRD Zacatecas" class="portada-image">
                 </div>
             </div>
         </section>
@@ -142,7 +92,7 @@
         <section class="mobile-hero mobile-only">
             <!-- Imagen de miniatura del video -->
             <div class="mobile-video-thumbnail">
-                <img src="assets/images/heroes/Diseño sin título (1).png" alt="Video PRD Zacatecas" class="thumbnail-image" loading="eager">
+                <img src="assets/images/heroes/Diseño sin título (1).png" alt="Video PRD Zacatecas" class="thumbnail-image">
                 <!-- Overlay oscuro sobre la imagen -->
                 <div class="mobile-hero-overlay"></div>
                 <!-- Contenido encima de la imagen -->
@@ -150,8 +100,8 @@
                     <h1 class="mobile-hero-title">
                         EL NUEVO PRD DE ZACATECAS REPRESENTA EL CAMBIO QUE NECESITAMOS PARA CONSTRUIR UN FUTURO MEJOR
                     </h1>
-                    <button class="mobile-play-btn" id="mobilePlayBtn" aria-label="Ver video en YouTube">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <button class="mobile-play-btn" id="mobilePlayBtn">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
                             <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
                         </svg>
                     </button>
@@ -199,14 +149,13 @@
                     <div class="history-video-overlay"></div>
                 </div>
                 
-                <!-- MÓVIL: Imagen de fondo (más ligera) -->
+                <!-- MÓVIL: Imagen de fondo -->
                 <div class="history-image-container mobile-only">
                     <img 
                         src="assets/images/videos/NUBES.jpg" 
                         alt="Fondo nubes" 
                         class="history-bg-image"
                         id="historyImage"
-                        loading="lazy"
                     >
                     <!-- Overlay para mejorar legibilidad del texto -->
                     <div class="history-image-overlay"></div>
@@ -224,15 +173,15 @@
                     <h2>DOCUMENTOS BÁSICOS</h2>
                     <p>Consulta los documentos fundamentales del PRD Zacatecas, incluyendo estatutos, reglamentos, declaración de principios y programa de acción.</p>
                     <div class="documents-grid">
-                        <a href="assets/documentos/documentos_basicos/ESTATUTOVIGENTEPRDZACATECASMARZO2025.pdf" target="_blank" rel="noopener" class="document-card">
+                        <a href="assets/documentos/documentos_basicos/ESTATUTOVIGENTEPRDZACATECASMARZO2025.pdf" target="_blank" class="document-card">
                             <h3> Estatutos</h3>
                             <p>Normas que rigen la organización interna del partido</p>
                         </a>
-                        <a href="assets/documentos/documentos_basicos/DECLARACIONDEPRINCIPIOSPRDZ.pdf" target="_blank" rel="noopener" class="document-card">
+                        <a href="assets/documentos/documentos_basicos/DECLARACIONDEPRINCIPIOSPRDZ.pdf" target="_blank" class="document-card">
                             <h3> Declaración de Principios</h3>
                             <p>Valores y principios fundamentales del PRD</p>
                         </a>
-                        <a href="assets/documentos/documentos_basicos/PROGRAMADEACCIONPRDZ.pdf" target="_blank" rel="noopener" class="document-card">
+                        <a href="assets/documentos/documentos_basicos/PROGRAMADEACCIONPRDZ.pdf" target="_blank" class="document-card">
                             <h3> Programa de Acción</h3>
                             <p>Propuestas y objetivos políticos</p>
                         </a>
@@ -240,29 +189,13 @@
                 </div>
             </section>
 
-    <!-- JAVASCRIPT OPTIMIZADO -->
+    <!-- FUNCIÓN SCROLL TO TOP -->
     <script>
-        // DETECTAR DISPOSITIVOS DE BAJO RENDIMIENTO
-        const isLowEndDevice = () => {
-            return navigator.hardwareConcurrency <= 2 || 
-                   navigator.deviceMemory <= 2 || 
-                   /Android.*Chrome\/[.0-9]*.*Mobile|iPhone|iPad|iPod/i.test(navigator.userAgent);
-        };
-
-        // OPTIMIZACIÓN PARA DISPOSITIVOS LENTOS
-        if (isLowEndDevice()) {
-            console.log('📱 Dispositivo de bajo rendimiento detectado - Optimizando...');
-            
-            // Deshabilitar animaciones costosas
-            const style = document.createElement('style');
-            style.textContent = `
-                *, *::before, *::after {
-                    animation-duration: 0.01ms !important;
-                    animation-iteration-count: 1 !important;
-                    transition-duration: 0.01ms !important;
-                }
-            `;
-            document.head.appendChild(style);
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         }
     </script>
     
