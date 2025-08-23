@@ -1,226 +1,372 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El nuevo PRD</title>
-    
-    <!-- OPTIMIZACIONES MÓVILES -->
-    <meta name="format-detection" content="telephone=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="PRD Zacatecas">
-    
-    <!-- PREVENIR ERRORES -->
-    <meta name="robots" content="index,follow">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    
-    <!-- FAVICON -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="apple-touch-icon" href="assets/images/logos/LOGO H BLANCO.png">
-    
-    <!-- CSS PRINCIPAL -->
-    <link rel="stylesheet" href="css/style.css">
-    
-    <!-- PRECARGAR RECURSOS CRÍTICOS -->
-    <link rel="preload" href="assets/images/logos/LOGO H BLANCO.png" as="image">
-</head>
-<body>
-    <!-- Fondo de respaldo SIEMPRE visible -->
-    <div class="backup-background"></div>
-    
-    <!-- Video solo para desktop -->
-    <div class="video-container desktop-only">
-        <video 
-            id="bgVideo" 
-            class="bg-video" 
-            muted 
-            loop 
-            playsinline
-            preload="none"
-            style="display: none;"
-        >
-            <source src="assets/images/videos/PRDSPOT.webm" type="video/webm">
-            <source src="assets/images/videos/PRDSPOT.mp4" type="video/mp4">
-        </video>
-    </div>
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>El nuevo PRD</title>
+        
+        <!-- OPTIMIZACIONES MÓVILES -->
+        <meta name="format-detection" content="telephone=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <meta name="apple-mobile-web-app-title" content="PRD Zacatecas">
+        
+        <!-- PREVENIR ERRORES -->
+        <meta name="robots" content="index,follow">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        
+        <!-- FAVICON -->
+        <link rel="icon" type="image/x-icon" href="/favicon.ico">
+        <link rel="apple-touch-icon" href="assets/images/logos/LOGO H BLANCO.png">
+        
+        <!-- CSS PRINCIPAL -->
+        <link rel="stylesheet" href="css/style.css">
+        
+        <!-- PRECARGAR RECURSOS CRÍTICOS -->
+        <link rel="preload" href="assets/images/logos/LOGO H BLANCO.png" as="image">
+    </head>
+    <body>
+        <!-- Fondo de respaldo SIEMPRE visible -->
+        <div class="backup-background"></div>
+        
+        <!-- Video solo para desktop -->
+        <div class="video-container desktop-only">
+            <video 
+                id="bgVideo" 
+                class="bg-video" 
+                muted 
+                loop 
+                playsinline
+                preload="none"
+                style="display: none;"
+            >
+                <source src="assets/images/videos/PRDSPOT.webm" type="video/webm">
+                <source src="assets/images/videos/PRDSPOT.mp4" type="video/mp4">
+            </video>
+        </div>
 
-    <!-- HEADER -->
-    <header class="header">
-        <nav class="nav-container">
-            <!-- Logo para desktop -->
-            <a href="javascript:void(0)" class="logo desktop-logo" onclick="scrollToTop()">El nuevo PRD</a>
-            
-            <!-- Logo para móvil -->
-            <div class="mobile-logo">
-                <a href="javascript:void(0)" onclick="scrollToTop()">
-                    <img src="assets/images/logos/LOGO H BLANCO.png" alt="PRD Zacatecas" class="logo-img">
-                </a>
-            </div>
-            
-            <!-- MENÚ HAMBURGER -->
-            <button class="hamburger" id="hamburger" aria-label="Menú">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            
-            <!-- MENÚ NORMAL -->
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="#documentos">DOCUMENTOS BÁSICOS</a></li>
-                <li><a href="#convocatorias">CONVOCATORIAS</a></li>
-                <li><a href="#directorio">DIRECTORIO</a></li>
-                <li><a href="#comunicacion">COMUNICACIÓN SOCIAL</a></li>
-                <li><a href="#afiliacion">AFILIACIÓN</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <!-- Loading simple -->
-    <div class="loading" id="loading" style="display: none;">
-        <div class="spinner"></div>
-        <p>Cargando...</p>
-    </div>
-    
-    <!-- CONTENIDO PRINCIPAL -->
-    <div class="main-content" id="inicio">
-        
-        <!-- DESKTOP: Hero original -->
-        <section class="hero-section desktop-only">
-            <div class="hero-content">
-                <div class="hero-image">
-                    <img src="assets/images/logos/PORTADA FB PRD.png" alt="PRD Zacatecas" class="portada-image">
-                </div>
-            </div>
-        </section>
-        
-        <!-- MÓVIL: Hero simplificado -->
-        <section class="mobile-hero mobile-only">
-            <div class="mobile-video-thumbnail">
-                <img src="assets/images/heroes/Diseño sin título (1).png" alt="Video PRD Zacatecas" class="thumbnail-image">
-                <div class="mobile-hero-overlay"></div>
-                <div class="mobile-hero-content">
-                    <h1 class="mobile-hero-title">
-                        EL NUEVO PRD DE ZACATECAS REPRESENTA EL CAMBIO QUE NECESITAMOS PARA CONSTRUIR UN FUTURO MEJOR
-                    </h1>
-                    <button class="mobile-play-btn" id="mobilePlayBtn" aria-label="Reproducir video">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-                            <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </section>
-        
-        <!-- DESKTOP: Espacio para video -->
-        <section class="video-reveal-space desktop-only"></section>
-        
-        <!-- SECCIONES INFERIORES -->
-        <div class="content-overlay">
-            <!-- Sección Afíliate -->
-            <section class="affiliate-section" id="afiliacion">
-                <div class="affiliate-content">
-                    <h2>AFÍLIATE</h2>
-                    <p>Esto es por ti. Por tu esfuerzo. Por tus ganas de salir adelante sin trabas ni excusas. Porque mereces un país que te escuche, que te respete, que te impulse. Y no vamos a quedarnos de brazos cruzados.</p>
-                    <a href="#" class="btn-formulario">
-                        📄 FORMULARIO DE AFILIACIÓN
+        <!-- HEADER -->
+        <header class="header">
+            <nav class="nav-container">
+                <!-- Logo para desktop -->
+                <a href="javascript:void(0)" class="logo desktop-logo" onclick="scrollToTop()">El nuevo PRD</a>
+                
+                <!-- Logo para móvil -->
+                <div class="mobile-logo">
+                    <a href="javascript:void(0)" onclick="scrollToTop()">
+                        <img src="assets/images/logos/LOGO H BLANCO.png" alt="PRD Zacatecas" class="logo-img">
                     </a>
                 </div>
+                
+                <!-- MENÚ HAMBURGER -->
+                <button class="hamburger" id="hamburger" aria-label="Menú">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                
+                <!-- MENÚ NORMAL -->
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#documentos">DOCUMENTOS BÁSICOS</a></li>
+                    <li><a href="#convocatorias">CONVOCATORIAS</a></li>
+                    <li><a href="#directorio">DIRECTORIO</a></li>
+                    <li><a href="#comunicacion">COMUNICACIÓN SOCIAL</a></li>
+                    <li><a href="#afiliacion">AFILIACIÓN</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Loading simple -->
+        <div class="loading" id="loading" style="display: none;">
+            <div class="spinner"></div>
+            <p>Cargando...</p>
+        </div>
+        
+        <!-- CONTENIDO PRINCIPAL -->
+        <div class="main-content" id="inicio">
+            
+            <!-- DESKTOP: Hero original -->
+            <section class="hero-section desktop-only">
+                <div class="hero-content">
+                    <div class="hero-image">
+                        <img src="assets/images/logos/PORTADA FB PRD.png" alt="PRD Zacatecas" class="portada-image">
+                    </div>
+                </div>
             </section>
             
-            <!-- Sección Historia -->
-            <section class="history-section" id="historia">
-                
-                <!-- DESKTOP: Video de fondo -->
-                <div class="history-video-container desktop-only">
-                    <video 
-                        id="historyVideo" 
-                        class="history-bg-video" 
-                        muted 
-                        loop
-                        playsinline
-                        preload="none"
-                        disablepictureinpicture
-                        controlslist="nodownload nofullscreen noremoteplaybook"
-                    >
-                        <source src="assets/images/videos/NUBES.webm" type="video/webm">
-                    </video>
-                    <div class="history-video-overlay"></div>
-                </div>
-                
-                <!-- MÓVIL: Imagen de fondo estática -->
-                <div class="history-image-container mobile-only">
-                    <img 
-                        src="assets/images/videos/NUBES.jpg" 
-                        alt="Fondo nubes" 
-                        class="history-bg-image"
-                        loading="lazy"
-                    >
-                    <div class="history-image-overlay"></div>
-                </div>
-                
-                <div class="history-content">
-                    <h2>NUESTRA HISTORIA</h2>
-                    <p>El PRD se fundó en la Ciudad de México, el 5 de mayo de 1989 por Cuauhtémoc Cárdenas, Porfirio Muñoz Ledo, Ifigenia Martínez, Andrés Manuel López Obrador, entre otros y miembros históricos de la izquierda como Heberto Castillo, Gilberto Rincón Gallardo, Amalia García entre muchos otros políticos de la izquierda mexicana.</p>
-                </div>
-            </section>
-
-            <!-- Sección Documentos Básicos -->
-            <section class="documents-section" id="documentos">
-                <div class="documents-content">
-                    <h2>DOCUMENTOS BÁSICOS</h2>
-                    <p>Consulta los documentos fundamentales del PRD Zacatecas, incluyendo estatutos, reglamentos, declaración de principios y programa de acción.</p>
-                    <div class="documents-grid">
-                        <a href="assets/documentos/documentos_basicos/ESTATUTOVIGENTEPRDZACATECASMARZO2025.pdf" target="_blank" class="document-card">
-                            <h3>📋 Estatutos</h3>
-                            <p>Normas que rigen la organización interna del partido</p>
-                        </a>
-                        <a href="assets/documentos/documentos_basicos/DECLARACIONDEPRINCIPIOSPRDZ.pdf" target="_blank" class="document-card">
-                            <h3>📜 Declaración de Principios</h3>
-                            <p>Valores y principios fundamentales del PRD</p>
-                        </a>
-                        <a href="assets/documentos/documentos_basicos/PROGRAMADEACCIONPRDZ.pdf" target="_blank" class="document-card">
-                            <h3>🎯 Programa de Acción</h3>
-                            <p>Propuestas y objetivos políticos</p>
-                        </a>
+            <!-- MÓVIL: Hero simplificado -->
+            <section class="mobile-hero mobile-only">
+                <div class="mobile-video-thumbnail">
+                    <img src="assets/images/heroes/Diseño sin título (1).png" alt="Video PRD Zacatecas" class="thumbnail-image">
+                    <div class="mobile-hero-overlay"></div>
+                    <div class="mobile-hero-content">
+                        <h1 class="mobile-hero-title">
+                            EL NUEVO PRD DE ZACATECAS REPRESENTA EL CAMBIO QUE NECESITAMOS PARA CONSTRUIR UN FUTURO MEJOR
+                        </h1>
+                        <button class="mobile-play-btn" id="mobilePlayBtn" aria-label="Reproducir video">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                                <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
+                            </svg>
+                        </button>
                     </div>
                 </div>
             </section>
-
-            <!-- Sección Convocatorias -->
-            <section class="convocatorias-section" id="convocatorias">
-                <div class="convocatorias-content">
-                    <h2>CONVOCATORIAS</h2>
-                    <div class="convocatorias-grid">
-                        <a href="assets/documentos/CONVOCATORIA1ERPLENOEXTRAORDINARIOCONSEJOESTATAL24DEAGOSTODE2025.pdf" target="_blank" class="convocatoria-card">
-                            <h3>📅 Primer Pleno Extraordinario</h3>
-                            <p>Convocatoria al XI Consejo Estatal - 24 de agosto de 2025</p>
-                            <div class="convocatoria-date">
-                                <span>Fecha: 24 de agosto, 2025</span>
-                            </div>
+            
+            <!-- DESKTOP: Espacio para video -->
+            <section class="video-reveal-space desktop-only"></section>
+            
+            <!-- SECCIONES INFERIORES -->
+            <div class="content-overlay">
+                <!-- Sección Afíliate -->
+                <section class="affiliate-section" id="afiliacion">
+                    <div class="affiliate-content">
+                        <h2>AFÍLIATE</h2>
+                        <p>Esto es por ti. Por tu esfuerzo. Por tus ganas de salir adelante sin trabas ni excusas. Porque mereces un país que te escuche, que te respete, que te impulse. Y no vamos a quedarnos de brazos cruzados.</p>
+                        <a href="#" class="btn-formulario">
+                            📄 FORMULARIO DE AFILIACIÓN
                         </a>
                     </div>
-                </div>
-            </section>
+                </section>
+                
+                <!-- Sección Historia -->
+                <section class="history-section" id="historia">
+                    
+                    <!-- DESKTOP: Video de fondo -->
+                    <div class="history-video-container desktop-only">
+                        <video 
+                            id="historyVideo" 
+                            class="history-bg-video" 
+                            muted 
+                            loop
+                            playsinline
+                            preload="none"
+                            disablepictureinpicture
+                            controlslist="nodownload nofullscreen noremoteplaybook"
+                        >
+                            <source src="assets/images/videos/NUBES.webm" type="video/webm">
+                        </video>
+                        <div class="history-video-overlay"></div>
+                    </div>
+                    
+                    <!-- MÓVIL: Imagen de fondo estática -->
+                    <div class="history-image-container mobile-only">
+                        <img 
+                            src="assets/images/videos/NUBES.jpg" 
+                            alt="Fondo nubes" 
+                            class="history-bg-image"
+                            loading="lazy"
+                        >
+                        <div class="history-image-overlay"></div>
+                    </div>
+                    
+                    <div class="history-content">
+                        <h2>NUESTRA HISTORIA</h2>
+                        <p>El PRD se fundó en la Ciudad de México, el 5 de mayo de 1989 por Cuauhtémoc Cárdenas, Porfirio Muñoz Ledo, Ifigenia Martínez, Andrés Manuel López Obrador, entre otros y miembros históricos de la izquierda como Heberto Castillo, Gilberto Rincón Gallardo, Amalia García entre muchos otros políticos de la izquierda mexicana.</p>
+                    </div>
+                </section>
+
+                <!-- Sección Documentos Básicos -->
+                <section class="documents-section" id="documentos">
+                    <div class="documents-content">
+                        <h2>DOCUMENTOS BÁSICOS</h2>
+                        <p>Consulta los documentos fundamentales del PRD Zacatecas, incluyendo estatutos, reglamentos, declaración de principios y programa de acción.</p>
+                        <div class="documents-grid">
+                            <a href="assets/documentos/documentos_basicos/ESTATUTOVIGENTEPRDZACATECASMARZO2025.pdf" target="_blank" class="document-card">
+                                <h3>📋 Estatutos</h3>
+                                <p>Normas que rigen la organización interna del partido</p>
+                            </a>
+                            <a href="assets/documentos/documentos_basicos/DECLARACIONDEPRINCIPIOSPRDZ.pdf" target="_blank" class="document-card">
+                                <h3>📜 Declaración de Principios</h3>
+                                <p>Valores y principios fundamentales del PRD</p>
+                            </a>
+                            <a href="assets/documentos/documentos_basicos/PROGRAMADEACCIONPRDZ.pdf" target="_blank" class="document-card">
+                                <h3>🎯 Programa de Acción</h3>
+                                <p>Propuestas y objetivos políticos</p>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Sección Convocatorias -->
+                <section class="convocatorias-section" id="convocatorias">
+                    <div class="convocatorias-content">
+                        <h2>CONVOCATORIAS</h2>
+                        <div class="convocatorias-grid">
+                            <a href="assets/documentos/CONVOCATORIA1ERPLENOEXTRAORDINARIOCONSEJOESTATAL24DEAGOSTODE2025.pdf" target="_blank" class="convocatoria-card">
+                                <h3>📅 Primer Pleno Extraordinario</h3>
+                                <p>Convocatoria al XI Consejo Estatal - 24 de agosto de 2025</p>
+                                <div class="convocatoria-date">
+                                    <span>Fecha: 24 de agosto, 2025</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+            </div>
         </div>
-    </div>
 
-    <!-- FUNCIÓN SCROLL TO TOP -->
-    <script>
-        function scrollToTop() {
-            try {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            } catch (e) {
-                window.scrollTo(0, 0);
+        <!-- FUNCIÓN SCROLL TO TOP -->
+        <script>
+            function scrollToTop() {
+                try {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                } catch (e) {
+                    window.scrollTo(0, 0);
+                }
             }
-        }
-    </script>
-    
-    <!-- JavaScript principal -->
-    <script src="js/main.js"></script>
-</body>
-</html>
+        </script>
+        
+        <!-- JavaScript principal -->
+        <script src="js/main.js"></script>
+    </body>
+    </html>
 
+<!-- CSS específico para la sección de convocatorias -->
+<style>
+/* SECCIÓN CONVOCATORIAS */
+.convocatorias-section {
+    background: linear-gradient(135deg, #1a5490, #2980b9);
+    padding: 4rem 2rem;
+    color: white;
+}
+
+.convocatorias-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.convocatorias-content h2 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 2rem;
+    color: #f1c232;
+}
+
+.convocatorias-content p {
+    font-size: 1.2rem;
+    margin-bottom: 3rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.9;
+}
+
+.convocatorias-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.convocatoria-card {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2.5rem;
+    border-radius: 15px;
+    text-decoration: none;
+    color: white;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.convocatoria-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.convocatoria-card:hover::before {
+    left: 100%;
+}
+
+.convocatoria-card:hover {
+    background: rgba(241, 194, 50, 0.2);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    border-color: #f1c232;
+}
+
+.convocatoria-card h3 {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+    color: #f1c232;
+}
+
+.convocatoria-card p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+.convocatoria-date {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    opacity: 0.8;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding-top: 1rem;
+}
+
+.convocatoria-date span {
+    display: block;
+    font-weight: 500;
+}
+
+/* Responsive para móvil */
+@media screen and (max-width: 768px) {
+    .convocatorias-section {
+        padding: 3rem 1rem !important;
+    }
+    
+    .convocatorias-content h2 {
+        font-size: 2rem !important;
+    }
+    
+    .convocatorias-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+    }
+    
+    .convocatoria-card {
+        padding: 2rem !important;
+    }
+    
+    .convocatoria-card:active {
+        transform: scale(0.98) !important;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .convocatorias-content h2 {
+        font-size: 1.7rem !important;
+    }
+    
+    .convocatoria-card {
+        padding: 1.5rem !important;
+    }
+    
+    .convocatoria-card h3 {
+        font-size: 1.4rem !important;
+    }
+    
+    .convocatoria-card p {
+        font-size: 1rem !important;
+    }
+    
+    .convocatoria-date {
+        font-size: 0.85rem !important;
+    }
+}
+</style>
