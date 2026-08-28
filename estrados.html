@@ -3,10 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resolutivos - El nuevo PRD</title>
-    
-    <meta name="format-detection" content="telephone=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Estrados - El nuevo PRD</title>
     
     <link rel="stylesheet" href="css/style.css">
     
@@ -17,115 +14,113 @@
             background: #1a1a1a;
         }
 
-        .resolutivos-page {
+        .estrados-page {
             width: 100%;
             min-height: 100vh;
             padding-top: 80px;
-            background: linear-gradient(135deg, #2c3e50, #34495e);
-            position: relative;
-            z-index: 1;
+            background: linear-gradient(135deg, #3d5a6c, #4a6fa5);
         }
 
-        .resolutivos-section {
+        .estrados-section {
             padding: 4rem 2rem;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             min-height: calc(100vh - 80px);
-        }
-
-        .resolutivos-content {
-            width: 100%;
-            max-width: 1200px;
-        }
-
-        .resolutivos-content h2 {
-            font-size: 3rem;
-            font-weight: 800;
-            color: #f1c232;
             text-align: center;
+        }
+
+        .estrados-header h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            color: #ffffff;
             margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
-        .resolutivos-content > p {
-            text-align: center;
-            color: #ecf0f1;
+        .estrados-header h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1a1a1a;
             margin-bottom: 3rem;
-            font-size: 1.1rem;
+            max-width: 800px;
+            line-height: 1.4;
         }
 
-        .resolutivos-grid {
+        .estrados-buttons {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
-            justify-items: center;
+            margin-bottom: 3rem;
+            max-width: 900px;
         }
 
-        .resolutivo-card {
-            background: rgba(255,255,255,0.08);
-            padding: 2.5rem;
+        .estrado-button {
+            background: #f1c232;
+            padding: 3rem 2rem;
             border-radius: 12px;
             text-decoration: none;
-            color: #ecf0f1;
-            border: 1px solid rgba(241, 196, 50, 0.2);
+            color: #ffffff;
+            font-size: 1.8rem;
+            font-weight: 800;
             transition: all 0.3s ease;
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-            min-height: 250px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .estrado-button:hover {
+            background: #d4af37;
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+        }
+
+        .estrados-counter {
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .resolutivo-card:hover {
-            background: rgba(255,255,255,0.12);
-            border-color: #f1c232;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(241, 196, 50, 0.15);
-        }
-
-        .resolutivo-card h3 {
+            align-items: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            font-size: 1.3rem;
             color: #f1c232;
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            font-weight: 700;
         }
 
-        .resolutivo-card p {
-            color: #bdc3c7;
-            margin-bottom: 1rem;
-            font-size: 0.95rem;
-        }
-
-        .resolutivo-date {
-            font-size: 0.9rem;
-            color: #95a5a6;
-            margin-top: auto;
+        .counter-number {
+            background: #f1c232;
+            color: #1a1a1a;
+            padding: 0.5rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 800;
+            font-size: 2rem;
         }
 
         @media (max-width: 768px) {
-            .resolutivos-page {
+            .estrados-page {
                 padding-top: 60px;
             }
 
-            .resolutivos-section {
-                padding: 2rem 1rem;
-                min-height: auto;
+            .estrados-header h1 {
+                font-size: 2.5rem;
             }
 
-            .resolutivos-content h2 {
-                font-size: 2rem;
+            .estrados-header h2 {
+                font-size: 1.3rem;
             }
 
-            .resolutivos-grid {
+            .estrado-button {
+                font-size: 1.4rem;
+                padding: 2rem 1.5rem;
+            }
+
+            .estrados-buttons {
                 grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <!-- HEADER -->
     <header class="header">
         <nav class="nav-container">
             <a href="index.html" class="logo desktop-logo">El nuevo PRD</a>
@@ -152,24 +147,22 @@
         </nav>
     </header>
 
-    <!-- RESOLUTIVOS PAGE -->
-    <div class="resolutivos-page">
-        <section class="resolutivos-section">
-            <div class="resolutivos-content">
-                <h2>RESOLUTIVOS Y ACUERDOS</h2>
-                <p>Documentos de resoluciones y acuerdos aprobados por el XI Consejo Estatal del PRD Zacatecas.</p>
-                <div class="resolutivos-grid">
-                    <a href="assets/documentos/resolutivostercerplenoextraordinario.pdf" target="_blank" class="resolutivo-card">
-                        <h3>Resolutivos Tercer Pleno Extraordinario</h3>
-                        <p>XI Consejo Estatal - Resoluciones y acuerdos aprobados</p>
-                        <div class="resolutivo-date">
-                            <span>Fecha de publicacion:22 de julio, 2026</span>
-                        </div>
-                    </a>
-                </div>
+    <div class="estrados-page">
+        <section class="estrados-section">
+            <div class="estrados-header">
+                <h1>ESTRADOS</h1>
+                <h2>CONVOCATORIAS, RESOLUCIONES Y ACUERDOS APROBADOS POR LAS AUTORIDADES PARTIDISTAS</h2>
             </div>
-        </section>
-    </div>
+
+            <div class="estrados-buttons">
+                <a href="estrados-consejo.html" class="estrado-button">
+                    XI Consejo Estatal
+                </a>
+                <a href="estrados-direccion.html" class="estrado-button">
+                    Dirección Ejecutiva
+                </a>
+            </div>
+
 
     <script src="js/main.js"></script>
 </body>
